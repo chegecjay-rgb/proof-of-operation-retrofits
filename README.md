@@ -1,5 +1,50 @@
 # Proof-of-Operation Retrofits
 
+## 🔑 Key Idea
+
+All execution across Ethereum systems can be reduced to:
+
+operationId = keccak256(opType, target, payloadHash, nonce)
+
+This repo enforces that standard across:
+
+Safe → Governor → Timelock → Vault
+
+
+## Architecture
+
+Safe ──▶ Governor ──▶ Timelock ──▶ Vault
+
+                  │
+
+                  ▼
+
+        OperationExecuted Event
+
+
+## Determinism Guarantee
+
+Identical inputs across systems produce identical operationIds.
+
+Verified via:
+
+- OperationIdDeterminism.t.sol
+
+
+## Use Cases
+
+- Execution tracing across protocols
+
+- Indexer / ETL pipelines
+
+- Governance analytics
+
+- Security monitoring
+
+
+---
+
+
 ## Overview
 
 This repository implements a **canonical execution identity layer** across core Ethereum systems:
