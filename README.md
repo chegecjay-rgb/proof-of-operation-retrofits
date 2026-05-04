@@ -1,66 +1,66 @@
-## Foundry
+# Proof-of-Operation Retrofits
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Overview
 
-Foundry consists of:
+This repository implements a **canonical execution identity layer** across core Ethereum systems:
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- Safe (Multisig)
+- Governor (Governance)
+- Timelock (Execution Scheduling)
+- Vault (Asset Execution)
 
-## Documentation
+All systems emit a unified **Proof-of-Operation (PoO)** event.
 
-https://book.getfoundry.sh/
+---
 
-## Usage
+## Canonical Operation Model
 
-### Build
+operationId = keccak256(
+    abi.encode(opType, target, payloadHash, nonce)
+)
 
-```shell
-$ forge build
-```
+---
 
-### Test
+## Unified Event Schema
 
-```shell
-$ forge test
-```
+OperationExecuted(
+    bytes32 systemId,
+    bytes32 operationId,
+    bytes32 opType,
+    address target,
+    bytes32 payloadHash,
+    uint256 timestamp
+)
 
-### Format
+---
 
-```shell
-$ forge fmt
-```
+## Architecture
 
-### Gas Snapshots
+Safe → Governor → Timelock → Vault  
+                 ↓  
+        Unified Operation Identity
 
-```shell
-$ forge snapshot
-```
+---
 
-### Anvil
+## Why This Matters
 
-```shell
-$ anvil
-```
+- Cross-protocol execution tracing  
+- Deterministic execution identity  
+- ETL indexing compatibility  
+- Execution graph construction  
 
-### Deploy
+---
 
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
+## Running
 
-### Cast
+cd safe-retrofit && forge test  
+cd governor-retrofit && forge test  
+cd timelock-retrofit && forge build  
+cd vault-retrofit && forge build  
 
-```shell
-$ cast <subcommand>
-```
+---
 
-### Help
+## Status
 
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+All systems compliant with **ETL Operation Standard Library v1**
+
