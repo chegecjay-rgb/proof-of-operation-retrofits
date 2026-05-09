@@ -1,0 +1,57 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/Config.t.sol:143:        for (uint256 i = 0; i < keys.length; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/Config.t.sol:151:        for (uint256 i = 0; i < keys.length; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:338:        for (uint256 i = 0; i < nvars; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:496:        for (uint256 i; i < shiftSizes.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:314:        for (uint256 i; i < 10000; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:330:        for (uint256 i = 0; i < b.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:338:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; i > 0;) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:276:        while (found) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:291:        for (uint256 i = 0; i < max; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:299:        for (uint256 i = 0; i < b.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:322:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:335:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:348:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:361:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:374:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:397:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:410:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:423:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:436:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/LibVariable.sol:449:        for (uint256 i = 0; i < values.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdUtils.sol:140:        for (uint256 i = 0; i < length; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdUtils.sol:150:        for (uint256 i = 0; i < length; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Config.sol:51:        for (uint256 i = 0; i < chains.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:384:        for (uint256 i; i < rawTxs.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:453:        for (uint256 i; i < rawReceipts.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:484:        for (uint256 i; i < rawLogs.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:97:        for (uint256 i = 0; i < chain_keys.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:117:            for (uint8 t = 1; t <= NUM_TYPES; t++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:122:                    for (uint256 j = 0; j < keys.length; j++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:265:        for (uint256 i = 0; i < _chainKeys.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:348:        for (uint256 i = 0; i < keys.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:480:            for (uint256 i = 0; i < value.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:503:            for (uint256 i = 0; i < value.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:526:            for (uint256 i = 0; i < value.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:549:            for (uint256 i = 0; i < value.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:572:            for (uint256 i = 0; i < value.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:595:            for (uint256 i = 0; i < value.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdConfig.sol:618:            for (uint256 i = 0; i < value.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:322:        for (i = 0; i < requiredSignatures; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:212:        while (next != address(0) && next != SENTINEL_MODULES && moduleCount < pageSize) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:39:        for (uint256 i = 0; i < ownersLength; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:140:        while (currentOwner != SENTINEL_OWNERS) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:19:        for (uint256 index = 0; index < length; ++index) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ERC165Handler.sol:59:        for (uint256 i = 0; i < len; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ERC165Handler.sol:78:        for (uint256 i = 0; i < len; ++i) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/harnesses/SafeHarness.sol:59:    function getNativeTokenBalanceFor(address addr) public view returns (uint256) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol:102:        for (uint256 i = 0; i < logs.length; i++) {

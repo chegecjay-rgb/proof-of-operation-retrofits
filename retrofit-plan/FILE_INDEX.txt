@@ -1,0 +1,6 @@
+/home/cjay/proof-of-operation-retrofits/retrofit-plan/CANONICAL_INSERTION_PLAN.md
+/home/cjay/proof-of-operation-retrofits/retrofit-plan/FILE_INDEX.txt
+/home/cjay/proof-of-operation-retrofits/retrofit-plan/assembly-targets.txt
+/home/cjay/proof-of-operation-retrofits/retrofit-plan/delegatecall-targets.txt
+/home/cjay/proof-of-operation-retrofits/retrofit-plan/iteration-targets.txt
+/home/cjay/proof-of-operation-retrofits/retrofit-plan/multisend-targets.txt
