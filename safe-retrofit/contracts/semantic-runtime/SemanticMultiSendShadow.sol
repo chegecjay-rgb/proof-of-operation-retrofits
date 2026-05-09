@@ -10,6 +10,14 @@ interface IMultiSend {
 contract SemanticMultiSendShadow is SafeSemanticAdapter {
     IMultiSend public immutable multiSend;
 
+    event SemanticBoundaryTrace(
+        uint256 cursor,
+        uint256 length,
+        uint256 dataOffset,
+        uint256 dataLength,
+        uint16 operationIndex
+    );
+
     constructor(address multiSendAddress) {
         multiSend = IMultiSend(multiSendAddress);
     }
@@ -46,28 +54,30 @@ contract SemanticMultiSendShadow is SafeSemanticAdapter {
         uint16 operationCount,
         bytes memory transactions
     ) internal {
-        uint256 length = transactions.length;
-        uint256 i = 0x20;
-        uint16 operationIndex = 0;
+        uint256 cursor = 0;
 
-        while (i < length + 0x20) {
+        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
             (
-                address to,
+                address target,
                 uint256 value,
-                uint256 dataLength
-            ) = _decodeHeader(
+                uint256 dataLength,
+                bytes memory payload,
+                uint256 nextCursor
+            ) = _decodeOperation(
                 transactions,
-                i
+                cursor
             );
 
-            bytes memory payload = _extractPayload(
-                transactions,
-                i,
-                dataLength
+            emit SemanticBoundaryTrace(
+                cursor,
+                transactions.length,
+                cursor + 85,
+                dataLength,
+                operationIndex
             );
 
             SemanticOperation memory operation = SemanticOperation({
-                target: to,
+                target: target,
                 value: value,
                 payload: payload,
                 parentOperationId: parentOperationId,
@@ -82,56 +92,79 @@ contract SemanticMultiSendShadow is SafeSemanticAdapter {
                 operation
             );
 
-            i = i + 0x55 + dataLength;
-            operationIndex++;
+            cursor = nextCursor;
         }
     }
 
-    function _decodeHeader(
+    function _decodeOperation(
         bytes memory transactions,
-        uint256 i
+        uint256 cursor
     )
         internal
         pure
         returns (
-            address to,
+            address target,
             uint256 value,
-            uint256 dataLength
+            uint256 dataLength,
+            bytes memory payload,
+            uint256 nextCursor
         )
     {
-        assembly {
-            to := shr(96, mload(add(transactions, add(i, 0x01))))
-            value := mload(add(transactions, add(i, 0x15)))
-            dataLength := mload(add(transactions, add(i, 0x35)))
-        }
-    }
+        uint256 base = cursor;
 
-    function _extractPayload(
-        bytes memory transactions,
-        uint256 i,
-        uint256 dataLength
-    ) internal pure returns (bytes memory payload) {
+        require(
+            transactions.length >= base + 85,
+            "INVALID_OPERATION_HEADER"
+        );
+
+        assembly {
+            target := shr(96, mload(add(add(transactions, 0x20), add(base, 1))))
+            value := mload(add(add(transactions, 0x20), add(base, 21)))
+            dataLength := mload(add(add(transactions, 0x20), add(base, 53)))
+        }
+
+        uint256 payloadOffset = base + 85;
+
+        require(
+            transactions.length >= payloadOffset + dataLength,
+            "INVALID_PAYLOAD_BOUNDARY"
+        );
+
         payload = new bytes(dataLength);
 
         for (uint256 j = 0; j < dataLength; j++) {
-            payload[j] = transactions[i + 0x55 + j];
+            payload[j] = transactions[payloadOffset + j];
         }
+
+        nextCursor = payloadOffset + dataLength;
     }
 
     function _countOperations(
         bytes memory transactions
     ) internal pure returns (uint16 count) {
-        uint256 length = transactions.length;
-        uint256 i = 0x20;
+        uint256 cursor = 0;
 
-        while (i < length + 0x20) {
+        while (cursor < transactions.length) {
+            require(
+                transactions.length >= cursor + 85,
+                "INVALID_COUNT_HEADER"
+            );
+
             uint256 dataLength;
 
             assembly {
-                dataLength := mload(add(transactions, add(i, 0x35)))
+                dataLength := mload(add(add(transactions, 0x20), add(cursor, 53)))
             }
 
-            i = i + 0x55 + dataLength;
+            uint256 nextCursor = cursor + 85 + dataLength;
+
+            require(
+                nextCursor <= transactions.length,
+                "INVALID_COUNT_BOUNDARY"
+            );
+
+            cursor = nextCursor;
+
             count++;
         }
     }
