@@ -1,0 +1,910 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdAssertions.t.sol:132:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdAssertions.t.sol:136:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:324:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:447:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:458:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdStorage.t.sol:469:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdError.t.sol:94:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:168:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:177:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:214:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:215:            // retrieve the size of the code, this needs assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:217:            // allocate output byte array - this could also be done without assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/test/StdCheats.t.sol:224:            // actually retrieve the code, this needs assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:301:            assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:322:        // using assembly because (1 << 256) causes overflow
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:323:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:407:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdUtils.sol:132:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdUtils.sol:171:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdUtils.sol:183:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/console.sol:9:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/console.sol:19:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:14:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:21:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:29:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:36:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:47:            assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:57:            assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:68:            assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:74:            assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:82:            assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:93:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:101:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:110:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:118:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:127:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:135:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:146:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:164:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:176:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:186:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:197:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:207:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:218:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:228:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:241:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:261:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:274:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:284:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:295:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:305:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:316:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:326:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:339:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:359:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:372:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:382:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:393:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:403:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:414:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:424:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:437:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:457:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:472:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:492:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:507:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:527:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:542:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:562:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:579:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:602:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:618:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:630:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:643:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:655:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:668:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:680:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:695:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:717:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:732:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:744:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:757:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:769:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:782:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:794:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:809:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:831:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:846:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:858:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:871:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:883:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:896:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:908:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:923:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:945:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:962:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:984:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1001:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1023:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1040:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1062:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1081:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1106:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1123:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1135:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1148:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1160:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1173:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1185:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1200:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1222:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1237:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1249:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1262:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1274:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1287:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1299:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1314:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1336:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1351:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1363:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1376:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1388:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1401:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1413:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1428:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1450:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1467:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1489:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1506:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1528:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1545:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1567:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1586:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1611:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1628:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1640:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1653:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1665:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1678:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1690:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1705:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1727:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1742:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1754:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1767:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1779:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1792:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1804:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1819:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1841:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1856:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1868:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1881:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1893:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1906:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1918:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1933:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1955:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1972:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:1994:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2011:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2033:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2050:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2072:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2091:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2116:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2135:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2157:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2174:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2196:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2213:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2235:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2254:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2279:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2298:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2320:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2337:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2359:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2376:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2398:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2417:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2442:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2461:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2483:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2500:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2522:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2539:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2561:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2580:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2605:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2626:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2651:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2672:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2697:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2718:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2743:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2766:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2794:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2814:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2828:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2843:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2857:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2872:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2886:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2903:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2927:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2944:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2958:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2973:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:2987:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3002:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3016:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3033:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3057:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3074:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3088:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3103:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3117:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3132:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3146:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3163:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3187:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3206:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3230:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3249:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3273:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3292:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3316:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3337:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3364:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3383:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3397:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3412:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3426:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3441:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3455:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3472:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3496:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3513:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3527:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3542:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3556:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3571:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3585:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3602:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3626:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3643:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3657:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3672:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3686:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3701:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3715:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3732:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3756:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3775:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3799:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3818:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3842:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3861:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3885:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3906:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3933:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3952:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3966:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3981:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:3995:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4010:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4024:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4041:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4065:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4082:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4096:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4111:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4125:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4140:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4154:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4171:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4195:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4212:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4226:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4241:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4255:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4270:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4284:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4301:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4325:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4344:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4368:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4387:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4411:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4430:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4454:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4475:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4502:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4523:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4547:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4566:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4590:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4609:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4633:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4654:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4681:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4702:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4726:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4745:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4769:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4788:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4812:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4833:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4860:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4881:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4905:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4924:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4948:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4967:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:4991:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5012:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5039:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5062:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5089:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5112:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5139:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5162:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5189:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5214:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5244:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5265:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5279:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5294:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5308:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5323:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5337:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5354:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5378:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5395:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5409:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5424:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5438:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5453:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5467:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5484:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5508:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5525:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5539:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5554:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5568:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5583:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5597:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5614:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5638:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5657:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5681:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5700:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5724:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5743:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5767:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5788:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5815:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5834:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5848:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5863:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5877:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5892:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5906:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5923:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5947:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5964:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5978:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:5993:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6007:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6022:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6036:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6053:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6077:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6094:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6108:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6123:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6137:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6152:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6166:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6183:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6207:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6226:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6250:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6269:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6293:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6312:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6336:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6357:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6384:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6403:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6417:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6432:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6446:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6461:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6475:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6492:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6516:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6533:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6547:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6562:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6576:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6591:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6605:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6622:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6646:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6663:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6677:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6692:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6706:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6721:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6735:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6752:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6776:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6795:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6819:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6838:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6862:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6881:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6905:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6926:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6953:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6974:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:6998:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7017:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7041:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7060:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7084:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7105:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7132:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7153:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7177:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7196:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7220:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7239:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7263:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7284:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7311:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7332:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7356:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7375:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7399:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7418:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7442:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7463:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7490:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7513:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7540:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7563:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7590:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7613:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7640:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7665:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7695:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7716:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7730:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7745:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7759:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7774:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7788:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7805:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7829:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7846:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7860:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7875:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7889:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7904:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7918:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7935:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7959:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7976:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:7990:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8005:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8019:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8034:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8048:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8065:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8089:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8108:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8132:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8151:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8175:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8194:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8218:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8239:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8266:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8285:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8299:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8314:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8328:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8343:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8357:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8374:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8398:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8415:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8429:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8444:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8458:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8473:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8487:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8504:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8528:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8545:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8559:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8574:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8588:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8603:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8617:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8634:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8658:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8677:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8701:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8720:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8744:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8763:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8787:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8808:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8835:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8854:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8868:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8883:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8897:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8912:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8926:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8943:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8967:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8984:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:8998:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9013:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9027:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9042:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9056:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9073:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9097:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9114:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9128:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9143:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9157:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9172:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9186:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9203:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9227:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9246:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9270:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9289:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9313:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9332:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9356:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9377:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9404:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9425:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9449:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9468:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9492:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9511:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9535:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9556:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9583:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9604:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9628:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9647:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9671:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9690:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9714:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9735:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9762:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9783:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9807:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9826:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9850:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9869:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9893:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9914:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9941:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9964:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:9991:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10014:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10041:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10064:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10091:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10116:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10146:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10169:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10193:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10212:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10236:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10255:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10279:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10300:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10327:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10348:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10372:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10391:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10415:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10434:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10458:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10479:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10506:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10527:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10551:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10570:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10594:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10613:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10637:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10658:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10685:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10708:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10735:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10758:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10785:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10808:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10835:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10860:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10890:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10913:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10937:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10956:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10980:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:10999:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11023:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11044:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11071:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11092:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11116:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11135:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11159:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11178:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11202:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11223:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11250:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11271:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11295:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11314:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11338:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11357:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11381:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11402:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11429:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11452:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11479:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11502:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11529:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11552:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11579:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11604:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11634:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11657:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11681:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11700:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11724:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11743:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11767:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11788:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11815:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11836:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11860:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11879:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11903:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11922:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11946:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11967:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:11994:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12015:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12039:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12058:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12082:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12101:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12125:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12146:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12173:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12196:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12223:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12246:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12273:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12296:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12323:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12348:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12378:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12403:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12430:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12453:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12480:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12503:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12530:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12555:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12585:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12610:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12637:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12660:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12687:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12710:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12737:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12762:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12792:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12817:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12844:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12867:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12894:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12917:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12944:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12969:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:12999:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:13026:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:13056:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:13083:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:13113:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:13140:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:13170:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:13199:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/safeconsole.sol:13232:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:210:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:352:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:503:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:512:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:522:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:531:        assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:627:        // Assembly required since `block.chainid` was introduced in 0.8.0.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:628:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdCheats.sol:638:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdChains.sol:178:                    assembly ("memory-safe") {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:185:                /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:186:                /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:187:                assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:192:                /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:268:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:269:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:270:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:273:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:278:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:279:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:280:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:284:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:336:                // "The assembly code broke the pointer analysis, which switched the prover in failsafe mode, where it is (a) much slower and (b) computes different hashes than in the normal mode."
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:407:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:408:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:409:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:412:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:434:        // We opted for using assembly code here, because the way Solidity compiler we use (0.7.6) allocates memory is
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:438:        // The solidity assembly types that are smaller than 256 bit can have dirty high bits according to the spec (see the Warning in https://docs.soliditylang.org/en/latest/assembly.html#access-to-external-variables-functions-and-libraries).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:441:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:442:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:443:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:488:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:29:            /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:30:            /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:31:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:34:            /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:36:            /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:37:            /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:38:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:41:            /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:74:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:75:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:76:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:79:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:91:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:92:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:93:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:96:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:35:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:36:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:37:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:40:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:56:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:57:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:58:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:62:            // Solidity docs: https://docs.soliditylang.org/en/latest/assembly.html#memory-safety
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:86:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:176:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:177:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:178:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:189:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:230:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:231:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:232:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:235:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:246:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:247:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:248:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:251:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:263:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:264:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:265:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:268:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:278:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:279:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:280:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:283:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/ReentrancyTransactionGuard.sol:31:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/ReentrancyTransactionGuard.sol:32:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/ReentrancyTransactionGuard.sol:33:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/ReentrancyTransactionGuard.sol:36:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:34:        // Note that this assembly block is **intentionally** not marked as memory-safe. First of all, it isn't memory
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:35:        // safe to begin with, and turning this into memory-safe assembly would just make it less gas efficient.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:36:        // Additionally, we noticed that converting this to memory-safe assembly had no affect on optimizations of other
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:37:        // contracts (as it always gets compiled alone in its own compilation unit anyway). Because the assembly block
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:40:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:41:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:70:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:31:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:32:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:33:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:36:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:40:            /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:41:            /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:42:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:49:            /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:124:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:125:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:126:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:129:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:139:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:140:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:141:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:144:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/SignatureDecoder.sol:22:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/SignatureDecoder.sol:23:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/SignatureDecoder.sol:24:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/SignatureDecoder.sol:30:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:20:            /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:21:            /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:22:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:26:            /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:35:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:36:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:37:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:46:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/SecuredTokenTransfer.sol:21:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/SecuredTokenTransfer.sol:22:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/SecuredTokenTransfer.sol:23:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/SecuredTokenTransfer.sol:38:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/ERC1155Token.sol:22:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/ERC1155Token.sol:23:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/ERC1155Token.sol:24:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/ERC1155Token.sol:27:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/ERC721Token.sol:18:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/ERC721Token.sol:19:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/ERC721Token.sol:20:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/ERC721Token.sol:23:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:16:            /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:17:            /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:18:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:23:            /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/SignatureVerifierMuxer.sol:99:            /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/SignatureVerifierMuxer.sol:100:            /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/SignatureVerifierMuxer.sol:101:            assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/SignatureVerifierMuxer.sol:104:            /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/MarshalLib.sol:36:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/MarshalLib.sol:37:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/MarshalLib.sol:38:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/MarshalLib.sol:43:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/MarshalLib.sol:54:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/MarshalLib.sol:55:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/MarshalLib.sol:56:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/MarshalLib.sol:62:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/HandlerContext.sol:53:        // The assembly code is more direct than the Solidity version using `abi.decode`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/HandlerContext.sol:54:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/HandlerContext.sol:55:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/HandlerContext.sol:56:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/HandlerContext.sol:59:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol:116:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol:117:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol:118:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol:178:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:106:     * @dev This function relies on the `extcodesize` assembly opcode to determine whether an address has code.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:111:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:112:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:113:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:116:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:75:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:76:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:77:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:80:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:87:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:88:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:89:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:92:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:22:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:23:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:24:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:27:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:39:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:40:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:41:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:44:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:26:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:27:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:28:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:69:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:32:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:33:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:34:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:74:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/ErrorMessage.sol:6: * @title Error Message - Contract which uses assembly to revert with a custom error message.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/ErrorMessage.sol:8: * @notice The aim is to save gas using assembly to revert with a custom error message.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/ErrorMessage.sol:12:     * @notice Function which uses assembly to revert with the passed error message.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/ErrorMessage.sol:17:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/ErrorMessage.sol:18:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/ErrorMessage.sol:19:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/ErrorMessage.sol:27:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:51:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:52:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:53:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:66:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:28:        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:29:        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:30:        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:33:        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/harnesses/SafeHarness.sol:77:        assembly{

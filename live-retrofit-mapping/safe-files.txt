@@ -1,0 +1,12 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/harnesses/SafeHarness.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/external/SafeMath.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeStorage.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/TestSafeSignatureVerifier.sol

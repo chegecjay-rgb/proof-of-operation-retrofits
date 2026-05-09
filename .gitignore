@@ -12,3 +12,16 @@ docs/
 
 # Dotenv file
 .env
+
+# Hardhat runtime
+safe-retrofit/node_modules/
+safe-retrofit/artifacts/
+safe-retrofit/cache/
+
+# Runtime dependency locks
+safe-retrofit/package-lock.json
+
+
+# Incomplete governor archaeology workspace
+governor-retrofit-analysis/
+

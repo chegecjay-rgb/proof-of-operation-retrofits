@@ -1,0 +1,1169 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-1-// SPDX-License-Identifier: LGPL-3.0-only
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-2-pragma solidity >=0.7.0 <0.9.0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-3-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-4-import {FallbackManager} from "./base/FallbackManager.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-5-import {ITransactionGuard, GuardManager} from "./base/GuardManager.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-6-import {ModuleManager} from "./base/ModuleManager.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-7-import {OwnerManager} from "./base/OwnerManager.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-8-import {NativeCurrencyPaymentFallback} from "./common/NativeCurrencyPaymentFallback.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-9-import {SecuredTokenTransfer} from "./common/SecuredTokenTransfer.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-10-import {SignatureDecoder} from "./common/SignatureDecoder.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-11-import {Singleton} from "./common/Singleton.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-12-import {StorageAccessible} from "./common/StorageAccessible.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-13-import {SafeMath} from "./external/SafeMath.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-14-import {ISafe} from "./interfaces/ISafe.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-15-import {ISignatureValidator, ISignatureValidatorConstants} from "./interfaces/ISignatureValidator.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-16-import {Enum} from "./libraries/Enum.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-17-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-18-/**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-19- * @title Safe - A multisignature wallet with support for confirmations using signed messages based on EIP-712.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-20- * @dev Most important concepts:
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-21- *      - Threshold: Number of required confirmations for a Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-22- *      - Owners: List of addresses that control the Safe. They are the only ones that can add/remove owners, change the threshold and
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-23- *        approve transactions. Managed in `OwnerManager`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-24- *      - Transaction Hash: Hash of a transaction is calculated using the EIP-712 typed structured data hashing scheme.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-25- *      - Nonce: Each transaction should have a different nonce to prevent replay attacks.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-26- *      - Signature: A valid signature of an owner of the Safe for a transaction hash.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-27- *      - Guards: Guards are contracts that can execute pre- and post- transaction checks. There are two types of guards:
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:28: *          1. Transaction Guard: managed in `GuardManager` for transactions executed with `execTransaction`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:29: *          2. Module Guard: managed in `ModuleManager` for transactions executed with `execTransactionFromModule`
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-30- *      - Modules: Modules are contracts that can be used to extend the write functionality of a Safe. Managed in `ModuleManager`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-31- *      - Fallback: Fallback handler is a contract that can provide additional functionality for Safe. Managed in `FallbackManager`. Please read the security risks in the `IFallbackManager` interface.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-32- *      Note: This version of the implementation contract doesn't emit events for the sake of gas efficiency and therefore requires a tracing node for indexing/
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-33- *      For the events-based implementation see `SafeL2.sol`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-34- * @author Stefan George - @Georgi87
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-35- * @author Richard Meissner - @rmeissner
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-36- */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-37-contract Safe is
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-38-    Singleton,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-39-    NativeCurrencyPaymentFallback,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-40-    ModuleManager,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-41-    GuardManager,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-42-    OwnerManager,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-43-    SignatureDecoder,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-44-    SecuredTokenTransfer,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-45-    ISignatureValidatorConstants,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-46-    FallbackManager,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-47-    StorageAccessible,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-48-    ISafe
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-49-{
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-50-    using SafeMath for uint256;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-51-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-52-    string public constant override VERSION = "1.5.0";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-53-    event OperationExecuted(bytes32 authorityId, bytes32 operationId, address target, bytes32 dataHash, uint256 timestamp);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-54-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-55-    // keccak256(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-56-    //     "EIP712Domain(uint256 chainId,address verifyingContract)"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-57-    // );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-58-    bytes32 private constant DOMAIN_SEPARATOR_TYPEHASH = 0x47e79534a245952e8b16893a336b85a3d9ea9fa8c573f3d803afb92a79469218;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-59-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-60-    // keccak256(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-61-    //     "SafeTx(address to,uint256 value,bytes data,uint8 operation,uint256 safeTxGas,uint256 baseGas,uint256 gasPrice,address gasToken,address refundReceiver,uint256 nonce)"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-62-    // );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-63-    bytes32 private constant SAFE_TX_TYPEHASH = 0xbb8310d486368db6bd6f849402fdd73ad53d316b5a4b2644ad6efe0f941286d8;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-64-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-65-    uint256 public override nonce;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-66-    bytes32 private _deprecatedDomainSeparator;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-67-    // Mapping to keep track of all message hashes that have been approved by ALL REQUIRED owners
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-68-    mapping(bytes32 => uint256) public override signedMessages;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-69-    // Mapping to keep track of all hashes (message or transaction) that have been approved by ANY owners
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-70-    mapping(address => mapping(bytes32 => uint256)) public override approvedHashes;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-71-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-72-    // This constructor ensures that this contract can only be used as a singleton for Proxy contracts
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-73-    constructor() {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-74-        /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-75-         * By setting the threshold it is not possible to call setup anymo         * so we create a Safe with 0 owners and threshold 1.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-76-         * This is an unusable Safe, perfect for the singleton
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-77-         */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-78-        threshold = 1;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-79-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-80-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-81-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-82-     * @inheritdoc ISafe
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-83-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-84-    function setup(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-85-        address[] calldata _owners,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-86-        uint256 _threshold,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-87-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-88-        bytes calldata data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-89-        address fallbackHandler,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-90-        address paymentToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-91-        uint256 payment,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-92-        address payable paymentReceiver
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-93-    ) external override {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-94-        // Emit the setup event optimistically. This ensures that changes such as `addOwner` and `changeThreshold` that are part
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-95-        // of the  `to.delegatecall(data)` that happen in the `setupModules` call emit events in order relative to the setup
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-96-        // event, making it easier for off-chain indexers to reliably reconstruct the Safe configuration.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-97-        emit SafeSetup(msg.sender, _owners, _threshold, to, fallbackHandler);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-98-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-99-        // setupOwners checks if the Threshold is already set, therefore preventing this method from being called more than once
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-100-        setupOwners(_owners, _threshold);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-101-        if (fallbackHandler != address(0)) internalSetFallbackHandler(fallbackHandler);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-102-        // As setupOwners can only be called if the contract has not been initialized we don't need a check for setupModules
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-103-        setupModules(to, data);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-104-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-105-        if (payment > 0) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-106-            // To avoid running into issues with EIP-170 we reuse the handlePayment function (to avoid adjusting code that has been verified we do not adjust the method itself)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-107-            // baseGas = 0, gasPrice = 1 and gas = payment => amount = (payment + 0) * 1 = payment
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-108-            handlePayment(payment, 0, 1, paymentToken, paymentReceiver);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-109-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-110-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-111-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-112-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-113-     * @inheritdoc ISafe
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-114-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:115:    function execTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-116-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-117-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-118-        bytes calldata data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-119-        Enum.Operation operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-120-        uint256 safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-121-        uint256 baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-122-        uint256 gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-123-        address gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-124-        address payable refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-125-        bytes memory signatures
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-126-    ) external payable override returns (bool success) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:127:        onBeforeExecTransaction(to, value, data, operation, safeTxGas, baseGas, gasPrice, gasToken, refundReceiver, signatures);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-128-        bytes32 txHash;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-129-        // Use scope here to limit variable lifetime and prevent `stack too deep` errors
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-130-        {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-131-            txHash = getTransactionHash(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-132-                // Transaction info
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-133-                to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-134-                value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-135-                data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-136-                operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-137-                safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-138-                // Payment info
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-139-                baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-140-                gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-141-                gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-142-                refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-143-                // Signature info
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-144-                // We use the post-increment here, so the current nonce value is used and incremented afterwards.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-145-                nonce++
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-146-            );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-147-            checkSignatures(msg.sender, txHash, signatures);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-148-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-149-        address guard = getGuard();
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-150-        {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-151-            if (guard != address(0)) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-152-                ITransactionGuard(guard).checkTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-153-                    // Transaction info
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-154-                    to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-155-                    value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-156-                    data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-157-                    operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-158-                    safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-159-                    // Payment info
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-160-                    baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-161-                    gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-162-                    gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-163-                    refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-164-                    // Signature info
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-165-                    signatures,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-166-                    msg.sender
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-167-                );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-168-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-169-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-170-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-171-        // We require some gas to emit the events (at least 2500) after the execution and some to perform code until the execution (500)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-172-        // We also include the 1/64 in the check that is not sent along with a call to counteract potential shortings because of EIP-150
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-173-        // We use `<< 6` instead of `* 64` as SHR / SHL opcode only uses 3 gas, while DIV / MUL opcode uses 5 gas.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-174-        if (gasleft() < ((safeTxGas << 6) / 63).max(safeTxGas + 2500) + 500) revertWithError("GS010");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-175-        // Use scope here to limit variable lifetime and prevent `stack too deep` errors
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-176-        {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-177-            uint256 gasUsed = gasleft();
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-178-            // If the gasPrice is 0 we assume that nearly all available gas can be used (it is always more than safeTxGas)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-179-            // We only subtract 2500 (compared to the 3000 before) to ensure that the amount passed is still higher than safeTxGas
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-180-            success = execute(to, value, data, operation, gasPrice == 0 ? (gasleft() - 2500) : safeTxGas);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-181-            gasUsed = gasUsed.sub(gasleft());
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-182-            // If no safeTxGas and no gasPrice was set (e.g. both are 0), then the internal tx is required to be successful
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-183-            // This makes it possible to use `estimateGas` without issues, as it searches for the minimum gas where the tx doesn't revert
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-184-            if (!success && safeTxGas == 0 && gasPrice == 0) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-185-                /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-186-                /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-187-                assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-188-                    let ptr := mload(0x40)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-189-                    returndatacopy(ptr, 0, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-190-                    revert(ptr, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-191-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-192-                /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-193-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-194-            // We transfer the calculated tx costs to the tx.origin to avoid sending it to intermediate contracts that have made calls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-195-            uint256 payment = 0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-196-            if (gasPrice > 0) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-197-                payment = handlePayment(gasUsed, baseGas, gasPrice, gasToken, refundReceiver);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-198-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-199-            if (success) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-200-            emit ExecutionSuccess(txHash, payment);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-201-            emit OperationExecuted(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-202-    bytes32(uint256(uint160(msg.sender))),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-203-    keccak256(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-204-        abi.encode(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-205-            keccak256("CALL"),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-206-            to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-207-            value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-208-            keccak256(data)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-209-        )
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-210-    ),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-211-    to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-212-    keccak256(data),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-213-    block.timestamp
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-214-);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-215-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-216-            else emit ExecutionFailure(txHash, payment);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-217-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-218-        {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-219-            if (guard != address(0)) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-220-                ITransactionGuard(guard).checkAfterExecution(txHash, success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-221-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-222-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-223-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-224-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-225-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-226-     * @notice Handles the payment for a Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-227-     * @param gasUsed Gas used by the Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-228-     * @param baseGas Gas costs that are independent of the transaction execution (e.g. base transaction fee, signature check, payment of the refund).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-229-     * @param gasPrice Gas price that should be used for the payment calculation.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-230-     * @param gasToken Token address (or 0 if ETH) that is used for the payment.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-231-     * @return payment The amount of payment made in the specified token.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-232-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-233-    function handlePayment(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-234-        uint256 gasUsed,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-235-        uint256 baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-236-        uint256 gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-237-        address gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-238-        address payable refundReceiver
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-239-    ) private returns (uint256 payment) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-240-        // solhint-disable-next-line avoid-tx-origin
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-241-        address payable receiver = refundReceiver == address(0) ? payable(tx.origin) : refundReceiver;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-242-        if (gasToken == address(0)) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-243-            // For native tokens, we will only adjust the gas price to not be higher than the actually used gas price
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-244-            payment = gasUsed.add(baseGas).mul(gasPrice < tx.gasprice ? gasPrice : tx.gasprice);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-245-            (bool refundSuccess, ) = receiver.call{value: payment}("");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-246-            if (!refundSuccess) revertWithError("GS011");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-247-        } else {
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-452-            // Step 2: Prepare the SafeTX struct for hashing
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-453-            // Layout in memory:
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-454-            // ptr +   0: SAFE_TX_TYPEHASH (constant defining the struct hash)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-455-            // ptr +  32: to address
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-456-            // ptr +  64: value
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-457-            // ptr +  96: calldataHash
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-458-            // ptr + 128: operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-459-            // ptr + 160: safeTxGas
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-460-            // ptr + 192: baseGas
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-461-            // ptr + 224: gasPrice
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-462-            // ptr + 256: gasToken
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-463-            // ptr + 288: refundReceiver
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-464-            // ptr + 320: nonce
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-465-            mstore(ptr, SAFE_TX_TYPEHASH)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-466-            mstore(add(ptr, 32), to)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-467-            mstore(add(ptr, 64), value)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-468-            mstore(add(ptr, 96), calldataHash)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-469-            mstore(add(ptr, 128), operation)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-470-            mstore(add(ptr, 160), safeTxGas)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-471-            mstore(add(ptr, 192), baseGas)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-472-            mstore(add(ptr, 224), gasPrice)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-473-            mstore(add(ptr, 256), gasToken)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-474-            mstore(add(ptr, 288), refundReceiver)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-475-            mstore(add(ptr, 320), _nonce)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-476-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-477-            // Step 3: Calculate the final EIP-712 hash
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-478-            // First, hash the SafeTX struct (352 bytes total length)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-479-            mstore(add(ptr, 64), keccak256(ptr, 352))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-480-            // Store the EIP-712 prefix (0x1901), note that integers are left-padded
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-481-            // so the EIP-712 encoded data starts at add(ptr, 30)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-482-            mstore(ptr, 0x1901)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-483-            // Store the domain separator
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-484-            mstore(add(ptr, 32), domainHash)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-485-            // Calculate the hash
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-486-            txHash := keccak256(add(ptr, 30), 66)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-487-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-488-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-489-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-490-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-491-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:492:     * @notice A hook that gets called before execution of {execTransaction} method.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-493-     * @param to Destination address of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-494-     * @param value Ether value of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-495-     * @param data Data payload of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-496-     * @param operation Operation type of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-497-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:498:    function onBeforeExecTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-499-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-500-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-501-        bytes calldata data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-502-        Enum.Operation operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-503-        uint256 safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-504-        uint256 baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-505-        uint256 gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-506-        address gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-507-        address payable refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-508-        bytes memory signatures
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-509-    ) internal virtual {}
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol-510-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-60-    //      1. `modules[SENTINEL_MODULES]` contains the first module
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-61-    //      2. `modules[last_module]` points back to SENTINEL_MODULES
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-62-    address internal constant SENTINEL_MODULES = address(0x1);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-63-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-64-    // keccak256("module_manager.module_guard.address")
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-65-    bytes32 internal constant MODULE_GUARD_STORAGE_SLOT = 0xb104e0b93118902c651344349b610029d694cfdec91c589c91ebafbcd0289947;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-66-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-67-    mapping(address => address) internal modules;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-68-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-69-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-70-     * @notice Setup function sets the initial storage of the contract.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-71-     *         Optionally executes a delegate call to another contract to setup the modules.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-72-     * @param to Optional destination address of the call to execute.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-73-     * @param data Optional data of call to execute.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-74-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-75-    function setupModules(address to, bytes memory data) internal {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-76-        if (modules[SENTINEL_MODULES] != address(0)) revertWithError("GS100");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-77-        modules[SENTINEL_MODULES] = SENTINEL_MODULES;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-78-        if (to != address(0)) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-79-            if (!isContract(to)) revertWithError("GS002");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-80-            // Setup has to complete successfully or the transaction fails.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-81-            if (!execute(to, 0, data, Enum.Operation.DelegateCall, type(uint256).max)) revertWithError("GS000");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-82-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-83-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-84-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-85-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-86-     * @notice Runs pre-execution checks for module transactions if a guard is enabled.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-87-     * @param to Target address of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-88-     * @param value Ether value of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-89-     * @param data Data payload of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-90-     * @param operation Operation type of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-91-     * @return guard Guard to be used for checking.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-92-     * @return guardHash Hash returned from the guard tx check.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-93-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-94-    function preModuleExecution(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-95-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-96-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-97-        bytes memory data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-98-        Enum.Operation operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-99-    ) internal returns (address guard, bytes32 guardHash) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:100:        onBeforeExecTransactionFromModule(to, value, data, operation);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-101-        guard = getModuleGuard();
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-102-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-103-        // Only whitelisted modules are allowed.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-104-        if (msg.sender == SENTINEL_MODULES || modules[msg.sender] == address(0)) revertWithError("GS104");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-105-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-106-        if (guard != address(0)) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-107-            guardHash = IModuleGuard(guard).checkModuleTransaction(to, value, data, operation, msg.sender);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-108-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-109-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-110-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-111-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-112-     * @notice Runs post-execution checks for module transactions if a guard is enabled.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-113-     * @param guardHash Hash returned from the guard during pre execution check.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-114-     * @param success Boolean flag indicating if the call succeeded.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-115-     * @param guard Guard to be used for checking.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-116-     * @dev Emits event based on module transaction success.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-117-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-118-    function postModuleExecution(address guard, bytes32 guardHash, bool success) internal {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-119-        if (guard != address(0)) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-120-            IModuleGuard(guard).checkAfterModuleExecution(guardHash, success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-121-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-122-        if (success) emit ExecutionFromModuleSuccess(msg.sender);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-123-        else emit ExecutionFromModuleFailure(msg.sender);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-124-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-125-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-126-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-127-     * @inheritdoc IModuleManager
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-128-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-129-    function enableModule(address module) public override authorized {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-130-        // Module address cannot be null or sentinel.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-131-        if (module == address(0) || module == SENTINEL_MODULES) revertWithError("GS101");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-132-        // Module cannot be added twice.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-133-        if (modules[module] != address(0)) revertWithError("GS102");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-134-        modules[module] = modules[SENTINEL_MODULES];
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-135-        modules[SENTINEL_MODULES] = module;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-136-        emit EnabledModule(module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-137-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-138-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-139-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-140-     * @inheritdoc IModuleManager
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-141-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-142-    function disableModule(address prevModule, address module) public override authorized {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-143-        // Validate module address and check that it corresponds to module index.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-144-        if (module == address(0) || module == SENTINEL_MODULES) revertWithError("GS101");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-145-        if (modules[prevModule] != module) revertWithError("GS103");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-146-        modules[prevModule] = modules[module];
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-147-        modules[module] = address(0);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-148-        emit DisabledModule(module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-149-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-150-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-151-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-152-     * @inheritdoc IModuleManager
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-153-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:154:    function execTransactionFromModule(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-155-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-156-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-157-        bytes memory data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-158-        Enum.Operation operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-159-    ) external override returns (bool success) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-160-        (address guard, bytes32 guardHash) = preModuleExecution(to, value, data, operation);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-161-        success = execute(to, value, data, operation, type(uint256).max);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-162-        postModuleExecution(guard, guardHash, success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-163-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-164-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-165-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-166-     * @inheritdoc IModuleManager
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-167-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:168:    function execTransactionFromModuleReturnData(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-169-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-170-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-171-        bytes memory data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-172-        Enum.Operation operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-173-    ) external override returns (bool success, bytes memory returnData) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-174-        (address guard, bytes32 guardHash) = preModuleExecution(to, value, data, operation);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-175-        success = execute(to, value, data, operation, type(uint256).max);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-176-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-177-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-178-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-179-            // Load free memory location
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-180-            returnData := mload(0x40)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-181-            // We allocate memory for the return data by setting the free memory location to
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-182-            // current free memory location + data size + 32 bytes for data size value
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-183-            mstore(0x40, add(returnData, add(returndatasize(), 0x20)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-184-            // Store the size
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-185-            mstore(returnData, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-186-            // Store the data
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-187-            returndatacopy(add(returnData, 0x20), 0, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-188-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-189-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-190-        postModuleExecution(guard, guardHash, success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-191-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-192-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-193-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-194-     * @inheritdoc IModuleManager
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-195-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-196-    function isModuleEnabled(address module) public view override returns (bool) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-197-        return SENTINEL_MODULES != module && modules[module] != address(0);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-198-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-199-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-200-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-201-     * @inheritdoc IModuleManager
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-202-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-203-    function getModulesPaginated(address start, uint256 pageSize) external view override returns (address[] memory array, address next) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-204-        if (start != SENTINEL_MODULES && !isModuleEnabled(start)) revertWithError("GS105");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-205-        if (pageSize == 0) revertWithError("GS106");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-206-        // Init array with max page size
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-207-        array = new address[](pageSize);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-208-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-209-        // Populate return array
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-210-        uint256 moduleCount = 0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-211-        next = modules[start];
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-212-        while (next != address(0) && next != SENTINEL_MODULES && moduleCount < pageSize) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-213-            array[moduleCount] = next;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-214-            next = modules[next];
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-215-            ++moduleCount;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-216-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-217-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-218-        /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-219-          Because of the argument validation, we can assume that the loop will always iterate over the valid module list values
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-220-          and the `next` variable will either be an enabled module or a sentinel address (signalling the end). 
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-221-          
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-222-          If we haven't reached the end inside the loop, we need to set the next pointer to the last element of the modules array
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-223-          because the `next` variable (which is a module by itself) acting as a pointer to the start of the next page is neither 
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-224-          included to the current page, nor will it be included in the next one if you pass it as a start.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-225-        */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-226-        if (next != SENTINEL_MODULES) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-227-            next = array[moduleCount - 1];
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-228-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-229-        // Set the correct size of the returned array
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-230-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-231-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-232-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-233-            mstore(array, moduleCount)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-234-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-235-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-236-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-237-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-238-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-239-     * @notice Returns true if `account` is a contract.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-240-     * @dev This function will return false if invoked during the constructor of a contract,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-241-     *      as the code is not created until after the constructor finishes.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-242-     * @param account The address being queried
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-243-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-244-    function isContract(address account) internal view returns (bool) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-245-        uint256 size;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-246-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-247-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-248-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-249-            size := extcodesize(account)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-250-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-251-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-252-        return size > 0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-253-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-254-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-255-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-256-     * @inheritdoc IModuleManager
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-257-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-258-    function setModuleGuard(address moduleGuard) external override authorized {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-259-        if (moduleGuard != address(0) && !IModuleGuard(moduleGuard).supportsInterface(type(IModuleGuard).interfaceId))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-260-            revertWithError("GS301");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-261-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-262-        bytes32 slot = MODULE_GUARD_STORAGE_SLOT;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-263-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-264-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-265-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-266-            sstore(slot, moduleGuard)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-267-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-268-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-269-        emit ChangedModuleGuard(moduleGuard);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-270-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-271-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-272-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-273-     * @dev Internal method to retrieve the current module guard
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-274-     * @return moduleGuard The address of the guard
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-275-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-276-    function getModuleGuard() internal view returns (address moduleGuard) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-277-        bytes32 slot = MODULE_GUARD_STORAGE_SLOT;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-278-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-279-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-280-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-281-            moduleGuard := sload(slot)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-282-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-283-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-284-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-285-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-286-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:287:     * @notice A hook that gets called before execution of {execTransactionFromModule*} methods.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-288-     * @param to Destination address of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-289-     * @param value Ether value of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-290-     * @param data Data payload of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-291-     * @param operation Operation type of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-292-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:293:    function onBeforeExecTransactionFromModule(address to, uint256 value, bytes memory data, Enum.Operation operation) internal virtual {}
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol-294-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-1-// SPDX-License-Identifier: LGPL-3.0-only
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-2-pragma solidity >=0.7.0 <0.9.0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-3-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-4-// The import is used in the @inheritdoc, false positive
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-5-// solhint-disable-next-line no-unused-import
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-6-import {ModuleManager} from "./base/ModuleManager.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-7-import {Safe, Enum} from "./Safe.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-8-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-9-/**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-10- * @title SafeL2 - An implementation of the Safe contract that emits additional events on transaction executions.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-11- * @notice For a more complete description of the Safe contract, please refer to the main Safe contract `Safe.sol`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-12- * @author Stefan George - @Georgi87
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-13- * @author Richard Meissner - @rmeissner
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-14- */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-15-contract SafeL2 is Safe {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-16-    event SafeMultiSigTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-17-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-18-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-19-        bytes data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-20-        Enum.Operation operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-21-        uint256 safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-22-        uint256 baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-23-        uint256 gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-24-        address gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-25-        address payable refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-26-        bytes signatures,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-27-        // We combine nonce, sender and threshold into one to avoid stack too deep
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-28-        // Dev note: additionalInfo should not contain `bytes`, as this complicates decoding
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-29-        bytes additionalInfo
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-30-    );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-31-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-32-    event SafeModuleTransaction(address module, address to, uint256 value, bytes data, Enum.Operation operation);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-33-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-34-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-35-     * @inheritdoc Safe
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-36-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol:37:    function onBeforeExecTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-38-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-39-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-40-        bytes calldata data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-41-        Enum.Operation operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-42-        uint256 safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-43-        uint256 baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-44-        uint256 gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-45-        address gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-46-        address payable refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-47-        bytes memory signatures
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-48-    ) internal override {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-49-        bytes memory additionalInfo;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-50-        {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-51-            additionalInfo = abi.encode(nonce, msg.sender, threshold);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-52-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-53-        emit SafeMultiSigTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-54-            to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-55-            value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-56-            data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-57-            operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-58-            safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-59-            baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-60-            gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-61-            gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-62-            refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-63-            signatures,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-64-            additionalInfo
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-65-        );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-66-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-67-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-68-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-69-     * @inheritdoc ModuleManager
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-70-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol:71:    function onBeforeExecTransactionFromModule(address to, uint256 value, bytes memory data, Enum.Operation operation) internal override {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-72-        emit SafeModuleTransaction(msg.sender, to, value, data, operation);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-73-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol-74-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-1-// SPDX-License-Identifier: LGPL-3.0-only
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-2-/* solhint-disable one-contract-per-file */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-3-pragma solidity >=0.7.0 <0.9.0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-4-pragma abicoder v2;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-5-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-6-struct UserOperation {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-7-    address sender;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-8-    uint256 nonce;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-9-    bytes initCode;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-10-    bytes callData;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-11-    uint256 callGasLimit;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-12-    uint256 verificationGasLimit;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-13-    uint256 preVerificationGas;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-14-    uint256 maxFeePerGas;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-15-    uint256 maxPriorityFeePerGas;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-16-    bytes paymasterAndData;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-17-    bytes signature;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-18-}
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-19-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-20-interface ISafe {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-21-    function enableModule(address module) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-22-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:23:    function execTransactionFromModule(address to, uint256 value, bytes memory data, uint8 operation) external returns (bool success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-24-}
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-25-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-26-/// @dev A Dummy 4337 Module/Handler for testing purposes
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-27-///      ⚠️ ⚠️ ⚠️ DO NOT USE IN PRODUCTION ⚠️ ⚠️ ⚠️
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:28:///      The module does not perform ANY validation, it just executes validateUserOp and execTransaction
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-29-///      to perform the opcode level compliance by the bundler.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-30-contract Test4337ModuleAndHandler {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-31-    address public immutable MY_ADDRESS;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-32-    address public immutable ENTRYPOINT;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-33-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-34-    address internal constant SENTINEL_MODULES = address(0x1);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-35-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-36-    constructor(address entryPointAddress) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-37-        ENTRYPOINT = entryPointAddress;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-38-        MY_ADDRESS = address(this);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-39-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-40-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-41-    function validateUserOp(UserOperation calldata userOp, bytes32, uint256 missingAccountFunds) external returns (uint256 validationData) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-42-        address payable safeAddress = payable(userOp.sender);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-43-        ISafe senderSafe = ISafe(safeAddress);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-44-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-45-        if (missingAccountFunds != 0) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:46:            senderSafe.execTransactionFromModule(ENTRYPOINT, missingAccountFunds, "", 0);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-47-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-48-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-49-        return 0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-50-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-51-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:52:    function execTransaction(address to, uint256 value, bytes calldata data) external payable {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-53-        address payable safeAddress = payable(msg.sender);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-54-        ISafe safe = ISafe(safeAddress);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:55:        require(safe.execTransactionFromModule(to, value, data, 0), "tx failed");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-56-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-57-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-58-    function enableMyself() public {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-59-        ISafe(payable(address(this))).enableModule(MY_ADDRESS);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-60-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol-61-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-1-// SPDX-License-Identifier: LGPL-3.0-only
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-2-pragma solidity >=0.7.0 <0.9.0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-3-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-4-/**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-5- * @title Multi Send Call Only - Allows to batch multiple transactions into one, but only calls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-6- * @notice The guard logic is not required here as this contract doesn't support nested delegate calls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-7- * @author Stefan George - @Georgi87
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-8- * @author Richard Meissner - @rmeissner
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-9- */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-10-contract MultiSendCallOnly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-11-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-12-     * @dev Sends multiple transactions and reverts all if one fails.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-13-     * @param transactions Encoded transactions. Each transaction is encoded as a packed bytes of
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-14-     *                     operation has to be uint8(0) in this version (=> 1 byte),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-15-     *                     to as a address (=> 20 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-16-     *                     value as a uint256 (=> 32 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-17-     *                     data length as a uint256 (=> 32 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-18-     *                     data as bytes.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-19-     *                     see abi.encodePacked for more information on packed encoding
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-20-     * @notice The code is for the most part the same as the normal MultiSend (to keep compatibility),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-21-     *         but reverts if a transaction tries to use a delegatecall.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-22-     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:23:     *         If the calling method (e.g. execTransaction) received ETH this would revert otherwise
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-24-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-25-    function multiSend(bytes memory transactions) public payable {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-26-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-27-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-28-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-29-            let length := mload(transactions)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-30-            let i := 0x20
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-31-            for {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-32-                // Pre block is not used in "while mode"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-33-            } lt(i, length) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-34-                // Post block is not used in "while mode"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-35-            } {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-36-                // First byte of the data is the operation.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-37-                // We shift by 248 bits (256 - 8 [operation byte]) right, since mload will always load 32 bytes (a word).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-38-                // This will also zero out unused data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-39-                let operation := shr(0xf8, mload(add(transactions, i)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-40-                // We offset the load address by 1 byte (operation byte)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-41-                // We shift it right by 96 bits (256 - 160 [20 address bytes]) to right-align the data and zero out unused data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-42-                let to := shr(0x60, mload(add(transactions, add(i, 0x01))))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-43-                // Defaults `to` to `address(this)` if `address(0)` is provided.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-44-                to := or(to, mul(iszero(to), address()))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-45-                // We offset the load address by 21 byte (operation byte + 20 address bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-46-                let value := mload(add(transactions, add(i, 0x15)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-47-                // We offset the load address by 53 byte (operation byte + 20 address bytes + 32 value bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-48-                let dataLength := mload(add(transactions, add(i, 0x35)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-49-                // We offset the load address by 85 byte (operation byte + 20 address bytes + 32 value bytes + 32 data length bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-50-                let data := add(transactions, add(i, 0x55))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-51-                let success := 0
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-52-                switch operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-53-                case 0 {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-54-                    success := call(gas(), to, value, data, dataLength, 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-55-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-56-                // This version does not allow delegatecalls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-57-                case 1 {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-58-                    revert(0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-59-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-60-                if iszero(success) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-61-                    let ptr := mload(0x40)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-62-                    returndatacopy(ptr, 0, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-63-                    revert(ptr, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-64-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-65-                // Next entry starts at 85 byte + data length
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-66-                i := add(i, add(0x55, dataLength))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-67-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-68-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-69-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-70-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-71-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-1-// SPDX-License-Identifier: LGPL-3.0-only
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-2-pragma solidity >=0.7.0 <0.9.0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-3-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-4-/**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-5- * @title Multi Send - Allows to batch multiple transactions into one.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-6- * @author Nick Dodson - <nick.dodson@consensys.net>
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-7- * @author Gonçalo Sá - <goncalo.sa@consensys.net>
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-8- * @author Stefan George - @Georgi87
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-9- * @author Richard Meissner - @rmeissner
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-10- */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-11-contract MultiSend {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-12-    address private immutable MULTISEND_SINGLETON;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-13-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-14-    constructor() {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-15-        MULTISEND_SINGLETON = address(this);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-16-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-17-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-18-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-19-     * @dev Sends multiple transactions and reverts all if one fails.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-20-     * @param transactions Encoded transactions. Each transaction is encoded as a packed bytes of
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-21-     *                     operation as a uint8 with 0 for a call or 1 for a delegatecall (=> 1 byte),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-22-     *                     to as a address (=> 20 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-23-     *                     value as a uint256 (=> 32 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-24-     *                     data length as a uint256 (=> 32 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-25-     *                     data as bytes.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-26-     *                     see abi.encodePacked for more information on packed encoding
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-27-     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:28:     *         If the calling method (e.g. execTransaction) received ETH this would revert otherwise
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-29-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-30-    function multiSend(bytes memory transactions) public payable {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-31-        require(address(this) != MULTISEND_SINGLETON, "MultiSend should only be called via delegatecall");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-32-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-33-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-34-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-35-            let length := mload(transactions)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-36-            let i := 0x20
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-37-            for {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-38-                // Pre block is not used in "while mode"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-39-            } lt(i, length) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-40-                // Post block is not used in "while mode"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-41-            } {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-42-                // First byte of the data is the operation.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-43-                // We shift by 248 bits (256 - 8 [operation byte]) right, since mload will always load 32 bytes (a word).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-44-                // This will also zero out unused data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-45-                let operation := shr(0xf8, mload(add(transactions, i)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-46-                // We offset the load address by 1 byte (operation byte)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-47-                // We shift it right by 96 bits (256 - 160 [20 address bytes]) to right-align the data and zero out unused data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-48-                let to := shr(0x60, mload(add(transactions, add(i, 0x01))))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-49-                // Defaults `to` to `address(this)` if `address(0)` is provided.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-50-                to := or(to, mul(iszero(to), address()))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-51-                // We offset the load address by 21 byte (operation byte + 20 address bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-52-                let value := mload(add(transactions, add(i, 0x15)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-53-                // We offset the load address by 53 byte (operation byte + 20 address bytes + 32 value bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-54-                let dataLength := mload(add(transactions, add(i, 0x35)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-55-                // We offset the load address by 85 byte (operation byte + 20 address bytes + 32 value bytes + 32 data length bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-56-                let data := add(transactions, add(i, 0x55))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-57-                let success := 0
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-58-                switch operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-59-                case 0 {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-60-                    success := call(gas(), to, value, data, dataLength, 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-61-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-62-                case 1 {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-63-                    success := delegatecall(gas(), to, data, dataLength, 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-64-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-65-                if iszero(success) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-66-                    let ptr := mload(0x40)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-67-                    returndatacopy(ptr, 0, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-68-                    revert(ptr, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-69-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-70-                // Next entry starts at 85 byte + data length
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-71-                i := add(i, add(0x55, dataLength))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-72-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-73-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-74-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-75-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-76-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-3-import {Enum} from "../libraries/Enum.sol";
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-4-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-5-/**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-6- * @title IModuleManager - An interface of contract managing Safe modules
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-7- * @notice Modules are extensions with unlimited access to a Safe that can be added to a Safe by its owners.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-8-           ⚠️ WARNING: Modules are a security risk since they can execute arbitrary transactions, 
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-9-           so only trusted and audited modules should be added to a Safe. A malicious module can
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-10-           completely takeover a Safe.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-11- * @author @safe-global/safe-protocol
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-12- */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-13-interface IModuleManager {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-14-    event EnabledModule(address indexed module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-15-    event DisabledModule(address indexed module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-16-    event ExecutionFromModuleSuccess(address indexed module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-17-    event ExecutionFromModuleFailure(address indexed module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-18-    event ChangedModuleGuard(address indexed moduleGuard);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-19-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-20-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-21-     * @notice Enables the module `module` for the Safe.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-22-     * @dev This can only be done via a Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-23-     * @param module Module to be whitelisted.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-24-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-25-    function enableModule(address module) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-26-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-27-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-28-     * @notice Disables the module `module` for the Safe.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-29-     * @dev This can only be done via a Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-30-     * @param prevModule Previous module in the modules linked list.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-31-     * @param module Module to be removed.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-32-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-33-    function disableModule(address prevModule, address module) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-34-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-35-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-36-     * @notice Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-37-     * @param to Destination address of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-38-     * @param value Ether value of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-39-     * @param data Data payload of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-40-     * @param operation Operation type of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-41-     * @return success Boolean flag indicating if the call succeeded.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-42-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol:43:    function execTransactionFromModule(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-44-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-45-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-46-        bytes memory data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-47-        Enum.Operation operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-48-    ) external returns (bool success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-49-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-50-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-51-     * @notice Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token) and return data
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-52-     * @param to Destination address of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-53-     * @param value Ether value of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-54-     * @param data Data payload of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-55-     * @param operation Operation type of module transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-56-     * @return success Boolean flag indicating if the call succeeded.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-57-     * @return returnData Data returned by the call.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-58-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol:59:    function execTransactionFromModuleReturnData(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-60-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-61-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-62-        bytes memory data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-63-        Enum.Operation operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-64-    ) external returns (bool success, bytes memory returnData);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-65-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-66-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-67-     * @notice Returns if a module is enabled
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-68-     * @return True if the module is enabled
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-69-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-70-    function isModuleEnabled(address module) external view returns (bool);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-71-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-72-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-73-     * @notice Returns an array of modules.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-74-     *         If all entries fit into a single page, the next pointer will be 0x1.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-75-     *         If another page is present, next will be the last element of the returned array.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-76-     * @param start Start of the page. Has to be a module or start pointer (0x1 address)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-77-     * @param pageSize Maximum number of modules that should be returned. Has to be > 0
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-78-     * @return array Array of modules.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-79-     * @return next Start of the next page.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-80-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-81-    function getModulesPaginated(address start, uint256 pageSize) external view returns (address[] memory array, address next);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-82-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-83-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-84-     * @dev Set a module guard that checks transactions initiated by the module before execution
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-85-     *      This can only be done via a Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-86-     *      ⚠️ IMPORTANT: Since a module guard has full power to block Safe transaction execution initiated via a module,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-87-     *        a broken module guard can cause a denial of service for the Safe modules. Make sure to carefully
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-88-     *        audit the module guard code and design recovery mechanisms.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-89-     * @notice Set Module Guard `moduleGuard` for the Safe. Make sure you trust the module guard.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-90-     * @param moduleGuard The address of the module guard to be used or the zero address to disable the module guard.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-91-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-92-    function setModuleGuard(address moduleGuard) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol-93-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-29-     * @param _owners List of Safe owners.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-30-     * @param _threshold Number of required confirmations for a Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-31-     * @param to Contract address for optional delegate call.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-32-     * @param data Data payload for optional delegate call.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-33-     * @param fallbackHandler Handler for fallback calls to this contract
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-34-     * @param paymentToken Token that should be used for the payment (0 is ETH)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-35-     * @param payment Value that should be paid
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-36-     * @param paymentReceiver Address that should receive the payment (or 0 if tx.origin)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-37-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-38-    function setup(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-39-        address[] calldata _owners,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-40-        uint256 _threshold,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-41-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-42-        bytes calldata data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-43-        address fallbackHandler,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-44-        address paymentToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-45-        uint256 payment,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-46-        address payable paymentReceiver
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-47-    ) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-48-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-49-    /** @notice Executes a `operation` {0: Call, 1: DelegateCall} transaction to `to` with `value` (Native Currency)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-50-     *          and pays `gasPrice` * `gasLimit` in `gasToken` token to `refundReceiver`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-51-     * @dev The fees are always transferred, even if the user transaction fails.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-52-     *      This method doesn't perform any sanity check of the transaction, such as:
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-53-     *      - if the contract at `to` address has code or not
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-54-     *      - if the `gasToken` is a contract or not
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-55-     *      It is the responsibility of the caller to perform such checks.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-56-     * @param to Destination address of Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-57-     * @param value Ether value of Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-58-     * @param data Data payload of Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-59-     * @param operation Operation type of Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-60-     * @param safeTxGas Gas that should be used for the Safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-61-     * @param baseGas Gas costs that are independent of the transaction execution(e.g. base transaction fee, signature check, payment of the refund)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-62-     * @param gasPrice Gas price that should be used for the payment calculation.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-63-     * @param gasToken Token address (or 0 if ETH) that is used for the payment.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-64-     * @param refundReceiver Address of receiver of gas payment (or 0 if tx.origin).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-65-     * @param signatures Signature data that should be verified.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-66-     *                   Can be packed ECDSA signature ({bytes32 r}{bytes32 s}{uint8 v}), contract signature (EIP-1271) or approved hash.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-67-     * @return success Boolean indicating transaction's success.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-68-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol:69:    function execTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-70-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-71-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-72-        bytes calldata data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-73-        Enum.Operation operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-74-        uint256 safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-75-        uint256 baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-76-        uint256 gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-77-        address gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-78-        address payable refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-79-        bytes memory signatures
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-80-    ) external payable returns (bool success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-81-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-82-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-83-     * @notice Checks whether the signature provided is valid for the provided data and hash and executor. Reverts otherwise.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-84-     * @param executor Address that executes the transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-85-     *        ⚠️⚠️⚠️ Make sure that the executor address is a legitimate executor.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-86-     *        Incorrectly passed the executor might reduce the threshold by 1 signature. ⚠️⚠️⚠️
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-87-     * @param dataHash Hash of the data (could be either a message hash or transaction hash)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-88-     * @param signatures Signature data that should be verified.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-89-     *                   Can be packed ECDSA signature ({bytes32 r}{bytes32 s}{uint8 v}), contract signature (EIP-1271) or approved hash.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-90-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-91-    function checkSignatures(address executor, bytes32 dataHash, bytes memory signatures) external view;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-92-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-93-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-94-     * @notice Checks whether the signature provided is valid for the provided data and hash. Reverts otherwise.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-95-     * @dev Since the EIP-1271 does an external call, be mindful of reentrancy attacks.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-96-     * @param executor Address that executes the transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-97-     *        ⚠️⚠️⚠️ Make sure that the executor address is a legitimate executor.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-98-     *        Incorrectly passed the executor might reduce the threshold by 1 signature. ⚠️⚠️⚠️
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-99-     * @param dataHash Hash of the data (could be either a message hash or transaction hash)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-100-     * @param signatures Signature data that should be verified.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-101-     *                   Can be packed ECDSA signature ({bytes32 r}{bytes32 s}{uint8 v}), contract signature (EIP-1271) or approved hash.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-102-     * @param requiredSignatures Amount of required valid signatures.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-103-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-104-    function checkNSignatures(address executor, bytes32 dataHash, bytes memory signatures, uint256 requiredSignatures) external view;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-105-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-106-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-107-     * @notice Marks hash `hashToApprove` as approved.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-108-     * @dev This can be used with a pre-approved hash transaction signature.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-109-     *      IMPORTANT: The approved hash stays approved forever. There's no revocation mechanism, so it behaves similarly to ECDSA signatures
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-110-     * @param hashToApprove The hash to mark as approved for signatures that are verified by this contract.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-111-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-112-    function approveHash(bytes32 hashToApprove) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-113-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-114-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-115-     * @dev Returns the domain separator for this contract, as defined in the EIP-712 standard.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-116-     * @return bytes32 The domain separator hash.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-117-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-118-    function domainSeparator() external view returns (bytes32);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-119-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-120-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-121-     * @notice Returns transaction hash to be signed by owners.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-122-     * @param to Destination address.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-123-     * @param value Ether value.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-124-     * @param data Data payload.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-125-     * @param operation Operation type.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-126-     * @param safeTxGas Gas that should be used for the safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-127-     * @param baseGas Gas costs for data used to trigger the safe transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-128-     * @param gasPrice Maximum gas price that should be used for this transaction.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-129-     * @param gasToken Token address (or 0 if ETH) that is used for the payment.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-130-     * @param refundReceiver Address of receiver of gas payment (or 0 if tx.origin).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-131-     * @param _nonce Transaction nonce.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-132-     * @return Transaction hash.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-133-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-134-    function getTransactionHash(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-135-        address to,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-136-        uint256 value,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-137-        bytes calldata data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-138-        Enum.Operation operation,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-139-        uint256 safeTxGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-140-        uint256 baseGas,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-141-        uint256 gasPrice,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-142-        address gasToken,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-143-        address refundReceiver,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-144-        uint256 _nonce
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-145-    ) external view returns (bytes32);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-146-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-147-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-148-     * External getter function for state variables.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-149-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-150-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-151-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-152-     * @notice Returns the version of the Safe contract.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-153-     * @return Version string.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-154-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-155-    // solhint-disable-next-line
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-156-    function VERSION() external view returns (string memory);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-157-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-158-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-159-     * @notice Returns the nonce of the Safe contract.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-160-     * @return Nonce.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-161-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-162-    function nonce() external view returns (uint256);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-163-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-164-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-165-     * @notice Returns a uint if the messageHash is signed by the owner.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-166-     * @param messageHash Hash of message that should be checked.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-167-     * @return Number denoting if an owner signed the hash.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-168-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-169-    function signedMessages(bytes32 messageHash) external view returns (uint256);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-170-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-171-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-172-     * @notice Returns a uint if the messageHash is approved by the owner.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-173-     * @param owner Owner address that should be checked.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-174-     * @param messageHash Hash of message that should be checked.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-175-     * @return Number denoting if an owner approved the hash.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-176-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-177-    function approvedHashes(address owner, bytes32 messageHash) external view returns (uint256);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol-178-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-42-            address(0),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-43-            hex"",
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-44-            address(0),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-45-            address(0),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-46-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-47-            payable(address(0))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-48-        );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-49-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-50-        SafeProxy proxy = factory.createProxyWithNonce(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-51-            address(singleton),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-52-            initializer,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-53-            0
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-54-        );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-55-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-56-        safe = Safe(payable(address(proxy)));
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-57-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-58-        target = new Target();
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-59-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-60-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-61-    function test_exec_emits_poo() public {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-62-        vm.recordLogs();
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-63-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-64-        bytes memory data = abi.encodeWithSignature("setNumber(uint256)", 42);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-65-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-66-        bytes32 txHash = safe.getTransactionHash(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-67-            address(target),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-68-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-69-            data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-70-            Enum.Operation.Call,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-71-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-72-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-73-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-74-            address(0),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-75-            payable(address(0)),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-76-            safe.nonce()
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-77-        );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-78-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-79-        (uint8 v, bytes32 r, bytes32 s) = vm.sign(ownerPk, txHash);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-80-        bytes memory signatures = abi.encodePacked(r, s, v);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-81-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol:82:        bool success = safe.execTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-83-            address(target),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-84-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-85-            data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-86-            Enum.Operation.Call,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-87-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-88-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-89-            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-90-            address(0),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-91-            payable(address(0)),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-92-            signatures
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-93-        );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-94-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-95-        assertTrue(success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-96-        assertEq(target.value(), 42);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-97-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-98-        Vm.Log[] memory logs = vm.getRecordedLogs();
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-99-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-100-        bool found = false;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-101-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-102-        for (uint256 i = 0; i < logs.length; i++) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-103-            if (logs[i].topics.length > 0 && logs[i].topics[0] == POO_EVENT_SIG) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-104-                found = true;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-105-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-106-                (
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-107-                    bytes32 authorityId,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-108-                    bytes32 operationId,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-109-                    address emittedTarget,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-110-                    bytes32 dataHash,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-111-                    uint256 timestamp
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-112-                ) = abi.decode(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-113-                    logs[i].data,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-114-                    (bytes32, bytes32, address, bytes32, uint256)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-115-                );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-116-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-117-                assertEq(emittedTarget, address(target));
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-118-                assertEq(dataHash, keccak256(data));
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-119-                assertGt(timestamp, 0);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-120-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-121-                assertEq(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-122-                    operationId,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-123-                    keccak256(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-124-                        abi.encode(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-125-                            keccak256("CALL"),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-126-                            address(target),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-127-                            0,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-128-                            keccak256(data)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-129-                        )
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-130-                    )
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-131-                );
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-132-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-133-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-134-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-135-        assertTrue(found, "PoO event not found");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-136-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol-137-}

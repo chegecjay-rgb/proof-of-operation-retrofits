@@ -1,0 +1,68 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:28:        // The account was called via delegatecall.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:29:        DelegateCall,
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:204:        // If kind is Call, DelegateCall, StaticCall or CallCode, then the account is the callee.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:2209:    function prank(address msgSender, bool delegateCall) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:2212:    function prank(address msgSender, address txOrigin, bool delegateCall) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:2304:    function startPrank(address msgSender, bool delegateCall) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:2307:    function startPrank(address msgSender, address txOrigin, bool delegateCall) external;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:95:        // of the  `to.delegatecall(data)` that happen in the `setupModules` call emit events in order relative to the setup
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:11:     * @notice Executes either a delegatecall or a call with provided parameters.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:28:        if (operation == Enum.Operation.DelegateCall) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:32:                success := delegatecall(txGas, to, add(data, 0x20), mload(data), 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:81:            if (!execute(to, 0, data, Enum.Operation.DelegateCall, type(uint256).max)) revertWithError("GS000");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/DelegateCallTransactionGuard.sol:8: * @title DelegateCallTransactionGuard - Limits delegate calls to a specific target.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/DelegateCallTransactionGuard.sol:11:contract DelegateCallTransactionGuard is BaseGuard {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/DelegateCallTransactionGuard.sol:44:        require(operation != Enum.Operation.DelegateCall || to == ALLOWED_TARGET, "This call is restricted");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/DelegateCallTransactionGuard.sol:68:        require(operation != Enum.Operation.DelegateCall || to == ALLOWED_TARGET, "This call is restricted");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/libraries/Migrate_1_3_0_to_1_2_0.sol:26:     * @dev This can only be called via a delegatecall.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/libraries/Migrate_1_3_0_to_1_2_0.sol:29:        require(address(this) != MIGRATION_SINGLETON, "Migration should only be called via delegatecall");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:49:                // do this for the `masterCopy()` call, since the EVM `DELEGATECALL` opcode ignores the most-significant
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:63:            let success := delegatecall(gas(), _singleton, 0, calldatasize(), 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:38:            let success := delegatecall(gas(), targetContract, add(calldataPayload, 0x20), mload(calldataPayload), 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:5: * @title DelegateCaller - A test contract that executes delegatecalls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:7:contract DelegateCaller {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:9:     * @notice makes a delegatecall
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:13:    function makeDelegatecall(address _called, bytes memory _calldata) external returns (bool success, bytes memory returnData) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:14:        (success, returnData) = _called.delegatecall(_calldata);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol:100:     * @notice Performs a `DELEGATECALL` to a `targetContract` in the context of self.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol:188:     * @param operation Operation type of the Safe transaction: 0 for `CALL` and 1 for `DELEGATECALL`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:15: *      to the migration functions only via delegatecall.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:42:     * @notice Modifier to make a function callable via delegatecall only.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:45:    modifier onlyDelegateCall() {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:46:        require(address(this) != MIGRATION_SINGLETON, "Migration should only be called via delegatecall");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:71:    function migrateSingleton() public onlyDelegateCall {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:80:    function migrateWithFallbackHandler() external onlyDelegateCall {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:88:    function migrateL2Singleton() public onlyDelegateCall {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:97:    function migrateL2WithFallbackHandler() external onlyDelegateCall {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:17:     *      This is used to ensure that the contract is only ever `DELEGATECALL`-ed.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:35:     * @notice Modifier ensure a function is only called via `DELEGATECALL`. Will revert otherwise.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:37:    modifier onlyDelegateCall() {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:38:        require(address(this) != SELF, "SafeToL2Setup should only be called via delegatecall");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:64:    function setupToL2(address l2Singleton) external onlyDelegateCall onlyNonceZero onlyContract(l2Singleton) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/Enum.sol:11:        DelegateCall
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:21:     *         but reverts if a transaction tries to use a delegatecall.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:22:     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:56:                // This version does not allow delegatecalls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:21:     *                     operation as a uint8 with 0 for a call or 1 for a delegatecall (=> 1 byte),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:27:     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:31:        require(address(this) != MULTISEND_SINGLETON, "MultiSend should only be called via delegatecall");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:63:                    success := delegatecall(gas(), to, data, dataLength, 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol:36:     * @notice Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol:51:     * @notice Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token) and return data
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IStorageAccessible.sol:18:     * @notice Performs a `DELEGATECALL` to a `targetContract` in the context of self.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol:49:    /** @notice Executes a `operation` {0: Call, 1: DelegateCall} transaction to `to` with `value` (Native Currency)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:19:     * @notice Modifier to make a function callable via delegatecall only.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:22:    modifier onlyDelegateCall() {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:23:        require(address(this) != ACCESSOR_SINGLETON, "SimulateTxAccessor should only be called via delegatecall");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:29:     * @dev Executes the specified operation {Call, DelegateCall} and returns operation-specific data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:30:     *      Has to be called via delegatecall.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:37:     * @param operation Operation type {Call, DelegateCall}.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:47:    ) external onlyDelegateCall returns (uint256 estimate, bool success, bytes memory returnData) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:36:    function delegateCallSetupToL2(address l2Singleton) public {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:37:        (bool success, ) = impl.delegatecall(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:47:        (bool success, ) = impl.delegatecall(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:57:        (bool success, ) = impl.delegatecall(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:67:        (bool success, ) = impl.delegatecall(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:77:        (bool success, ) = impl.delegatecall(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:87:        (bool success, ) = impl.delegatecall(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:97:        (bool success, ) = impl.delegatecall(

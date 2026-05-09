@@ -1,0 +1,3 @@
+/home/cjay/proof-of-operation-retrofits/pilot-integration/FILE_INDEX.txt
+/home/cjay/proof-of-operation-retrofits/pilot-integration/specs/PILOT_INTEGRATION_SPEC.md
+/home/cjay/proof-of-operation-retrofits/pilot-integration/templates/SafeMultiSendPilotIntegration.sol

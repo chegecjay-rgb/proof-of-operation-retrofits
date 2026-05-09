@@ -1,0 +1,148 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-1-// SPDX-License-Identifier: LGPL-3.0-only
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-2-pragma solidity >=0.7.0 <0.9.0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-3-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-4-/**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-5- * @title Multi Send Call Only - Allows to batch multiple transactions into one, but only calls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-6- * @notice The guard logic is not required here as this contract doesn't support nested delegate calls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-7- * @author Stefan George - @Georgi87
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-8- * @author Richard Meissner - @rmeissner
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-9- */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:10:contract MultiSendCallOnly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-11-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-12-     * @dev Sends multiple transactions and reverts all if one fails.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-13-     * @param transactions Encoded transactions. Each transaction is encoded as a packed bytes of
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-14-     *                     operation has to be uint8(0) in this version (=> 1 byte),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-15-     *                     to as a address (=> 20 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-16-     *                     value as a uint256 (=> 32 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-17-     *                     data length as a uint256 (=> 32 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-18-     *                     data as bytes.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-19-     *                     see abi.encodePacked for more information on packed encoding
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:20:     * @notice The code is for the most part the same as the normal MultiSend (to keep compatibility),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-21-     *         but reverts if a transaction tries to use a delegatecall.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-22-     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-23-     *         If the calling method (e.g. execTransaction) received ETH this would revert otherwise
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-24-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:25:    function multiSend(bytes memory transactions) public payable {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-26-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-27-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-28-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-29-            let length := mload(transactions)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-30-            let i := 0x20
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-31-            for {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-32-                // Pre block is not used in "while mode"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-33-            } lt(i, length) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-34-                // Post block is not used in "while mode"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-35-            } {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-36-                // First byte of the data is the operation.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-37-                // We shift by 248 bits (256 - 8 [operation byte]) right, since mload will always load 32 bytes (a word).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-38-                // This will also zero out unused data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-39-                let operation := shr(0xf8, mload(add(transactions, i)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-40-                // We offset the load address by 1 byte (operation byte)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-41-                // We shift it right by 96 bits (256 - 160 [20 address bytes]) to right-align the data and zero out unused data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-42-                let to := shr(0x60, mload(add(transactions, add(i, 0x01))))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-43-                // Defaults `to` to `address(this)` if `address(0)` is provided.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-44-                to := or(to, mul(iszero(to), address()))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-45-                // We offset the load address by 21 byte (operation byte + 20 address bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-46-                let value := mload(add(transactions, add(i, 0x15)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-47-                // We offset the load address by 53 byte (operation byte + 20 address bytes + 32 value bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-48-                let dataLength := mload(add(transactions, add(i, 0x35)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-49-                // We offset the load address by 85 byte (operation byte + 20 address bytes + 32 value bytes + 32 data length bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-50-                let data := add(transactions, add(i, 0x55))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-51-                let success := 0
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-52-                switch operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-53-                case 0 {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-54-                    success := call(gas(), to, value, data, dataLength, 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-55-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-56-                // This version does not allow delegatecalls
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-57-                case 1 {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-58-                    revert(0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-59-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-60-                if iszero(success) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-61-                    let ptr := mload(0x40)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-62-                    returndatacopy(ptr, 0, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-63-                    revert(ptr, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-64-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-65-                // Next entry starts at 85 byte + data length
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-66-                i := add(i, add(0x55, dataLength))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-67-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-68-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-69-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-70-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol-71-}
+--
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-1-// SPDX-License-Identifier: LGPL-3.0-only
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-2-pragma solidity >=0.7.0 <0.9.0;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-3-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-4-/**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-5- * @title Multi Send - Allows to batch multiple transactions into one.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-6- * @author Nick Dodson - <nick.dodson@consensys.net>
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-7- * @author Gonçalo Sá - <goncalo.sa@consensys.net>
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-8- * @author Stefan George - @Georgi87
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-9- * @author Richard Meissner - @rmeissner
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-10- */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:11:contract MultiSend {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:12:    address private immutable MULTISEND_SINGLETON;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-13-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-14-    constructor() {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:15:        MULTISEND_SINGLETON = address(this);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-16-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-17-
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-18-    /**
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-19-     * @dev Sends multiple transactions and reverts all if one fails.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-20-     * @param transactions Encoded transactions. Each transaction is encoded as a packed bytes of
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-21-     *                     operation as a uint8 with 0 for a call or 1 for a delegatecall (=> 1 byte),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-22-     *                     to as a address (=> 20 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-23-     *                     value as a uint256 (=> 32 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-24-     *                     data length as a uint256 (=> 32 bytes),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-25-     *                     data as bytes.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-26-     *                     see abi.encodePacked for more information on packed encoding
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-27-     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-28-     *         If the calling method (e.g. execTransaction) received ETH this would revert otherwise
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-29-     */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:30:    function multiSend(bytes memory transactions) public payable {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:31:        require(address(this) != MULTISEND_SINGLETON, "MultiSend should only be called via delegatecall");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-32-        /* solhint-disable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-33-        /// @solidity memory-safe-assembly
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-34-        assembly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-35-            let length := mload(transactions)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-36-            let i := 0x20
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-37-            for {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-38-                // Pre block is not used in "while mode"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-39-            } lt(i, length) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-40-                // Post block is not used in "while mode"
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-41-            } {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-42-                // First byte of the data is the operation.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-43-                // We shift by 248 bits (256 - 8 [operation byte]) right, since mload will always load 32 bytes (a word).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-44-                // This will also zero out unused data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-45-                let operation := shr(0xf8, mload(add(transactions, i)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-46-                // We offset the load address by 1 byte (operation byte)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-47-                // We shift it right by 96 bits (256 - 160 [20 address bytes]) to right-align the data and zero out unused data.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-48-                let to := shr(0x60, mload(add(transactions, add(i, 0x01))))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-49-                // Defaults `to` to `address(this)` if `address(0)` is provided.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-50-                to := or(to, mul(iszero(to), address()))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-51-                // We offset the load address by 21 byte (operation byte + 20 address bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-52-                let value := mload(add(transactions, add(i, 0x15)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-53-                // We offset the load address by 53 byte (operation byte + 20 address bytes + 32 value bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-54-                let dataLength := mload(add(transactions, add(i, 0x35)))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-55-                // We offset the load address by 85 byte (operation byte + 20 address bytes + 32 value bytes + 32 data length bytes)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-56-                let data := add(transactions, add(i, 0x55))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-57-                let success := 0
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-58-                switch operation
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-59-                case 0 {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-60-                    success := call(gas(), to, value, data, dataLength, 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-61-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-62-                case 1 {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-63-                    success := delegatecall(gas(), to, data, dataLength, 0, 0)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-64-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-65-                if iszero(success) {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-66-                    let ptr := mload(0x40)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-67-                    returndatacopy(ptr, 0, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-68-                    revert(ptr, returndatasize())
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-69-                }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-70-                // Next entry starts at 85 byte + data length
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-71-                i := add(i, add(0x55, dataLength))
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-72-            }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-73-        }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-74-        /* solhint-enable no-inline-assembly */
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-75-    }
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol-76-}

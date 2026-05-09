@@ -1,0 +1,4 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/contracts/semantic/ProofOfOperationSemanticEmitter.sol:3:abstract contract ProofOfOperationSemanticEmitter {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/contracts/semantic/ProofOfOperationSemanticEmitter.sol:4:    event ProofOfOperation(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/contracts/semantic/ProofOfOperationSemanticEmitter.sol:17:    function _emitProofOfOperation(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/contracts/semantic/ProofOfOperationSemanticEmitter.sol:29:        emit ProofOfOperation(
