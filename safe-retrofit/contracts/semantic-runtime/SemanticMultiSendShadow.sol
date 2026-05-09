@@ -20,7 +20,7 @@ contract SemanticMultiSendShadow is SafeSemanticAdapter {
         uint256 nonce,
         uint8 executionContext,
         bytes memory transactions
-    ) external payable {
+    ) public payable {
         bytes32 parentOperationId = _deriveParentOperationId(
             safeTxHash,
             nonce
@@ -33,20 +33,17 @@ contract SemanticMultiSendShadow is SafeSemanticAdapter {
         uint16 operationIndex = 0;
 
         while (i < length + 0x20) {
-            uint8 operation;
             address to;
             uint256 value;
             uint256 dataLength;
-            bytes memory payload;
 
             assembly {
-                operation := shr(248, mload(add(transactions, i)))
                 to := shr(96, mload(add(transactions, add(i, 0x01))))
                 value := mload(add(transactions, add(i, 0x15)))
                 dataLength := mload(add(transactions, add(i, 0x35)))
             }
 
-            payload = new bytes(dataLength);
+            bytes memory payload = new bytes(dataLength);
 
             for (uint256 j = 0; j < dataLength; j++) {
                 payload[j] = transactions[i + 0x55 + j];
@@ -63,8 +60,6 @@ contract SemanticMultiSendShadow is SafeSemanticAdapter {
                 operationIndex,
                 operationCount
             );
-
-            operation;
 
             i = i + 0x55 + dataLength;
             operationIndex++;
