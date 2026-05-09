@@ -28,26 +28,43 @@ contract SemanticMultiSendShadow is SafeSemanticAdapter {
 
         uint16 operationCount = _countOperations(transactions);
 
+        _emitSemanticBatch(
+            systemId,
+            executionContext,
+            parentOperationId,
+            operationCount,
+            transactions
+        );
+
+        multiSend.multiSend{value: msg.value}(transactions);
+    }
+
+    function _emitSemanticBatch(
+        bytes32 systemId,
+        uint8 executionContext,
+        bytes32 parentOperationId,
+        uint16 operationCount,
+        bytes memory transactions
+    ) internal {
         uint256 length = transactions.length;
         uint256 i = 0x20;
         uint16 operationIndex = 0;
 
         while (i < length + 0x20) {
-            address to;
-            uint256 value;
-            uint256 dataLength;
+            (
+                address to,
+                uint256 value,
+                uint256 dataLength
+            ) = _decodeHeader(
+                transactions,
+                i
+            );
 
-            assembly {
-                to := shr(96, mload(add(transactions, add(i, 0x01))))
-                value := mload(add(transactions, add(i, 0x15)))
-                dataLength := mload(add(transactions, add(i, 0x35)))
-            }
-
-            bytes memory payload = new bytes(dataLength);
-
-            for (uint256 j = 0; j < dataLength; j++) {
-                payload[j] = transactions[i + 0x55 + j];
-            }
+            bytes memory payload = _extractPayload(
+                transactions,
+                i,
+                dataLength
+            );
 
             _emitSemanticOperation(
                 systemId,
@@ -64,8 +81,37 @@ contract SemanticMultiSendShadow is SafeSemanticAdapter {
             i = i + 0x55 + dataLength;
             operationIndex++;
         }
+    }
 
-        multiSend.multiSend{value: msg.value}(transactions);
+    function _decodeHeader(
+        bytes memory transactions,
+        uint256 i
+    )
+        internal
+        pure
+        returns (
+            address to,
+            uint256 value,
+            uint256 dataLength
+        )
+    {
+        assembly {
+            to := shr(96, mload(add(transactions, add(i, 0x01))))
+            value := mload(add(transactions, add(i, 0x15)))
+            dataLength := mload(add(transactions, add(i, 0x35)))
+        }
+    }
+
+    function _extractPayload(
+        bytes memory transactions,
+        uint256 i,
+        uint256 dataLength
+    ) internal pure returns (bytes memory payload) {
+        payload = new bytes(dataLength);
+
+        for (uint256 j = 0; j < dataLength; j++) {
+            payload[j] = transactions[i + 0x55 + j];
+        }
     }
 
     function _countOperations(
