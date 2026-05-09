@@ -1,0 +1,73 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/contracts/semantic/ProofOfOperationSemanticEmitter.sol:29:        emit ProofOfOperation(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:130:                    emit WARNING_UninitedSlot(who, uint256(reads[i]));
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdStorage.sol:154:                emit SlotFound(who, fsig, keccak256(abi.encodePacked(params, field_depth)), uint256(reads[i]));
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:2397:    /// Call this function, then emit an anonymous event, then call a function. Internally after the call, we check if
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:2413:    /// Call this function, then emit an anonymous event, then call a function. Internally after the call, we check if
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:2421:    /// Call this function, then emit an event, then call a function. Internally after the call, we check if
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/Vm.sol:2429:    /// Call this function, then emit an event, then call a function. Internally after the call, we check if
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC7575.sol:99:     * - MUST emit the Deposit event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC7575.sol:137:     * - MUST emit the Deposit event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC7575.sol:177:     * - MUST emit the Withdraw event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC7575.sol:218:     * - MUST emit the Withdraw event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC7540.sol:84:     * - MUST emit the Deposit event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC7540.sol:92:     * - MUST emit the Deposit event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC4626.sol:79:    /// - MUST emit the Deposit event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC4626.sol:112:    /// - MUST emit the Deposit event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC4626.sol:146:    /// - MUST emit the Withdraw event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC4626.sol:181:    /// - MUST emit the Withdraw event.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC1155.sol:11:    /// - Either `TransferSingle` or `TransferBatch` MUST emit when tokens are transferred, including zero value transfers as well as minting or burning (see "Safe Transfer Rules" section of the standard).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC1155.sol:24:    /// - Either `TransferSingle` or `TransferBatch` MUST emit when tokens are transferred, including zero value transfers as well as minting or burning (see "Safe Transfer Rules" section of the standard).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC1155.sol:36:    /// @dev MUST emit when approval for a second party/operator address to manage all tokens for an owner address is enabled or disabled (absence of an event assumes disabled).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC1155.sol:39:    /// @dev MUST emit when the URI is updated for a token ID. URIs are defined in RFC 3986.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC1155.sol:48:    /// - MUST emit the `TransferSingle` event to reflect the balance change (see "Safe Transfer Rules" section of the standard).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC1155.sol:63:    /// - MUST emit `TransferSingle` or `TransferBatch` event(s) such that all the balance changes are reflected (see "Safe Transfer Rules" section of the standard).
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/interfaces/IERC1155.sol:95:    /// @dev MUST emit the ApprovalForAll event on success.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdAssertions.sol:1287:            emit log("Error: Calls were not equal");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdAssertions.sol:1288:            emit log_named_bytes("  Left call revert data", returnDataA);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdAssertions.sol:1289:            emit log_named_bytes(" Right call return data", returnDataB);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdAssertions.sol:1294:            emit log("Error: Calls were not equal");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdAssertions.sol:1295:            emit log_named_bytes("  Left call return data", returnDataA);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/forge-std/src/StdAssertions.sol:1296:            emit log_named_bytes(" Right call revert data", returnDataB);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:32: *      Note: This version of the implementation contract doesn't emit events for the sake of gas efficiency and therefore requires a tracing node for indexing/
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:94:        // Emit the setup event optimistically. This ensures that changes such as `addOwner` and `changeThreshold` that are part
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:95:        // of the  `to.delegatecall(data)` that happen in the `setupModules` call emit events in order relative to the setup
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:97:        emit SafeSetup(msg.sender, _owners, _threshold, to, fallbackHandler);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:171:        // We require some gas to emit the events (at least 2500) after the execution and some to perform code until the execution (500)
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:200:            emit ExecutionSuccess(txHash, payment);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:201:            emit OperationExecuted(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:216:            else emit ExecutionFailure(txHash, payment);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:399:        emit ApproveHash(hashToApprove, msg.sender);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/GuardManager.sol:80:        emit ChangedGuard(guard);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/FallbackManager.sol:48:        emit ChangedFallbackHandler(handler);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:122:        if (success) emit ExecutionFromModuleSuccess(msg.sender);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:123:        else emit ExecutionFromModuleFailure(msg.sender);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:136:        emit EnabledModule(module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:148:        emit DisabledModule(module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:269:        emit ChangedModuleGuard(moduleGuard);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:65:        emit AddedOwner(owner);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:82:        emit RemovedOwner(owner);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:101:        emit RemovedOwner(oldOwner);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:102:        emit AddedOwner(newOwner);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:114:        emit ChangedThreshold(_threshold);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/DebugTransactionGuard.sol:75:        emit TransactionDetails(msg.sender, txHash, to, value, data, operation, safeTxGas, gasPrice > 0, nonce, signatures, executor);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/DebugTransactionGuard.sol:88:        emit GasUsage(msg.sender, txHash, nonce, success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/guards/DebugTransactionGuard.sol:109:        emit ModuleTransactionDetails(moduleTxHash, to, value, data, operation, module);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/examples/libraries/Migrate_1_3_0_to_1_2_0.sol:33:        emit ChangedMasterCopy(singleton);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol:53:        emit SafeMultiSigTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol:72:        emit SafeModuleTransaction(msg.sender, to, value, data, operation);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:63:        emit ProxyCreation(proxy, _singleton);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:75:        emit ProxyCreationL2(proxy, _singleton, initializer, saltNonce);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:94:        emit ProxyCreation(proxy, _singleton);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxyFactory.sol:112:        emit ChainSpecificProxyCreationL2(proxy, _singleton, initializer, saltNonce, getChainId());
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/common/NativeCurrencyPaymentFallback.sol:15:        emit SafeReceived(msg.sender, msg.value);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/TestNativeTokenReceiver.sol:16:        emit BreadReceived(msg.sender, msg.value, gasleft());
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ERC165Handler.sol:43:                emit AddedInterface(safe, interfaceId);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ERC165Handler.sol:45:                emit RemovedInterface(safe, interfaceId);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/SignatureVerifierMuxer.sol:83:        emit ChangedDomainVerifier(safe, domainSeparator, oldVerifier, newVerifier);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ExtensibleBase.sol:59:        emit ChangedSafeMethod(safe, selector, oldMethod, newMethod);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:73:        emit ChangedMasterCopy(SAFE_SINGLETON);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:90:        emit ChangedMasterCopy(SAFE_L2_SINGLETON);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:67:            emit ChangedMasterCopy(l2Singleton);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:29:        emit ContractCreation(newContract);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/CreateCall.sol:46:        emit ContractCreation(newContract);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/SignMessageLib.sol:25:        emit SignMsg(msgHash);

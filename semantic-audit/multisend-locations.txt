@@ -1,0 +1,8 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:10:contract MultiSendCallOnly {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:20:     * @notice The code is for the most part the same as the normal MultiSend (to keep compatibility),
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:25:    function multiSend(bytes memory transactions) public payable {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:11:contract MultiSend {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:12:    address private immutable MULTISEND_SINGLETON;
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:15:        MULTISEND_SINGLETON = address(this);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:30:    function multiSend(bytes memory transactions) public payable {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:31:        require(address(this) != MULTISEND_SINGLETON, "MultiSend should only be called via delegatecall");

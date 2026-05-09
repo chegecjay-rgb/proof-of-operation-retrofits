@@ -1,0 +1,24 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:28: *          1. Transaction Guard: managed in `GuardManager` for transactions executed with `execTransaction`.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:29: *          2. Module Guard: managed in `ModuleManager` for transactions executed with `execTransactionFromModule`
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:115:    function execTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:127:        onBeforeExecTransaction(to, value, data, operation, safeTxGas, baseGas, gasPrice, gasToken, refundReceiver, signatures);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:492:     * @notice A hook that gets called before execution of {execTransaction} method.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/Safe.sol:498:    function onBeforeExecTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:100:        onBeforeExecTransactionFromModule(to, value, data, operation);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:154:    function execTransactionFromModule(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:168:    function execTransactionFromModuleReturnData(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:287:     * @notice A hook that gets called before execution of {execTransactionFromModule*} methods.
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:293:    function onBeforeExecTransactionFromModule(address to, uint256 value, bytes memory data, Enum.Operation operation) internal virtual {}
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol:37:    function onBeforeExecTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/SafeL2.sol:71:    function onBeforeExecTransactionFromModule(address to, uint256 value, bytes memory data, Enum.Operation operation) internal override {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:23:    function execTransactionFromModule(address to, uint256 value, bytes memory data, uint8 operation) external returns (bool success);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:28:///      The module does not perform ANY validation, it just executes validateUserOp and execTransaction
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:46:            senderSafe.execTransactionFromModule(ENTRYPOINT, missingAccountFunds, "", 0);
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:52:    function execTransaction(address to, uint256 value, bytes calldata data) external payable {
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/test/Test4337ModuleAndHandler.sol:55:        require(safe.execTransactionFromModule(to, value, data, 0), "tx failed");
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:23:     *         If the calling method (e.g. execTransaction) received ETH this would revert otherwise
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:28:     *         If the calling method (e.g. execTransaction) received ETH this would revert otherwise
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol:43:    function execTransactionFromModule(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol:59:    function execTransactionFromModuleReturnData(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol:69:    function execTransaction(
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/test/PoO.t.sol:82:        bool success = safe.execTransaction(
