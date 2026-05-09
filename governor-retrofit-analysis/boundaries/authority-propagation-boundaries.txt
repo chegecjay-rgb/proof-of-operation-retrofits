@@ -1,0 +1,51 @@
+834:108:                callType == ERC7579Utils.CALLTYPE_DELEGATECALL) &&
+850:235:        if (callType == ERC7579Utils.CALLTYPE_DELEGATECALL) return executionCalldata.execDelegateCall(execType);
+1598:73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+1599:74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+1600:76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+1601:80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+1604:85:    function delegatecallReturn64Bytes(
+1605:90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+1620:46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+1631:86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+1633:94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+1635:99:            address(this) == __self || // Must be called through delegatecall
+1636:107:     * @dev Reverts if the execution is performed via delegatecall.
+1638:112:            // Must not be called through delegatecall
+1647:31:    /// @dev A `delegatecall` execution.
+1648:32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+1656:97:    function execDelegateCall(
+1657:103:        returnData[0] = _delegatecall(0, execType, target, callData);
+1669:227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+1670:228:    function _delegatecall(
+1671:234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+1789:73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+1790:74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+1791:76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+1792:80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+1795:85:    function delegatecallReturn64Bytes(
+1796:90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+1811:46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+1822:86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+1824:94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+1826:99:            address(this) == __self || // Must be called through delegatecall
+1827:107:     * @dev Reverts if the execution is performed via delegatecall.
+1829:112:            // Must not be called through delegatecall
+1919:31:    /// @dev A `delegatecall` execution.
+1920:32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+1928:97:    function execDelegateCall(
+1929:103:        returnData[0] = _delegatecall(0, execType, target, callData);
+1941:227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+1942:228:    function _delegatecall(
+1943:234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+1958:36:    function delegateCallSetupToL2(address l2Singleton) public {
+1959:37:        (bool success, ) = impl.delegatecall(
+1961:47:        (bool success, ) = impl.delegatecall(
+1963:57:        (bool success, ) = impl.delegatecall(
+1965:67:        (bool success, ) = impl.delegatecall(
+1967:77:        (bool success, ) = impl.delegatecall(
+1969:87:        (bool success, ) = impl.delegatecall(
+1971:97:        (bool success, ) = impl.delegatecall(
+2053:17: * If a non-canonical context is identified, the following self `delegatecall` appends the last bytes of `msg.data`
+2056:24:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+2059:33:            results[i] = Address.functionDelegateCall(address(this), bytes.concat(data[i], context));

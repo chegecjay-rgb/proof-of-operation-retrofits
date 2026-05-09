@@ -1,0 +1,19 @@
+82:73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+83:74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+84:76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+85:80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+86:85:    function delegatecallReturn64Bytes(
+87:90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+88:46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+89:86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+90:94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+91:99:            address(this) == __self || // Must be called through delegatecall
+92:107:     * @dev Reverts if the execution is performed via delegatecall.
+93:112:            // Must not be called through delegatecall
+94:31:    /// @dev A `delegatecall` execution.
+95:32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+96:97:    function execDelegateCall(
+97:103:        returnData[0] = _delegatecall(0, execType, target, callData);
+98:227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+99:228:    function _delegatecall(
+100:234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);

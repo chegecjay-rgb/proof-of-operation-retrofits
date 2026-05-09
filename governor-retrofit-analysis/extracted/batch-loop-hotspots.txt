@@ -1,0 +1,538 @@
+1:./shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol:23:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+2:./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:36:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+3:./semantic-live-binding/contracts/SemanticMultiSendShadow.sol:35:        while (i < length + 0x20) {
+4:./semantic-live-binding/contracts/SemanticMultiSendShadow.sol:51:            for (uint256 j = 0; j < dataLength; j++) {
+5:./semantic-live-binding/contracts/SemanticMultiSendShadow.sol:82:        while (i < length + 0x20) {
+8:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+17:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:172:        for (uint256 i; i < requests.length; ++i) {
+20:./governor-retrofit/lib/openzeppelin-contracts/contracts/crosschain/CrosschainLinked.sol:47:        for (uint256 i = 0; i < links.length; ++i) {
+23:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:33:        for (uint256 i = 0; i < length; ++i) {
+24:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:51:        for (uint256 i = 0; i < length; ++i) {
+25:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol:81:        for (uint256 i = 0; i < accounts.length; ++i) {
+26:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol:144:        for (uint256 i = 0; i < ids.length; ++i) {
+27:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol:60:            for (uint256 i = 0; i < ids.length; ++i) {
+28:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol:72:            for (uint256 i = 0; i < ids.length; ++i) {
+30:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveEnumerableMock.sol:16:        for (uint256 i = 0; i < receivers.length; ++i) {
+31:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol:27:        for (uint256 i = 0; i < delegates.length; ++i) {
+32:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol:31:        for (uint256 i = 0; i < receivers.length; ++i) {
+33:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC20VotesLegacyMock.sol:114:        while (low < high) {
+35:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/BatchCaller.sol:15:        for (uint256 i = 0; i < calls.length; ++i) {
+36:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/CallReceiverMock.sol:86:        for (uint256 i = 0; ; ++i) {
+37:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol:14:        for (uint256 i = 0; i < recipients.length; i++) {
+38:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol:19:        for (uint256 i = 0; i < results.length; i++) {
+39:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ERC165Mock.sol:54:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+40:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ERC165Mock.sol:63:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+45:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/RLP.sol:369:        for (uint256 currentOffset = listOffset; currentOffset < itemLength; ptr += 0x20) {
+46:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:124:            for (uint256 it = begin + 0x20; it < end; it += 0x20) {
+47:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:232:        while (low < high) {
+48:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:268:        while (low < high) {
+49:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:302:        while (low < high) {
+50:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:331:        while (low < high) {
+51:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:360:        while (low < high) {
+56:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:32:        for (uint256 i = 0; i < data.length; i++) {
+58:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/TrieProof.sol:114:        for (uint256 i = 0; i < proof.length; ++i) {
+59:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/TrieProof.sol:131:            for (Memory.Slice[] memory decoded = encoded.decodeList(); ; ) {
+60:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:59:        for (uint256 i = 0; i < proof.length; i++) {
+61:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:96:        for (uint256 i = 0; i < proof.length; i++) {
+62:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:124:        for (uint256 i = 0; i < proof.length; i++) {
+63:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:161:        for (uint256 i = 0; i < proof.length; i++) {
+64:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:232:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+65:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:319:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+66:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:404:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+67:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:491:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+68:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/P256.sol:336:            for (uint256 i = 0; i < 128; ++i) {
+69:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:170:        for (uint256 i = 0; i < signers.length; ++i) {
+70:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:183:                for (uint256 j = 0; j < i; ++j) {
+71:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:106:        for (uint256 i = 0; i < signers.length; ++i) {
+72:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:161:            for (uint256 i = 0; i < signers.length; ++i) {
+73:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:201:            for (uint256 i = 0; i < signers.length; ++i) {
+74:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:126:        for (uint256 i = 0; i < newSigners.length; ++i) {
+75:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:143:        for (uint256 i = 0; i < oldSigners.length; ++i) {
+76:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:244:        for (uint256 i = 0; i < signers.length; ++i) {
+77:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol:64:            for (uint256 i = 0; i < length; i += 0x20) {
+78:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol:130:            for (uint256 i = 2; i < paddingEnd; ++i) {
+79:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol:176:            for (uint256 i = 0; i < buffer.length; ++i) {
+80:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol:190:            for (uint256 i = buffer.length; i > 0; --i) {
+81:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol:62:            for (uint256 i = 0; i < interfaceIds.length; i++) {
+82:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol:86:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+83:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:32:        for (uint256 i = pos; i < length; ++i) {
+84:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:61:            for (uint256 i = Math.min(Math.saturatingAdd(pos, 1), length); i > 0; --i) {
+85:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:185:        for (uint256 i = 0; i < buffers.length; ++i) {
+86:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:192:        for (uint256 i = 0; i < buffers.length; ++i) {
+87:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:311:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+88:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/CircularBuffer.sol:145:        for (uint256 i = 0; i < total; ++i) {
+89:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol:104:        for (uint256 i = 0; i < len; ++i) {
+90:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol:1355:        for (uint256 i = 0; i < len; ++i) {
+91:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:177:        while (low < high) {
+92:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:201:        while (low < high) {
+93:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:380:        while (low < high) {
+94:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:404:        while (low < high) {
+95:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:583:        while (low < high) {
+96:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:607:        while (low < high) {
+97:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:786:        while (low < high) {
+98:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:810:        while (low < high) {
+99:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Heap.sol:250:            while (index > 0) {
+100:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:98:        for (uint256 i = 0; i < treeDepth; ++i) {
+101:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:153:        for (uint256 i = 0; i < treeDepth; i++) {
+102:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:235:            for (uint32 i = 0; i < treeDepth; i++) {
+103:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:136:        for (uint256 i = 0; i < len; ++i) {
+104:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:197:            for (uint256 i = 0; i < len; ++i) {
+105:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:686:        for (uint256 i = 0; i < len; ++i) {
+106:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:747:            for (uint256 i = 0; i < len; ++i) {
+107:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:828:        for (uint256 i = 0; i < len; ++i) {
+108:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:889:            for (uint256 i = 0; i < len; ++i) {
+109:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/math/Math.sol:338:            while (remainder != 0) {
+110:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/math/Math.sol:480:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+111:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:50:            while (true) {
+112:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:86:        for (uint256 i = 2 * length + 1; i > 1; --i) {
+113:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:117:        for (uint256 i = 41; i > 1; --i) {
+114:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:136:            for (uint256 i = 0; i < input.length; ++i) {
+115:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:213:        for (uint256 i = begin; i < end; ++i) {
+116:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:365:        for (uint256 i = begin + offset; i < end; ++i) {
+117:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:473:        for (uint256 i = 0; i < buffer.length; ++i) {
+124:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:222:            while (_governanceCall.popFront() != msgDataHash) {}
+125:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:408:            for (uint256 i = 0; i < targets.length; ++i) {
+126:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:441:        for (uint256 i = 0; i < targets.length; ++i) {
+129:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:89:        for (uint256 i = 0; i < proposers.length; ++i) {
+130:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:93:        for (uint256 i = 0; i < executors.length; ++i) {
+131:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:177:        for (uint256 i = 0; i < targets.length; ++i) {
+133:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:73:        for (uint256 i = 0; i < targets.length; ++i) {
+134:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:101:        for (uint256 i = 0; i < targets.length; ++i) {
+135:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:121:            for (uint256 i = 0; i < targets.length; ++i) {
+136:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:135:        for (uint256 i = 0; i < selectors.length; ++i) {
+137:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:167:        for (uint256 i = 0; i < length; ++i) {
+138:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:193:        for (uint256 i = 0; i < targets.length; ++i) {
+139:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:233:        for (uint256 i = 0; i < targets.length; ++i) {
+140:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:264:        for (uint256 i = 0; i < targets.length; ++i) {
+142:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:293:            for (uint256 i = 0; i < targets.length; ++i) {
+143:./governor-retrofit/lib/openzeppelin-contracts/contracts/access/manager/AccessManager.sol:380:        for (uint256 i = 0; i < selectors.length; ++i) {
+158:./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:32:        for (uint i = 0; i < N; i++) {
+162:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+163:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+164:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+165:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+166:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+167:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+168:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+169:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:339:        for (uint256 i = 0; i < nvars; i++) {
+170:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:474:        for (uint256 i; i < shiftSizes.length; i++) {
+171:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:315:        for (uint256 i; i < 10000; i++) {
+172:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:331:        for (uint256 i = 0; i < b.length; i++) {
+173:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:339:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+174:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+175:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; --i >= 0;) {
+176:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:275:        while (found) {
+177:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:286:        for (uint256 i = 0; i < max; i++) {
+178:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:294:        for (uint256 i = 0; i < b.length; i++) {
+179:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:148:        for (uint256 i = 0; i < length; ++i) {
+181:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:158:        for (uint256 i = 0; i < length; ++i) {
+190:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:386:        for (uint256 i; i < rawTxs.length; i++) {
+191:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:454:        for (uint256 i; i < rawReceipts.length; i++) {
+192:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:485:        for (uint256 i; i < rawLogs.length; i++) {
+194:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+200:./governor-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:399:        for (uint256 i = 0; i < logs.length; i++) {
+201:./governor-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:419:        for (uint256 i = 0; i < calls.length; ++i) {
+202:./governor-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:176:        for (uint256 i = 0; i < batchSize; ++i) {
+203:./governor-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:234:        for (uint256 i = 0; i < requests.length; ++i) {
+204:./governor-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:257:        for (uint256 i = 0; i < requests.length; ++i) {
+205:./governor-retrofit/lib/openzeppelin-contracts/test/token/ERC721/extensions/ERC721Consecutive.t.sol:23:        for (uint256 i = 0; i < batches.length; i++) {
+206:./governor-retrofit/lib/openzeppelin-contracts/test/utils/RLP.t.sol:44:        for (uint256 i = 0; i < input.length; ++i) {
+207:./governor-retrofit/lib/openzeppelin-contracts/test/utils/RLP.t.sol:52:        for (uint256 i = 0; i < input.length; ++i) {
+208:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:18:        for (uint256 i = 0; i < 3; i++) {
+209:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:199:        for (uint256 i = 0; i < buffer.length; ++i) {
+210:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:230:        for (uint256 i = 0; i < buffer.length; ++i) {
+211:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:255:        for (uint256 i = 0; i < buffer.length; ++i) {
+212:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:286:        for (uint256 i = 0; i < buffer.length; ++i) {
+213:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:311:        for (uint256 i = 0; i < buffer.length; ++i) {
+214:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:342:        for (uint256 i = 0; i < buffer.length; ++i) {
+215:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:356:        for (uint256 i = 1; i < values.length; ++i) {
+216:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:368:        for (uint256 i = 0; i < expectedLength; ++i) {
+217:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:380:        for (uint256 i = 0; i < expectedLength; ++i) {
+218:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:392:        for (uint256 i = 0; i < expectedLength; ++i) {
+219:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:401:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+220:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:407:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+221:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:413:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+223:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:25:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+224:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:30:            for (uint256 i = 0; i < result; ++i) assertNotEq(buffer[i], s);
+225:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:42:            for (uint256 i = pos; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+226:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:47:            for (uint256 i = pos; i < result; ++i) assertNotEq(buffer[i], s);
+227:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:59:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+228:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:64:            for (uint256 i = result + 1; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+229:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:76:            for (uint256 i = 0; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+230:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:81:            for (uint256 i = result + 1; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+231:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:97:        for (uint256 i = 0; i < result.length; ++i) {
+232:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:117:        for (uint256 i = 0; i < result.length; ++i) {
+233:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:133:        for (uint256 i = 0; i < result.length; ++i) {
+234:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:153:        for (uint256 i = 0; i < result.length; ++i) {
+235:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:164:        for (uint256 i = 0; i < input.length; ++i) {
+236:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:187:        for (uint256 i = 0; i < buffer.length; ++i) {
+237:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:218:        for (uint256 i = 0; i < buffer.length; ++i) {
+238:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:282:        for (uint256 i = 0; i < index; ++i) {
+239:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Base64.t.sol:23:        for (uint256 i = 0; i < input.length; ++i) {
+240:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Base64.t.sol:30:        for (uint256 i = 0; i < output.length; ++i) {
+241:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:26:        for (uint256 i = 0; i < keys.length; ++i) {
+242:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:51:        for (uint256 i = 0; i < keys.length; ++i) {
+243:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:91:        for (uint256 i = 0; i < keys.length; ++i) {
+244:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:134:        for (uint256 i = 0; i < keys.length; ++i) {
+245:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:159:        for (uint256 i = 0; i < keys.length; ++i) {
+246:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:199:        for (uint256 i = 0; i < keys.length; ++i) {
+247:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:242:        for (uint256 i = 0; i < keys.length; ++i) {
+248:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:267:        for (uint256 i = 0; i < keys.length; ++i) {
+249:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:307:        for (uint256 i = 0; i < keys.length; ++i) {
+250:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:350:        for (uint256 i = 0; i < keys.length; ++i) {
+251:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:375:        for (uint256 i = 0; i < keys.length; ++i) {
+252:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:415:        for (uint256 i = 0; i < keys.length; ++i) {
+253:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Accumulators.t.sol:26:        for (uint256 i = 0; i < input.length; ++i) acc.push(input[i]);
+254:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Accumulators.t.sol:32:        for (uint256 i = input.length; i > 0; --i) acc.shift(input[i - 1]);
+255:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:16:        for (uint32 i = 1; i < heap.length(); ++i) {
+256:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:26:        for (uint256 i = 0; i < input.length; ++i) {
+257:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:36:        for (uint256 i = 0; i < input.length; ++i) {
+258:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:53:        for (uint256 i = 0; i < input.length; ++i) {
+259:./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:63:        for (uint256 i = 0; i < input.length; ++i) {
+260:./governor-retrofit/lib/openzeppelin-contracts/test/utils/math/Math.t.sol:361:        while (e > 0) {
+261:./governor-retrofit/lib/forge-std/test/Config.t.sol:143:        for (uint256 i = 0; i < keys.length; ++i) {
+262:./governor-retrofit/lib/forge-std/test/Config.t.sol:151:        for (uint256 i = 0; i < keys.length; ++i) {
+263:./governor-retrofit/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+264:./governor-retrofit/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+265:./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+266:./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+267:./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+268:./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+269:./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+270:./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:338:        for (uint256 i = 0; i < nvars; i++) {
+271:./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:496:        for (uint256 i; i < shiftSizes.length; i++) {
+272:./governor-retrofit/lib/forge-std/test/StdCheats.t.sol:314:        for (uint256 i; i < 10000; i++) {
+273:./governor-retrofit/lib/forge-std/test/StdCheats.t.sol:330:        for (uint256 i = 0; i < b.length; i++) {
+274:./governor-retrofit/lib/forge-std/test/StdCheats.t.sol:338:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+275:./governor-retrofit/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+276:./governor-retrofit/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; i > 0;) {
+277:./governor-retrofit/lib/forge-std/src/StdStorage.sol:276:        while (found) {
+278:./governor-retrofit/lib/forge-std/src/StdStorage.sol:291:        for (uint256 i = 0; i < max; i++) {
+279:./governor-retrofit/lib/forge-std/src/StdStorage.sol:299:        for (uint256 i = 0; i < b.length; i++) {
+280:./governor-retrofit/lib/forge-std/src/LibVariable.sol:322:        for (uint256 i = 0; i < values.length; i++) {
+281:./governor-retrofit/lib/forge-std/src/LibVariable.sol:335:        for (uint256 i = 0; i < values.length; i++) {
+282:./governor-retrofit/lib/forge-std/src/LibVariable.sol:348:        for (uint256 i = 0; i < values.length; i++) {
+283:./governor-retrofit/lib/forge-std/src/LibVariable.sol:361:        for (uint256 i = 0; i < values.length; i++) {
+284:./governor-retrofit/lib/forge-std/src/LibVariable.sol:374:        for (uint256 i = 0; i < values.length; i++) {
+285:./governor-retrofit/lib/forge-std/src/LibVariable.sol:397:        for (uint256 i = 0; i < values.length; i++) {
+286:./governor-retrofit/lib/forge-std/src/LibVariable.sol:410:        for (uint256 i = 0; i < values.length; i++) {
+287:./governor-retrofit/lib/forge-std/src/LibVariable.sol:423:        for (uint256 i = 0; i < values.length; i++) {
+288:./governor-retrofit/lib/forge-std/src/LibVariable.sol:436:        for (uint256 i = 0; i < values.length; i++) {
+289:./governor-retrofit/lib/forge-std/src/LibVariable.sol:449:        for (uint256 i = 0; i < values.length; i++) {
+290:./governor-retrofit/lib/forge-std/src/StdUtils.sol:140:        for (uint256 i = 0; i < length; ++i) {
+292:./governor-retrofit/lib/forge-std/src/StdUtils.sol:150:        for (uint256 i = 0; i < length; ++i) {
+300:./governor-retrofit/lib/forge-std/src/Config.sol:51:        for (uint256 i = 0; i < chains.length; i++) {
+302:./governor-retrofit/lib/forge-std/src/StdCheats.sol:384:        for (uint256 i; i < rawTxs.length; i++) {
+303:./governor-retrofit/lib/forge-std/src/StdCheats.sol:453:        for (uint256 i; i < rawReceipts.length; i++) {
+304:./governor-retrofit/lib/forge-std/src/StdCheats.sol:484:        for (uint256 i; i < rawLogs.length; i++) {
+306:./governor-retrofit/lib/forge-std/src/StdConfig.sol:97:        for (uint256 i = 0; i < chain_keys.length; i++) {
+307:./governor-retrofit/lib/forge-std/src/StdConfig.sol:117:            for (uint8 t = 1; t <= NUM_TYPES; t++) {
+308:./governor-retrofit/lib/forge-std/src/StdConfig.sol:122:                    for (uint256 j = 0; j < keys.length; j++) {
+309:./governor-retrofit/lib/forge-std/src/StdConfig.sol:265:        for (uint256 i = 0; i < _chainKeys.length; i++) {
+310:./governor-retrofit/lib/forge-std/src/StdConfig.sol:348:        for (uint256 i = 0; i < keys.length; i++) {
+311:./governor-retrofit/lib/forge-std/src/StdConfig.sol:480:            for (uint256 i = 0; i < value.length; i++) {
+312:./governor-retrofit/lib/forge-std/src/StdConfig.sol:503:            for (uint256 i = 0; i < value.length; i++) {
+313:./governor-retrofit/lib/forge-std/src/StdConfig.sol:526:            for (uint256 i = 0; i < value.length; i++) {
+314:./governor-retrofit/lib/forge-std/src/StdConfig.sol:549:            for (uint256 i = 0; i < value.length; i++) {
+315:./governor-retrofit/lib/forge-std/src/StdConfig.sol:572:            for (uint256 i = 0; i < value.length; i++) {
+316:./governor-retrofit/lib/forge-std/src/StdConfig.sol:595:            for (uint256 i = 0; i < value.length; i++) {
+317:./governor-retrofit/lib/forge-std/src/StdConfig.sol:618:            for (uint256 i = 0; i < value.length; i++) {
+318:./governor-retrofit/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+323:./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+332:./timelock-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:172:        for (uint256 i; i < requests.length; ++i) {
+335:./timelock-retrofit/lib/openzeppelin-contracts/contracts/crosschain/CrosschainLinked.sol:47:        for (uint256 i = 0; i < links.length; ++i) {
+338:./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:33:        for (uint256 i = 0; i < length; ++i) {
+339:./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:51:        for (uint256 i = 0; i < length; ++i) {
+340:./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol:81:        for (uint256 i = 0; i < accounts.length; ++i) {
+341:./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol:144:        for (uint256 i = 0; i < ids.length; ++i) {
+342:./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol:60:            for (uint256 i = 0; i < ids.length; ++i) {
+343:./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol:72:            for (uint256 i = 0; i < ids.length; ++i) {
+345:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveEnumerableMock.sol:16:        for (uint256 i = 0; i < receivers.length; ++i) {
+346:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol:27:        for (uint256 i = 0; i < delegates.length; ++i) {
+347:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol:31:        for (uint256 i = 0; i < receivers.length; ++i) {
+348:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC20VotesLegacyMock.sol:114:        while (low < high) {
+350:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/BatchCaller.sol:15:        for (uint256 i = 0; i < calls.length; ++i) {
+351:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/CallReceiverMock.sol:86:        for (uint256 i = 0; ; ++i) {
+352:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol:14:        for (uint256 i = 0; i < recipients.length; i++) {
+353:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol:19:        for (uint256 i = 0; i < results.length; i++) {
+354:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ERC165Mock.sol:54:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+355:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ERC165Mock.sol:63:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+360:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/RLP.sol:369:        for (uint256 currentOffset = listOffset; currentOffset < itemLength; ptr += 0x20) {
+361:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:124:            for (uint256 it = begin + 0x20; it < end; it += 0x20) {
+362:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:232:        while (low < high) {
+363:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:268:        while (low < high) {
+364:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:302:        while (low < high) {
+365:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:331:        while (low < high) {
+366:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:360:        while (low < high) {
+371:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:32:        for (uint256 i = 0; i < data.length; i++) {
+373:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/TrieProof.sol:114:        for (uint256 i = 0; i < proof.length; ++i) {
+374:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/TrieProof.sol:131:            for (Memory.Slice[] memory decoded = encoded.decodeList(); ; ) {
+375:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:59:        for (uint256 i = 0; i < proof.length; i++) {
+376:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:96:        for (uint256 i = 0; i < proof.length; i++) {
+377:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:124:        for (uint256 i = 0; i < proof.length; i++) {
+378:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:161:        for (uint256 i = 0; i < proof.length; i++) {
+379:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:232:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+380:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:319:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+381:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:404:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+382:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:491:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+383:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/P256.sol:336:            for (uint256 i = 0; i < 128; ++i) {
+384:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:170:        for (uint256 i = 0; i < signers.length; ++i) {
+385:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:183:                for (uint256 j = 0; j < i; ++j) {
+386:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:106:        for (uint256 i = 0; i < signers.length; ++i) {
+387:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:161:            for (uint256 i = 0; i < signers.length; ++i) {
+388:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:201:            for (uint256 i = 0; i < signers.length; ++i) {
+389:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:126:        for (uint256 i = 0; i < newSigners.length; ++i) {
+390:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:143:        for (uint256 i = 0; i < oldSigners.length; ++i) {
+391:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:244:        for (uint256 i = 0; i < signers.length; ++i) {
+392:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol:64:            for (uint256 i = 0; i < length; i += 0x20) {
+393:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol:130:            for (uint256 i = 2; i < paddingEnd; ++i) {
+394:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol:176:            for (uint256 i = 0; i < buffer.length; ++i) {
+395:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol:190:            for (uint256 i = buffer.length; i > 0; --i) {
+396:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol:62:            for (uint256 i = 0; i < interfaceIds.length; i++) {
+397:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol:86:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+398:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:32:        for (uint256 i = pos; i < length; ++i) {
+399:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:61:            for (uint256 i = Math.min(Math.saturatingAdd(pos, 1), length); i > 0; --i) {
+400:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:185:        for (uint256 i = 0; i < buffers.length; ++i) {
+401:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:192:        for (uint256 i = 0; i < buffers.length; ++i) {
+402:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:311:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+403:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/CircularBuffer.sol:145:        for (uint256 i = 0; i < total; ++i) {
+404:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol:104:        for (uint256 i = 0; i < len; ++i) {
+405:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol:1355:        for (uint256 i = 0; i < len; ++i) {
+406:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:177:        while (low < high) {
+407:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:201:        while (low < high) {
+408:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:380:        while (low < high) {
+409:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:404:        while (low < high) {
+410:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:583:        while (low < high) {
+411:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:607:        while (low < high) {
+412:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:786:        while (low < high) {
+413:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:810:        while (low < high) {
+414:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Heap.sol:250:            while (index > 0) {
+415:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:98:        for (uint256 i = 0; i < treeDepth; ++i) {
+416:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:153:        for (uint256 i = 0; i < treeDepth; i++) {
+417:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:235:            for (uint32 i = 0; i < treeDepth; i++) {
+418:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:136:        for (uint256 i = 0; i < len; ++i) {
+419:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:197:            for (uint256 i = 0; i < len; ++i) {
+420:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:686:        for (uint256 i = 0; i < len; ++i) {
+421:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:747:            for (uint256 i = 0; i < len; ++i) {
+422:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:828:        for (uint256 i = 0; i < len; ++i) {
+423:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:889:            for (uint256 i = 0; i < len; ++i) {
+424:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/math/Math.sol:338:            while (remainder != 0) {
+425:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/math/Math.sol:480:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+426:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:50:            while (true) {
+427:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:86:        for (uint256 i = 2 * length + 1; i > 1; --i) {
+428:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:117:        for (uint256 i = 41; i > 1; --i) {
+429:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:136:            for (uint256 i = 0; i < input.length; ++i) {
+430:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:213:        for (uint256 i = begin; i < end; ++i) {
+431:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:365:        for (uint256 i = begin + offset; i < end; ++i) {
+432:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:473:        for (uint256 i = 0; i < buffer.length; ++i) {
+439:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:222:            while (_governanceCall.popFront() != msgDataHash) {}
+440:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:408:            for (uint256 i = 0; i < targets.length; ++i) {
+441:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:441:        for (uint256 i = 0; i < targets.length; ++i) {
+444:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:125:        for (uint256 i = 0; i < proposers.length; ++i) {
+445:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:131:        for (uint256 i = 0; i < executors.length; ++i) {
+446:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:303:        for (uint256 i = 0; i < targets.length; ++i) {
+447:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:397:        for (uint256 i = 0; i < targets.length; ++i) {
+449:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:73:        for (uint256 i = 0; i < targets.length; ++i) {
+450:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:101:        for (uint256 i = 0; i < targets.length; ++i) {
+451:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:121:            for (uint256 i = 0; i < targets.length; ++i) {
+452:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:135:        for (uint256 i = 0; i < selectors.length; ++i) {
+453:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:167:        for (uint256 i = 0; i < length; ++i) {
+454:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:193:        for (uint256 i = 0; i < targets.length; ++i) {
+455:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:233:        for (uint256 i = 0; i < targets.length; ++i) {
+456:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:264:        for (uint256 i = 0; i < targets.length; ++i) {
+458:./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:293:            for (uint256 i = 0; i < targets.length; ++i) {
+459:./timelock-retrofit/lib/openzeppelin-contracts/contracts/access/manager/AccessManager.sol:380:        for (uint256 i = 0; i < selectors.length; ++i) {
+474:./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:32:        for (uint i = 0; i < N; i++) {
+478:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+479:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+480:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+481:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+482:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+483:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+484:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+485:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:339:        for (uint256 i = 0; i < nvars; i++) {
+486:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:474:        for (uint256 i; i < shiftSizes.length; i++) {
+487:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:315:        for (uint256 i; i < 10000; i++) {
+488:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:331:        for (uint256 i = 0; i < b.length; i++) {
+489:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:339:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+490:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+491:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; --i >= 0;) {
+492:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:275:        while (found) {
+493:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:286:        for (uint256 i = 0; i < max; i++) {
+494:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:294:        for (uint256 i = 0; i < b.length; i++) {
+495:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:148:        for (uint256 i = 0; i < length; ++i) {
+497:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:158:        for (uint256 i = 0; i < length; ++i) {
+506:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:386:        for (uint256 i; i < rawTxs.length; i++) {
+507:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:454:        for (uint256 i; i < rawReceipts.length; i++) {
+508:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:485:        for (uint256 i; i < rawLogs.length; i++) {
+510:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+516:./timelock-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:399:        for (uint256 i = 0; i < logs.length; i++) {
+517:./timelock-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:419:        for (uint256 i = 0; i < calls.length; ++i) {
+518:./timelock-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:176:        for (uint256 i = 0; i < batchSize; ++i) {
+519:./timelock-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:234:        for (uint256 i = 0; i < requests.length; ++i) {
+520:./timelock-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:257:        for (uint256 i = 0; i < requests.length; ++i) {
+521:./timelock-retrofit/lib/openzeppelin-contracts/test/token/ERC721/extensions/ERC721Consecutive.t.sol:23:        for (uint256 i = 0; i < batches.length; i++) {
+522:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/RLP.t.sol:44:        for (uint256 i = 0; i < input.length; ++i) {
+523:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/RLP.t.sol:52:        for (uint256 i = 0; i < input.length; ++i) {
+524:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:18:        for (uint256 i = 0; i < 3; i++) {
+525:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:199:        for (uint256 i = 0; i < buffer.length; ++i) {
+526:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:230:        for (uint256 i = 0; i < buffer.length; ++i) {
+527:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:255:        for (uint256 i = 0; i < buffer.length; ++i) {
+528:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:286:        for (uint256 i = 0; i < buffer.length; ++i) {
+529:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:311:        for (uint256 i = 0; i < buffer.length; ++i) {
+530:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:342:        for (uint256 i = 0; i < buffer.length; ++i) {
+531:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:356:        for (uint256 i = 1; i < values.length; ++i) {
+532:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:368:        for (uint256 i = 0; i < expectedLength; ++i) {
+533:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:380:        for (uint256 i = 0; i < expectedLength; ++i) {
+534:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:392:        for (uint256 i = 0; i < expectedLength; ++i) {
+535:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:401:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+536:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:407:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+537:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:413:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+539:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:25:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+540:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:30:            for (uint256 i = 0; i < result; ++i) assertNotEq(buffer[i], s);
+541:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:42:            for (uint256 i = pos; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+542:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:47:            for (uint256 i = pos; i < result; ++i) assertNotEq(buffer[i], s);
+543:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:59:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+544:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:64:            for (uint256 i = result + 1; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+545:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:76:            for (uint256 i = 0; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+546:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:81:            for (uint256 i = result + 1; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+547:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:97:        for (uint256 i = 0; i < result.length; ++i) {
+548:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:117:        for (uint256 i = 0; i < result.length; ++i) {
+549:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:133:        for (uint256 i = 0; i < result.length; ++i) {
+550:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:153:        for (uint256 i = 0; i < result.length; ++i) {
+551:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:164:        for (uint256 i = 0; i < input.length; ++i) {
+552:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:187:        for (uint256 i = 0; i < buffer.length; ++i) {
+553:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:218:        for (uint256 i = 0; i < buffer.length; ++i) {
+554:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:282:        for (uint256 i = 0; i < index; ++i) {
+555:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Base64.t.sol:23:        for (uint256 i = 0; i < input.length; ++i) {
+556:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Base64.t.sol:30:        for (uint256 i = 0; i < output.length; ++i) {
+557:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:26:        for (uint256 i = 0; i < keys.length; ++i) {
+558:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:51:        for (uint256 i = 0; i < keys.length; ++i) {
+559:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:91:        for (uint256 i = 0; i < keys.length; ++i) {
+560:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:134:        for (uint256 i = 0; i < keys.length; ++i) {
+561:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:159:        for (uint256 i = 0; i < keys.length; ++i) {
+562:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:199:        for (uint256 i = 0; i < keys.length; ++i) {
+563:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:242:        for (uint256 i = 0; i < keys.length; ++i) {
+564:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:267:        for (uint256 i = 0; i < keys.length; ++i) {
+565:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:307:        for (uint256 i = 0; i < keys.length; ++i) {
+566:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:350:        for (uint256 i = 0; i < keys.length; ++i) {
+567:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:375:        for (uint256 i = 0; i < keys.length; ++i) {
+568:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:415:        for (uint256 i = 0; i < keys.length; ++i) {
+569:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Accumulators.t.sol:26:        for (uint256 i = 0; i < input.length; ++i) acc.push(input[i]);
+570:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Accumulators.t.sol:32:        for (uint256 i = input.length; i > 0; --i) acc.shift(input[i - 1]);
+571:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:16:        for (uint32 i = 1; i < heap.length(); ++i) {
+572:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:26:        for (uint256 i = 0; i < input.length; ++i) {
+573:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:36:        for (uint256 i = 0; i < input.length; ++i) {
+574:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:53:        for (uint256 i = 0; i < input.length; ++i) {
+575:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:63:        for (uint256 i = 0; i < input.length; ++i) {
+576:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/math/Math.t.sol:361:        while (e > 0) {
+577:./timelock-retrofit/lib/forge-std/test/Config.t.sol:143:        for (uint256 i = 0; i < keys.length; ++i) {
+578:./timelock-retrofit/lib/forge-std/test/Config.t.sol:151:        for (uint256 i = 0; i < keys.length; ++i) {
+579:./timelock-retrofit/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+580:./timelock-retrofit/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+581:./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+582:./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+583:./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+584:./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+585:./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+586:./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:338:        for (uint256 i = 0; i < nvars; i++) {
+587:./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:496:        for (uint256 i; i < shiftSizes.length; i++) {
+588:./timelock-retrofit/lib/forge-std/test/StdCheats.t.sol:314:        for (uint256 i; i < 10000; i++) {
+589:./timelock-retrofit/lib/forge-std/test/StdCheats.t.sol:330:        for (uint256 i = 0; i < b.length; i++) {
+590:./timelock-retrofit/lib/forge-std/test/StdCheats.t.sol:338:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+591:./timelock-retrofit/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+592:./timelock-retrofit/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; i > 0;) {
+593:./timelock-retrofit/lib/forge-std/src/StdStorage.sol:276:        while (found) {
+594:./timelock-retrofit/lib/forge-std/src/StdStorage.sol:291:        for (uint256 i = 0; i < max; i++) {
+595:./timelock-retrofit/lib/forge-std/src/StdStorage.sol:299:        for (uint256 i = 0; i < b.length; i++) {
+596:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:322:        for (uint256 i = 0; i < values.length; i++) {
+597:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:335:        for (uint256 i = 0; i < values.length; i++) {
+598:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:348:        for (uint256 i = 0; i < values.length; i++) {
+599:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:361:        for (uint256 i = 0; i < values.length; i++) {
+600:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:374:        for (uint256 i = 0; i < values.length; i++) {
+601:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:397:        for (uint256 i = 0; i < values.length; i++) {
+602:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:410:        for (uint256 i = 0; i < values.length; i++) {
+603:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:423:        for (uint256 i = 0; i < values.length; i++) {
+604:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:436:        for (uint256 i = 0; i < values.length; i++) {
+605:./timelock-retrofit/lib/forge-std/src/LibVariable.sol:449:        for (uint256 i = 0; i < values.length; i++) {
+606:./timelock-retrofit/lib/forge-std/src/StdUtils.sol:140:        for (uint256 i = 0; i < length; ++i) {
+608:./timelock-retrofit/lib/forge-std/src/StdUtils.sol:150:        for (uint256 i = 0; i < length; ++i) {
+616:./timelock-retrofit/lib/forge-std/src/Config.sol:51:        for (uint256 i = 0; i < chains.length; i++) {
+618:./timelock-retrofit/lib/forge-std/src/StdCheats.sol:384:        for (uint256 i; i < rawTxs.length; i++) {
+619:./timelock-retrofit/lib/forge-std/src/StdCheats.sol:453:        for (uint256 i; i < rawReceipts.length; i++) {
+620:./timelock-retrofit/lib/forge-std/src/StdCheats.sol:484:        for (uint256 i; i < rawLogs.length; i++) {
+622:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:97:        for (uint256 i = 0; i < chain_keys.length; i++) {
+623:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:117:            for (uint8 t = 1; t <= NUM_TYPES; t++) {
+624:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:122:                    for (uint256 j = 0; j < keys.length; j++) {
+625:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:265:        for (uint256 i = 0; i < _chainKeys.length; i++) {
+626:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:348:        for (uint256 i = 0; i < keys.length; i++) {
+627:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:480:            for (uint256 i = 0; i < value.length; i++) {
+628:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:503:            for (uint256 i = 0; i < value.length; i++) {
+629:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:526:            for (uint256 i = 0; i < value.length; i++) {
+630:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:549:            for (uint256 i = 0; i < value.length; i++) {
+631:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:572:            for (uint256 i = 0; i < value.length; i++) {
+632:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:595:            for (uint256 i = 0; i < value.length; i++) {
+633:./timelock-retrofit/lib/forge-std/src/StdConfig.sol:618:            for (uint256 i = 0; i < value.length; i++) {
+634:./timelock-retrofit/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+638:./pilot-integration/templates/SafeMultiSendPilotIntegration.sol:23:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+640:./safe-retrofit/node_modules/eth-gas-reporter/mock/contracts/VariableCosts.sol:29:    for(uint i = 0; i < adds.length; i++)
+641:./safe-retrofit/node_modules/eth-gas-reporter/mock/contracts/VariableCosts.sol:34:    for(uint i = 0; i < dels.length; i++)
+649:./safe-retrofit/contracts/semantic-runtime/SemanticMultiSendShadow.sol:59:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+650:./safe-retrofit/contracts/semantic-runtime/SemanticMultiSendShadow.sol:135:        for (uint256 j = 0; j < dataLength; j++) {
+651:./safe-retrofit/contracts/semantic-runtime/SemanticMultiSendShadow.sol:147:        while (cursor < transactions.length) {
+652:./safe-retrofit/lib/forge-std/test/Config.t.sol:143:        for (uint256 i = 0; i < keys.length; ++i) {
+653:./safe-retrofit/lib/forge-std/test/Config.t.sol:151:        for (uint256 i = 0; i < keys.length; ++i) {
+654:./safe-retrofit/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+655:./safe-retrofit/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+656:./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+657:./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+658:./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+659:./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+660:./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+661:./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:338:        for (uint256 i = 0; i < nvars; i++) {
+662:./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:496:        for (uint256 i; i < shiftSizes.length; i++) {
+663:./safe-retrofit/lib/forge-std/test/StdCheats.t.sol:314:        for (uint256 i; i < 10000; i++) {
+664:./safe-retrofit/lib/forge-std/test/StdCheats.t.sol:330:        for (uint256 i = 0; i < b.length; i++) {
+665:./safe-retrofit/lib/forge-std/test/StdCheats.t.sol:338:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+666:./safe-retrofit/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+667:./safe-retrofit/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; i > 0;) {
+668:./safe-retrofit/lib/forge-std/src/StdStorage.sol:276:        while (found) {
+669:./safe-retrofit/lib/forge-std/src/StdStorage.sol:291:        for (uint256 i = 0; i < max; i++) {
+670:./safe-retrofit/lib/forge-std/src/StdStorage.sol:299:        for (uint256 i = 0; i < b.length; i++) {
+671:./safe-retrofit/lib/forge-std/src/LibVariable.sol:322:        for (uint256 i = 0; i < values.length; i++) {
+672:./safe-retrofit/lib/forge-std/src/LibVariable.sol:335:        for (uint256 i = 0; i < values.length; i++) {
+673:./safe-retrofit/lib/forge-std/src/LibVariable.sol:348:        for (uint256 i = 0; i < values.length; i++) {
+674:./safe-retrofit/lib/forge-std/src/LibVariable.sol:361:        for (uint256 i = 0; i < values.length; i++) {
+675:./safe-retrofit/lib/forge-std/src/LibVariable.sol:374:        for (uint256 i = 0; i < values.length; i++) {
+676:./safe-retrofit/lib/forge-std/src/LibVariable.sol:397:        for (uint256 i = 0; i < values.length; i++) {
+677:./safe-retrofit/lib/forge-std/src/LibVariable.sol:410:        for (uint256 i = 0; i < values.length; i++) {
+678:./safe-retrofit/lib/forge-std/src/LibVariable.sol:423:        for (uint256 i = 0; i < values.length; i++) {
+679:./safe-retrofit/lib/forge-std/src/LibVariable.sol:436:        for (uint256 i = 0; i < values.length; i++) {
+680:./safe-retrofit/lib/forge-std/src/LibVariable.sol:449:        for (uint256 i = 0; i < values.length; i++) {
+681:./safe-retrofit/lib/forge-std/src/StdUtils.sol:140:        for (uint256 i = 0; i < length; ++i) {
+683:./safe-retrofit/lib/forge-std/src/StdUtils.sol:150:        for (uint256 i = 0; i < length; ++i) {
+691:./safe-retrofit/lib/forge-std/src/Config.sol:51:        for (uint256 i = 0; i < chains.length; i++) {
+693:./safe-retrofit/lib/forge-std/src/StdCheats.sol:384:        for (uint256 i; i < rawTxs.length; i++) {
+694:./safe-retrofit/lib/forge-std/src/StdCheats.sol:453:        for (uint256 i; i < rawReceipts.length; i++) {
+695:./safe-retrofit/lib/forge-std/src/StdCheats.sol:484:        for (uint256 i; i < rawLogs.length; i++) {
+697:./safe-retrofit/lib/forge-std/src/StdConfig.sol:97:        for (uint256 i = 0; i < chain_keys.length; i++) {
+698:./safe-retrofit/lib/forge-std/src/StdConfig.sol:117:            for (uint8 t = 1; t <= NUM_TYPES; t++) {
+699:./safe-retrofit/lib/forge-std/src/StdConfig.sol:122:                    for (uint256 j = 0; j < keys.length; j++) {
+700:./safe-retrofit/lib/forge-std/src/StdConfig.sol:265:        for (uint256 i = 0; i < _chainKeys.length; i++) {
+701:./safe-retrofit/lib/forge-std/src/StdConfig.sol:348:        for (uint256 i = 0; i < keys.length; i++) {
+702:./safe-retrofit/lib/forge-std/src/StdConfig.sol:480:            for (uint256 i = 0; i < value.length; i++) {
+703:./safe-retrofit/lib/forge-std/src/StdConfig.sol:503:            for (uint256 i = 0; i < value.length; i++) {
+704:./safe-retrofit/lib/forge-std/src/StdConfig.sol:526:            for (uint256 i = 0; i < value.length; i++) {
+705:./safe-retrofit/lib/forge-std/src/StdConfig.sol:549:            for (uint256 i = 0; i < value.length; i++) {
+706:./safe-retrofit/lib/forge-std/src/StdConfig.sol:572:            for (uint256 i = 0; i < value.length; i++) {
+707:./safe-retrofit/lib/forge-std/src/StdConfig.sol:595:            for (uint256 i = 0; i < value.length; i++) {
+708:./safe-retrofit/lib/forge-std/src/StdConfig.sol:618:            for (uint256 i = 0; i < value.length; i++) {
+709:./safe-retrofit/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+714:./safe-retrofit/lib/safe-contracts/contracts/Safe.sol:322:        for (i = 0; i < requiredSignatures; ++i) {
+719:./safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:212:        while (next != address(0) && next != SENTINEL_MODULES && moduleCount < pageSize) {
+720:./safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:39:        for (uint256 i = 0; i < ownersLength; ++i) {
+721:./safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:140:        while (currentOwner != SENTINEL_OWNERS) {
+730:./safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:19:        for (uint256 index = 0; index < length; ++index) {
+737:./safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ERC165Handler.sol:59:        for (uint256 i = 0; i < len; ++i) {
+738:./safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ERC165Handler.sol:78:        for (uint256 i = 0; i < len; ++i) {
+783:./safe-retrofit/test/PoO.t.sol:102:        for (uint256 i = 0; i < logs.length; i++) {

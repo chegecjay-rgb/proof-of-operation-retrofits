@@ -1,0 +1,314 @@
+===== timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol =====
+73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+85:    function delegatecallReturn64Bytes(
+90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+===== timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol =====
+46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+99:            address(this) == __self || // Must be called through delegatecall
+107:     * @dev Reverts if the execution is performed via delegatecall.
+112:            // Must not be called through delegatecall
+===== timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol =====
+31:    /// @dev A `delegatecall` execution.
+32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+97:    function execDelegateCall(
+103:        returnData[0] = _delegatecall(0, execType, target, callData);
+227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+228:    function _delegatecall(
+234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/structs/DoubleEndedQueue.sol)
+10: * FIFO queues. Storage use is optimized, and all operations are O(1) constant time. This includes {clear}, given that
+11: * the existing queue contents are left in storage.
+16: * DoubleEndedQueue.Bytes32Deque queue;
+19:library DoubleEndedQueue {
+36:     * @dev Inserts an item at the end of the queue.
+38:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+46:     * @dev Attempts to insert an item at the end of the queue.
+48:     * Returns `false` if the queue is full. Never reverts.
+61:     * @dev Removes the item at the end of the queue and returns it.
+63:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+72:     * @dev Attempts to remove the item at the end of the queue and return it.
+74:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+89:     * @dev Inserts an item at the beginning of the queue.
+91:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+99:     * @dev Attempts to insert an item at the beginning of the queue.
+101:     * Returns `false` if the queue is full. Never reverts.
+114:     * @dev Removes the item at the beginning of the queue and returns it.
+116:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+125:     * @dev Attempts to remove the item at the beginning of the queue and
+128:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+142:     * @dev Returns the item at the beginning of the queue.
+144:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+153:     * @dev Attempts to return the item at the beginning of the queue.
+155:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+163:     * @dev Returns the item at the end of the queue.
+165:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+174:     * @dev Attempts to return the item at the end of the queue.
+176:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+186:     * @dev Return the item at a position in the queue given by `index`, with the first item at 0 and last item at
+198:     * @dev Attempts to return the item at a position in the queue given by `index`, with the first item at
+212:     * @dev Resets the queue back to being empty.
+214:     * NOTE: The current items are left behind in storage. This does not affect the functioning of the queue, but misses
+223:     * @dev Returns the number of items in the queue.
+232:     * @dev Returns true if the queue is empty.
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol =====
+6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+11:abstract contract GovernorTimelockControlMock is
+13:    GovernorTimelockControl,
+21:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+31:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+35:    function _queueOperations(
+41:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+42:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+45:    function _executeOperations(
+51:    ) internal override(Governor, GovernorTimelockControl) {
+60:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+64:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol =====
+6:import {GovernorTimelockCompound} from "../../governance/extensions/GovernorTimelockCompound.sol";
+11:abstract contract GovernorTimelockCompoundMock is
+13:    GovernorTimelockCompound,
+23:    ) public view override(Governor, GovernorTimelockCompound) returns (ProposalState) {
+33:    ) public view virtual override(Governor, GovernorTimelockCompound) returns (bool) {
+37:    function _queueOperations(
+43:    ) internal override(Governor, GovernorTimelockCompound) returns (uint48) {
+44:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+47:    function _executeOperations(
+53:    ) internal override(Governor, GovernorTimelockCompound) {
+62:    ) internal override(Governor, GovernorTimelockCompound) returns (uint256) {
+66:    function _executor() internal view override(Governor, GovernorTimelockCompound) returns (address) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol =====
+6:import {GovernorTimelockAccess} from "../../governance/extensions/GovernorTimelockAccess.sol";
+11:abstract contract GovernorTimelockAccessMock is
+13:    GovernorTimelockAccess,
+29:    ) public view virtual override(Governor, GovernorTimelockAccess) returns (bool) {
+38:    ) public override(Governor, GovernorTimelockAccess) returns (uint256) {
+42:    function _queueOperations(
+48:    ) internal override(Governor, GovernorTimelockAccess) returns (uint48) {
+49:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+52:    function _executeOperations(
+58:    ) internal override(Governor, GovernorTimelockAccess) {
+67:    ) internal override(Governor, GovernorTimelockAccess) returns (uint256) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol =====
+29:contract CompTimelock {
+49:    event QueueTransaction(
+66:    mapping(bytes32 => bool) public queuedTransactions;
+69:        require(delay_ >= MINIMUM_DELAY, "Timelock::constructor: Delay must exceed minimum delay.");
+70:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+79:        require(msg.sender == address(this), "Timelock::setDelay: Call must come from Timelock.");
+80:        require(delay_ >= MINIMUM_DELAY, "Timelock::setDelay: Delay must exceed minimum delay.");
+81:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+88:        require(msg.sender == pendingAdmin, "Timelock::acceptAdmin: Call must come from pendingAdmin.");
+96:        require(msg.sender == address(this), "Timelock::setPendingAdmin: Call must come from Timelock.");
+102:    function queueTransaction(
+109:        require(msg.sender == admin, "Timelock::queueTransaction: Call must come from admin.");
+112:            "Timelock::queueTransaction: Estimated execution block must satisfy delay."
+116:        queuedTransactions[txHash] = true;
+118:        emit QueueTransaction(txHash, target, value, signature, data, eta);
+129:        require(msg.sender == admin, "Timelock::cancelTransaction: Call must come from admin.");
+132:        queuedTransactions[txHash] = false;
+137:    function executeTransaction(
+144:        require(msg.sender == admin, "Timelock::executeTransaction: Call must come from admin.");
+147:        require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
+148:        require(getBlockTimestamp() >= eta, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
+149:        require(getBlockTimestamp() <= eta + GRACE_PERIOD, "Timelock::executeTransaction: Transaction is stale.");
+151:        queuedTransactions[txHash] = false;
+163:        require(success, "Timelock::executeTransaction: Transaction execution reverted.");
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol =====
+2:// OpenZeppelin Contracts (last updated v5.5.0) (governance/extensions/GovernorTimelockCompound.sol)
+7:import {ICompoundTimelock} from "../../vendor/compound/ICompoundTimelock.sol";
+12: * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by
+13: * the external timelock to all successful proposals (in addition to the voting duration). The {Governor} needs to be
+14: * the admin of the timelock for any operation to be performed. A public, unrestricted,
+15: * {GovernorTimelockCompound-__acceptAdmin} is available to accept ownership of the timelock.
+17: * Using this model means the proposal will be operated by the {TimelockController} and not by the {Governor}. Thus,
+18: * the assets and permissions must be attached to the {TimelockController}. Any asset sent to the {Governor} will be
+21:abstract contract GovernorTimelockCompound is Governor {
+22:    ICompoundTimelock private _timelock;
+25:     * @dev Emitted when the timelock controller used for proposal execution is modified.
+27:    event TimelockChange(address oldTimelock, address newTimelock);
+30:     * @dev Set the timelock.
+32:    constructor(ICompoundTimelock timelockAddress) {
+33:        _updateTimelock(timelockAddress);
+43:            (currentState == ProposalState.Queued &&
+44:                block.timestamp >= proposalEta(proposalId) + _timelock.GRACE_PERIOD())
+50:     * @dev Public accessor to check the address of the timelock
+52:    function timelock() public view virtual returns (address) {
+53:        return address(_timelock);
+62:     * @dev Function to queue a proposal to the timelock.
+64:    function _queueOperations(
+71:        uint48 etaSeconds = SafeCast.toUint48(block.timestamp + _timelock.delay());
+73:        for (uint256 i = 0; i < targets.length; ++i) {
+75:                _timelock.queuedTransactions(keccak256(abi.encode(targets[i], values[i], "", calldatas[i], etaSeconds)))
+77:                revert GovernorAlreadyQueuedProposal(proposalId);
+79:            _timelock.queueTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+86:     * @dev Overridden version of the {Governor-_executeOperations} function that run the already queued proposal
+87:     * through the timelock.
+89:    function _executeOperations(
+98:            revert GovernorNotQueuedProposal(proposalId);
+100:        Address.sendValue(payable(_timelock), msg.value);
+101:        for (uint256 i = 0; i < targets.length; ++i) {
+102:            _timelock.executeTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+107:     * @dev Overridden version of the {Governor-_cancel} function to cancel the timelocked proposal if it has already
+108:     * been queued.
+121:            for (uint256 i = 0; i < targets.length; ++i) {
+122:                _timelock.cancelTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+130:     * @dev Address through which the governor executes action. In this case, the timelock.
+133:        return address(_timelock);
+137:     * @dev Accept admin right over the timelock.
+141:        _timelock.acceptAdmin();
+145:     * @dev Public endpoint to update the underlying timelock instance. Restricted to the timelock itself, so updates
+146:     * must be proposed, scheduled, and executed through governance proposals.
+148:     * For security reasons, the timelock must be handed over to another admin before setting up a new one. The two
+149:     * operations (hand over the timelock) and do the update can be batched in a single proposal.
+151:     * Note that if the timelock admin has been handed over in a previous operation, we refuse updates made through the
+152:     * timelock if admin of the timelock has already been accepted and the operation is executed outside the scope of
+155:     * CAUTION: It is not recommended to change the timelock while there are other queued governance proposals.
+157:    function updateTimelock(ICompoundTimelock newTimelock) public virtual onlyGovernance {
+158:        _updateTimelock(newTimelock);
+161:    function _updateTimelock(ICompoundTimelock newTimelock) private {
+162:        emit TimelockChange(address(_timelock), address(newTimelock));
+163:        _timelock = newTimelock;
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol =====
+2:// OpenZeppelin Contracts (last updated v5.4.0) (governance/extensions/GovernorTimelockAccess.sol)
+16: * that are delay-restricted by the manager using the normal {queue} workflow. An optional base delay is applied to
+20: * This extension allows the governor to hold and use its own assets and permissions, unlike {GovernorTimelockControl}
+21: * and {GovernorTimelockCompound}, where the timelock is a separate contract that must be the one to hold assets and
+40: * the same time. See {AccessManager-schedule} for a workaround.
+42:abstract contract GovernorTimelockAccess is Governor {
+51:        // to be scheduled and executed through the manager. Upon queuing, the value is set to nonce + 2, where the
+135:        for (uint256 i = 0; i < selectors.length; ++i) {
+155:     * the associated {AccessManager}, and another indicating which will be scheduled in {queue}. Note that
+156:     * those that must be scheduled are cancellable by `AccessManager` guardians.
+167:        for (uint256 i = 0; i < length; ++i) {
+193:        for (uint256 i = 0; i < targets.length; ++i) {
+218:     * @dev Mechanism to queue a proposal, potentially scheduling some of its operations in the AccessManager.
+223:    function _queueOperations(
+233:        for (uint256 i = 0; i < targets.length; ++i) {
+236:                // This function can reenter when calling `_manager.schedule` before performing state updates in `_setManagerData`.
+239:                (, uint32 nonce) = _manager.schedule(targets[i], calldatas[i], etaSeconds);
+250:    function _executeOperations(
+264:        for (uint256 i = 0; i < targets.length; ++i) {
+291:        // If the proposal has been scheduled it will have an ETA and we may have to externally cancel
+293:            for (uint256 i = 0; i < targets.length; ++i) {
+299:                    // already have been cancelled and rescheduled. We don't want to cancel unless it is exactly the
+300:                    // instance that we previously scheduled.
+317:     * @dev Returns whether the operation at an index is delayed by the manager, and its scheduling nonce once queued.
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (governance/TimelockController.sol)
+12: * @dev Contract module which acts as a timelocked controller. When set as the
+13: * owner of an `Ownable` smart contract, it enforces a timelock on all
+19: * have to go through the timelock process. The proposer (resp executor) role
+21: * to position this {TimelockController} as the owner of a smart contract, with
+24:contract TimelockController is AccessControl, ERC721Holder, ERC1155Holder {
+41:    error TimelockInvalidOperationLength(uint256 targets, uint256 payloads, uint256 values);
+42:     * @dev The schedule operation doesn't meet the minimum delay.
+43:    error TimelockInsufficientDelay(uint256 delay, uint256 minDelay);
+49:    error TimelockUnexpectedOperationState(bytes32 operationId, bytes32 expectedStates);
+51:    error TimelockUnexecutedPredecessor(bytes32 predecessorId);
+53:    error TimelockUnauthorizedCaller(address caller);
+54:     * @dev Emitted when a call is scheduled as part of operation `id`.
+55:    event CallScheduled(
+66:     * @dev Emitted when new proposal is scheduled with non-zero salt.
+79:     * administration through timelocked proposals. Previous versions of this contract would assign
+89:        for (uint256 i = 0; i < proposers.length; ++i) {
+93:        for (uint256 i = 0; i < executors.length; ++i) {
+159:     * @dev Schedule an operation containing a single transaction.
+160:     * Emits {CallSalt} if salt is nonzero, and {CallScheduled}.
+163:    function schedule(
+167:        _schedule(id, delay);
+168:        emit CallScheduled(id, 0, target, value, data, predecessor, delay);
+171:     * @dev Schedule an operation containing a batch of transactions.
+172:     * Emits {CallSalt} if salt is nonzero, and one {CallScheduled} event per transaction in the batch.
+173:    function scheduleBatch(
+175:            revert TimelockInvalidOperationLength(targets.length, payloads.length, values.length);
+177:        for (uint256 i = 0; i < targets.length; ++i) {
+178:            emit CallScheduled(id, i, targets[i], values[i], payloads[i], predecessor, delay);
+179:     * @dev Schedule an operation that is to become valid after a given delay.
+180:    function _schedule(bytes32 id, uint256 delay) private {
+182:            revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Unset));
+185:            revert TimelockInsufficientDelay(delay, minDelay);
+191:            revert TimelockUnexpectedOperationState(
+203:    function execute(
+204:        // === ETL Canonical PoO Injection (TIMELOCK) ===
+206:        bytes32 opType = OperationLib.OP_TIMELOCK_EXEC;
+222:    function executeBatch(
+229:    function _execute(address target, uint256 value, bytes calldata data) internal virtual {
+232:            OperationLib.TIMELOCK_SYSTEM,
+240:            revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Ready));
+242:            revert TimelockUnexecutedPredecessor(predecessor);
+246:     * @dev Changes the minimum timelock duration for future operations.
+248:     * - the caller must be the timelock itself. This can only be achieved by scheduling and later executing
+249:     * an operation where the timelock is the target and the data is the ABI-encoded call to this function.
+253:            revert TimelockUnauthorizedCaller(sender);
+===== governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol =====
+16:        for (uint32 i = 1; i < heap.length(); ++i) {
+26:        for (uint256 i = 0; i < input.length; ++i) {
+36:        for (uint256 i = 0; i < input.length; ++i) {
+53:        for (uint256 i = 0; i < input.length; ++i) {
+63:        for (uint256 i = 0; i < input.length; ++i) {
+===== governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol =====
+26:        for (uint256 i = 0; i < keys.length; ++i) {
+51:        for (uint256 i = 0; i < keys.length; ++i) {
+91:        for (uint256 i = 0; i < keys.length; ++i) {
+134:        for (uint256 i = 0; i < keys.length; ++i) {
+159:        for (uint256 i = 0; i < keys.length; ++i) {
+199:        for (uint256 i = 0; i < keys.length; ++i) {
+242:        for (uint256 i = 0; i < keys.length; ++i) {
+267:        for (uint256 i = 0; i < keys.length; ++i) {
+307:        for (uint256 i = 0; i < keys.length; ++i) {
+350:        for (uint256 i = 0; i < keys.length; ++i) {
+375:        for (uint256 i = 0; i < keys.length; ++i) {
+415:        for (uint256 i = 0; i < keys.length; ++i) {
+===== governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol =====
+25:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+30:            for (uint256 i = 0; i < result; ++i) assertNotEq(buffer[i], s);
+42:            for (uint256 i = pos; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+47:            for (uint256 i = pos; i < result; ++i) assertNotEq(buffer[i], s);
+59:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+64:            for (uint256 i = result + 1; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+76:            for (uint256 i = 0; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+81:            for (uint256 i = result + 1; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+97:        for (uint256 i = 0; i < result.length; ++i) {
+117:        for (uint256 i = 0; i < result.length; ++i) {
+133:        for (uint256 i = 0; i < result.length; ++i) {
+153:        for (uint256 i = 0; i < result.length; ++i) {
+164:        for (uint256 i = 0; i < input.length; ++i) {
+187:        for (uint256 i = 0; i < buffer.length; ++i) {
+218:        for (uint256 i = 0; i < buffer.length; ++i) {
+282:        for (uint256 i = 0; i < index; ++i) {
+===== governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol =====
+18:        for (uint256 i = 0; i < 3; i++) {
+199:        for (uint256 i = 0; i < buffer.length; ++i) {
+230:        for (uint256 i = 0; i < buffer.length; ++i) {
+255:        for (uint256 i = 0; i < buffer.length; ++i) {
+286:        for (uint256 i = 0; i < buffer.length; ++i) {
+311:        for (uint256 i = 0; i < buffer.length; ++i) {
+342:        for (uint256 i = 0; i < buffer.length; ++i) {
+356:        for (uint256 i = 1; i < values.length; ++i) {
+368:        for (uint256 i = 0; i < expectedLength; ++i) {
+380:        for (uint256 i = 0; i < expectedLength; ++i) {
+392:        for (uint256 i = 0; i < expectedLength; ++i) {
+401:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+407:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+413:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+===== governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol =====
+266:        for (uint256 i = 1; i < 5; i++) {
+272:            for (uint256 j; j < shifts; j++) {
+280:            for (uint256 j; j < shiftSizes.length; j++) {
+313:        for (uint256 i = 0; i < nvars; i++) {
+332:        for (uint256 i = 0; i < nvars; i++) {
+339:        for (uint256 i = 0; i < nvars; i++) {
+474:        for (uint256 i; i < shiftSizes.length; i++) {
+===== governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol =====
+72:        for (uint256 offset = 0; offset < 256; offset++) {
+126:            for (uint256 i = reads.length; --i >= 0;) {
+275:        while (found) {
+286:        for (uint256 i = 0; i < max; i++) {
+294:        for (uint256 i = 0; i < b.length; i++) {

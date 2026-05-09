@@ -1,0 +1,32 @@
+1339:16:        bytes32 parentOperationId = _deriveParentOperationId(
+1340:21:        uint16 operationCount = uint16(targets.length);
+1341:23:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+1342:27:                targets[operationIndex],
+1343:28:                values[operationIndex],
+1344:29:                payloads[operationIndex],
+1345:30:                parentOperationId,
+1346:32:                operationIndex,
+1347:33:                operationCount
+1349:37:                targets[operationIndex],
+1350:38:                values[operationIndex],
+1351:39:                payloads[operationIndex]
+1355:4:    event ProofOfOperation(
+1356:11:        bytes32 parentOperationId,
+1357:13:        uint16 operationIndex,
+1358:14:        uint16 operationCount
+1360:27:        bytes32 parentOperationId = keccak256(
+1361:34:        uint16 operationCount = uint16(targets.length);
+1362:36:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+1363:37:            bytes32 payloadHash = keccak256(payloads[operationIndex]);
+1364:41:                    targets[operationIndex],
+1365:43:                    operationIndex,
+1366:44:                    parentOperationId
+1367:48:            emit ProofOfOperation(
+1368:52:                targets[operationIndex],
+1369:53:                values[operationIndex],
+1370:55:                parentOperationId,
+1371:57:                operationIndex,
+1372:58:                operationCount
+1374:62:                targets[operationIndex],
+1375:63:                values[operationIndex],
+1376:64:                payloads[operationIndex]
