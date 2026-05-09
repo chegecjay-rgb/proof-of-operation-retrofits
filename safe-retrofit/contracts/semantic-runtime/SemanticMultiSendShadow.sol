@@ -66,16 +66,20 @@ contract SemanticMultiSendShadow is SafeSemanticAdapter {
                 dataLength
             );
 
-            _emitSemanticOperation(
+            SemanticOperation memory operation = SemanticOperation({
+                target: to,
+                value: value,
+                payload: payload,
+                parentOperationId: parentOperationId,
+                executionContext: executionContext,
+                operationIndex: operationIndex,
+                operationCount: operationCount
+            });
+
+            _emitSemanticOperationStruct(
                 systemId,
                 msg.sender,
-                to,
-                value,
-                payload,
-                parentOperationId,
-                executionContext,
-                operationIndex,
-                operationCount
+                operation
             );
 
             i = i + 0x55 + dataLength;

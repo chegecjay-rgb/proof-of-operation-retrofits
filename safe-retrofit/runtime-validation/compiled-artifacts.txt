@@ -1,0 +1,11 @@
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/build-info/58d8bf5945f4968422768df59c8a3c53.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SafeSemanticAdapter.sol/SafeSemanticAdapter.dbg.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SafeSemanticAdapter.sol/SafeSemanticAdapter.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SemanticMultiSendShadow.sol/IMultiSend.dbg.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SemanticMultiSendShadow.sol/IMultiSend.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SemanticMultiSendShadow.sol/SemanticMultiSendShadow.dbg.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SemanticMultiSendShadow.sol/SemanticMultiSendShadow.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-validation/SemanticMultiSendReplayHarness.sol/SemanticMultiSendReplayHarness.dbg.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-validation/SemanticMultiSendReplayHarness.sol/SemanticMultiSendReplayHarness.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic/ProofOfOperationSemanticEmitter.sol/ProofOfOperationSemanticEmitter.dbg.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic/ProofOfOperationSemanticEmitter.sol/ProofOfOperationSemanticEmitter.json

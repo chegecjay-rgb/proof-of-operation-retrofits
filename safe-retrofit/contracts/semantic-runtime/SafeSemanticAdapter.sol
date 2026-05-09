@@ -1,4 +1,5 @@
-pragma solidity ^0.8.20;
+// SPDX-License-Identifier: LGPL-3.0-only
+pragma solidity >=0.8.20 <0.9.0;
 
 abstract contract SafeSemanticAdapter {
     event ProofOfOperation(
@@ -13,6 +14,16 @@ abstract contract SafeSemanticAdapter {
         uint16 operationIndex,
         uint16 operationCount
     );
+
+    struct SemanticOperation {
+        address target;
+        uint256 value;
+        bytes payload;
+        bytes32 parentOperationId;
+        uint8 executionContext;
+        uint16 operationIndex;
+        uint16 operationCount;
+    }
 
     function _deriveParentOperationId(
         bytes32 safeTxHash,
@@ -48,37 +59,33 @@ abstract contract SafeSemanticAdapter {
         );
     }
 
-    function _emitSemanticOperation(
+    function _emitSemanticOperationStruct(
         bytes32 systemId,
         address executor,
-        address target,
-        uint256 value,
-        bytes memory payload,
-        bytes32 parentOperationId,
-        uint8 executionContext,
-        uint16 operationIndex,
-        uint16 operationCount
+        SemanticOperation memory operation
     ) internal {
-        bytes32 payloadHash = _derivePayloadHash(payload);
+        bytes32 payloadHash = _derivePayloadHash(
+            operation.payload
+        );
 
         bytes32 operationId = _deriveOperationId(
-            target,
+            operation.target,
             payloadHash,
-            operationIndex,
-            parentOperationId
+            operation.operationIndex,
+            operation.parentOperationId
         );
 
         emit ProofOfOperation(
             operationId,
             systemId,
             executor,
-            target,
-            value,
+            operation.target,
+            operation.value,
             payloadHash,
-            parentOperationId,
-            executionContext,
-            operationIndex,
-            operationCount
+            operation.parentOperationId,
+            operation.executionContext,
+            operation.operationIndex,
+            operation.operationCount
         );
     }
 }
