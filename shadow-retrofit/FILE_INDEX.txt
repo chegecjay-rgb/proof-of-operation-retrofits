@@ -1,0 +1,4 @@
+/home/cjay/proof-of-operation-retrofits/shadow-retrofit/FILE_INDEX.txt
+/home/cjay/proof-of-operation-retrofits/shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol
+/home/cjay/proof-of-operation-retrofits/shadow-retrofit/specs/SHADOW_RETROFIT_SPEC.md
+/home/cjay/proof-of-operation-retrofits/shadow-retrofit/target-file.txt
