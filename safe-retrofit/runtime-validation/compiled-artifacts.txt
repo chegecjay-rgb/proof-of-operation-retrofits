@@ -1,4 +1,7 @@
 /home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/build-info/58d8bf5945f4968422768df59c8a3c53.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/build-info/e15661fdb6d037720552bbb9d53823cb.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/MultiSend.sol/MultiSend.dbg.json
+/home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/MultiSend.sol/MultiSend.json
 /home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SafeSemanticAdapter.sol/SafeSemanticAdapter.dbg.json
 /home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SafeSemanticAdapter.sol/SafeSemanticAdapter.json
 /home/cjay/proof-of-operation-retrofits/safe-retrofit/artifacts/contracts/semantic-runtime/SemanticMultiSendShadow.sol/IMultiSend.dbg.json
