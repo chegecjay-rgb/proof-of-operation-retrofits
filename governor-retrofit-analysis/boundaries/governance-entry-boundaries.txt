@@ -1,0 +1,605 @@
+1:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol =====
+2:2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/structs/DoubleEndedQueue.sol)
+3:10: * FIFO queues. Storage use is optimized, and all operations are O(1) constant time. This includes {clear}, given that
+4:11: * the existing queue contents are left in storage.
+5:16: * DoubleEndedQueue.Bytes32Deque queue;
+6:19:library DoubleEndedQueue {
+8:36:     * @dev Inserts an item at the end of the queue.
+9:38:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+11:46:     * @dev Attempts to insert an item at the end of the queue.
+12:48:     * Returns `false` if the queue is full. Never reverts.
+14:61:     * @dev Removes the item at the end of the queue and returns it.
+15:63:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+17:72:     * @dev Attempts to remove the item at the end of the queue and return it.
+18:74:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+20:89:     * @dev Inserts an item at the beginning of the queue.
+21:91:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+23:99:     * @dev Attempts to insert an item at the beginning of the queue.
+24:101:     * Returns `false` if the queue is full. Never reverts.
+26:114:     * @dev Removes the item at the beginning of the queue and returns it.
+27:116:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+29:125:     * @dev Attempts to remove the item at the beginning of the queue and
+30:128:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+32:142:     * @dev Returns the item at the beginning of the queue.
+33:144:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+35:153:     * @dev Attempts to return the item at the beginning of the queue.
+36:155:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+38:163:     * @dev Returns the item at the end of the queue.
+39:165:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+41:174:     * @dev Attempts to return the item at the end of the queue.
+42:176:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+44:186:     * @dev Return the item at a position in the queue given by `index`, with the first item at 0 and last item at
+46:198:     * @dev Attempts to return the item at a position in the queue given by `index`, with the first item at
+48:212:     * @dev Resets the queue back to being empty.
+49:214:     * NOTE: The current items are left behind in storage. This does not affect the functioning of the queue, but misses
+51:223:     * @dev Returns the number of items in the queue.
+53:232:     * @dev Returns true if the queue is empty.
+55:===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol =====
+56:2:// OpenZeppelin Contracts (last updated v5.6.0) (governance/TimelockController.sol)
+57:12: * @dev Contract module which acts as a timelocked controller. When set as the
+58:13: * owner of an `Ownable` smart contract, it enforces a timelock on all
+61:19: * have to go through the timelock process. The proposer (resp executor) role
+62:21: * to position this {TimelockController} as the owner of a smart contract, with
+63:24:contract TimelockController is AccessControl, ERC721Holder, ERC1155Holder {
+64:41:    error TimelockInvalidOperationLength(uint256 targets, uint256 payloads, uint256 values);
+65:42:     * @dev The schedule operation doesn't meet the minimum delay.
+66:43:    error TimelockInsufficientDelay(uint256 delay, uint256 minDelay);
+67:49:    error TimelockUnexpectedOperationState(bytes32 operationId, bytes32 expectedStates);
+68:51:    error TimelockUnexecutedPredecessor(bytes32 predecessorId);
+69:53:    error TimelockUnauthorizedCaller(address caller);
+70:54:     * @dev Emitted when a call is scheduled as part of operation `id`.
+71:55:    event CallScheduled(
+73:66:     * @dev Emitted when new proposal is scheduled with non-zero salt.
+75:79:     * administration through timelocked proposals. Previous versions of this contract would assign
+90:159:     * @dev Schedule an operation containing a single transaction.
+91:160:     * Emits {CallSalt} if salt is nonzero, and {CallScheduled}.
+92:163:    function schedule(
+93:167:        _schedule(id, delay);
+94:168:        emit CallScheduled(id, 0, target, value, data, predecessor, delay);
+95:171:     * @dev Schedule an operation containing a batch of transactions.
+96:172:     * Emits {CallSalt} if salt is nonzero, and one {CallScheduled} event per transaction in the batch.
+97:173:    function scheduleBatch(
+98:175:            revert TimelockInvalidOperationLength(targets.length, payloads.length, values.length);
+100:178:            emit CallScheduled(id, i, targets[i], values[i], payloads[i], predecessor, delay);
+101:179:     * @dev Schedule an operation that is to become valid after a given delay.
+102:180:    function _schedule(bytes32 id, uint256 delay) private {
+103:182:            revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Unset));
+104:185:            revert TimelockInsufficientDelay(delay, minDelay);
+106:191:            revert TimelockUnexpectedOperationState(
+110:203:    function execute(
+111:204:        // === ETL Canonical PoO Injection (TIMELOCK) ===
+112:206:        bytes32 opType = OperationLib.OP_TIMELOCK_EXEC;
+117:222:    function executeBatch(
+121:229:    function _execute(address target, uint256 value, bytes calldata data) internal virtual {
+123:232:            OperationLib.TIMELOCK_SYSTEM,
+125:240:            revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Ready));
+126:242:            revert TimelockUnexecutedPredecessor(predecessor);
+128:246:     * @dev Changes the minimum timelock duration for future operations.
+129:248:     * - the caller must be the timelock itself. This can only be achieved by scheduling and later executing
+130:249:     * an operation where the timelock is the target and the data is the ABI-encoded call to this function.
+132:253:            revert TimelockUnauthorizedCaller(sender);
+134:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol =====
+136:29:contract CompTimelock {
+138:49:    event QueueTransaction(
+139:66:    mapping(bytes32 => bool) public queuedTransactions;
+140:69:        require(delay_ >= MINIMUM_DELAY, "Timelock::constructor: Delay must exceed minimum delay.");
+141:70:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+143:79:        require(msg.sender == address(this), "Timelock::setDelay: Call must come from Timelock.");
+144:80:        require(delay_ >= MINIMUM_DELAY, "Timelock::setDelay: Delay must exceed minimum delay.");
+145:81:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+147:88:        require(msg.sender == pendingAdmin, "Timelock::acceptAdmin: Call must come from pendingAdmin.");
+149:96:        require(msg.sender == address(this), "Timelock::setPendingAdmin: Call must come from Timelock.");
+150:102:    function queueTransaction(
+151:109:        require(msg.sender == admin, "Timelock::queueTransaction: Call must come from admin.");
+152:112:            "Timelock::queueTransaction: Estimated execution block must satisfy delay."
+153:116:        queuedTransactions[txHash] = true;
+154:118:        emit QueueTransaction(txHash, target, value, signature, data, eta);
+156:129:        require(msg.sender == admin, "Timelock::cancelTransaction: Call must come from admin.");
+157:132:        queuedTransactions[txHash] = false;
+158:137:    function executeTransaction(
+159:144:        require(msg.sender == admin, "Timelock::executeTransaction: Call must come from admin.");
+160:147:        require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
+161:148:        require(getBlockTimestamp() >= eta, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
+162:149:        require(getBlockTimestamp() <= eta + GRACE_PERIOD, "Timelock::executeTransaction: Transaction is stale.");
+163:151:        queuedTransactions[txHash] = false;
+164:163:        require(success, "Timelock::executeTransaction: Transaction execution reverted.");
+167:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol =====
+168:5:import {Governor} from "../../governance/Governor.sol";
+169:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+170:7:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+171:8:import {GovernorSuperQuorum} from "../../governance/extensions/GovernorSuperQuorum.sol";
+172:9:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+173:10:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+174:12:abstract contract GovernorSuperQuorumMock is
+175:13:    GovernorSettings,
+176:14:    GovernorVotes,
+177:15:    GovernorTimelockControl,
+178:16:    GovernorSuperQuorum,
+179:17:    GovernorCountingSimple
+183:37:    ) public view override(Governor, GovernorSuperQuorum, GovernorTimelockControl) returns (ProposalState) {
+184:41:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+186:51:        override(GovernorCountingSimple, GovernorSuperQuorum)
+188:62:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+189:66:    function _executeOperations(
+190:72:    ) internal override(Governor, GovernorTimelockControl) {
+192:76:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+193:80:    function _queueOperations(
+194:86:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+195:87:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+197:92:    ) public view override(Governor, GovernorTimelockControl) returns (bool) {
+198:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol =====
+199:5:import {Governor} from "../../governance/Governor.sol";
+200:6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+201:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+202:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+203:9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+204:10:import {GovernorStorage} from "../../governance/extensions/GovernorStorage.sol";
+205:12:abstract contract GovernorStorageMock is
+206:13:    GovernorSettings,
+207:14:    GovernorTimelockControl,
+208:15:    GovernorVotesQuorumFraction,
+209:16:    GovernorCountingSimple,
+210:17:    GovernorStorage
+211:19:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+212:23:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+213:27:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+215:33:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+217:43:    ) internal virtual override(Governor, GovernorStorage) returns (uint256) {
+218:47:    function _queueOperations(
+219:53:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+220:54:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+221:57:    function _executeOperations(
+222:63:    ) internal override(Governor, GovernorTimelockControl) {
+225:72:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+226:76:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+227:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol =====
+228:5:import {Governor} from "../../governance/Governor.sol";
+229:6:import {GovernorTimelockCompound} from "../../governance/extensions/GovernorTimelockCompound.sol";
+230:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+231:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+232:9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+233:11:abstract contract GovernorTimelockCompoundMock is
+234:12:    GovernorSettings,
+235:13:    GovernorTimelockCompound,
+236:14:    GovernorVotesQuorumFraction,
+237:15:    GovernorCountingSimple
+238:17:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+240:23:    ) public view override(Governor, GovernorTimelockCompound) returns (ProposalState) {
+241:27:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+243:33:    ) public view virtual override(Governor, GovernorTimelockCompound) returns (bool) {
+244:37:    function _queueOperations(
+245:43:    ) internal override(Governor, GovernorTimelockCompound) returns (uint48) {
+246:44:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+247:47:    function _executeOperations(
+248:53:    ) internal override(Governor, GovernorTimelockCompound) {
+251:62:    ) internal override(Governor, GovernorTimelockCompound) returns (uint256) {
+252:66:    function _executor() internal view override(Governor, GovernorTimelockCompound) returns (address) {
+253:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol =====
+254:5:import {Governor} from "../../governance/Governor.sol";
+255:6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+256:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+257:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+258:9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+259:11:abstract contract GovernorTimelockControlMock is
+260:12:    GovernorSettings,
+261:13:    GovernorTimelockControl,
+262:14:    GovernorVotesQuorumFraction,
+263:15:    GovernorCountingSimple
+264:17:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+265:21:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+266:25:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+268:31:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+269:35:    function _queueOperations(
+270:41:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+271:42:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+272:45:    function _executeOperations(
+273:51:    ) internal override(Governor, GovernorTimelockControl) {
+276:60:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+277:64:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+279:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol =====
+315:209:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+316:222:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+317:228:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+318:230:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+327:296:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+328:309:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+329:315:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+330:317:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+337:381:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+338:394:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+339:400:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+340:402:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+349:468:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+350:481:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+351:487:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+352:489:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+354:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol =====
+355:5:import {Governor} from "../../governance/Governor.sol";
+356:6:import {GovernorTimelockAccess} from "../../governance/extensions/GovernorTimelockAccess.sol";
+357:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+358:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+359:9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+360:11:abstract contract GovernorTimelockAccessMock is
+361:12:    GovernorSettings,
+362:13:    GovernorTimelockAccess,
+363:14:    GovernorVotesQuorumFraction,
+364:15:    GovernorCountingSimple
+366:19:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+367:23:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+369:29:    ) public view virtual override(Governor, GovernorTimelockAccess) returns (bool) {
+371:38:    ) public override(Governor, GovernorTimelockAccess) returns (uint256) {
+372:42:    function _queueOperations(
+373:48:    ) internal override(Governor, GovernorTimelockAccess) returns (uint48) {
+374:49:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+375:52:    function _executeOperations(
+376:58:    ) internal override(Governor, GovernorTimelockAccess) {
+379:67:    ) internal override(Governor, GovernorTimelockAccess) returns (uint256) {
+380:===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol =====
+381:2:// OpenZeppelin Contracts (last updated v5.6.0) (governance/Governor.sol)
+382:12:import {DoubleEndedQueue} from "../utils/structs/DoubleEndedQueue.sol";
+383:17:import {IGovernor, IERC6372} from "./IGovernor.sol";
+385:28:abstract contract Governor is Context, ERC165, EIP712, Nonces, IGovernor, IERC721Receiver, IERC1155Receiver {
+386:29:    using DoubleEndedQueue for DoubleEndedQueue.Bytes32Deque;
+388:52:    // This queue keeps track of the governor operating on itself. Calls to functions protected by the {onlyGovernance}
+389:53:    // modifier needs to be whitelisted in this queue. Whitelisting is set in {execute}, consumed by the
+391:56:    DoubleEndedQueue.Bytes32Deque private _governanceCall;
+393:60:     * parameter setters in {GovernorSettings} are protected using this modifier.
+394:62:     * The governance executing address may be different from the Governor's own address, for example it could be a
+395:63:     * timelock. This can be customized by modules by overriding {_executor}. The executor is only able to invoke these
+396:64:     * functions during the execution of the governor's {execute} function, and not under any other circumstances. Thus,
+397:65:     * for example, additional timelock proposers are not able to change governance parameters without going through the
+398:81:     * @dev Function to receive ETH that will be handled by the governor (disabled if executor is a third party contract)
+399:85:            revert GovernorDisabledDeposit();
+401:92:            interfaceId == type(IGovernor).interfaceId ||
+402:93:            interfaceId == type(IGovernor).interfaceId ^ IGovernor.getProposalId.selector ||
+403:98:    /// @inheritdoc IGovernor
+405:103:    /// @inheritdoc IGovernor
+407:109:     * @dev See {IGovernor-hashProposal}.
+408:116:     * Note that the chainId and the governor address are not part of the proposal id computation. Consequently, the
+409:117:     * same proposal (with same operation and same description) will have the same id if submitted on multiple governors
+411:119:     * governor) the proposer will have to change the description in order to avoid proposal id conflicts.
+413:130:    /// @inheritdoc IGovernor
+415:140:    /// @inheritdoc IGovernor
+420:158:            revert GovernorNonexistentProposal(proposalId);
+421:176:            return ProposalState.Queued;
+422:180:    /// @inheritdoc IGovernor
+424:185:    /// @inheritdoc IGovernor
+426:190:    /// @inheritdoc IGovernor
+428:195:    /// @inheritdoc IGovernor
+430:200:    /// @inheritdoc IGovernor
+432:205:    /// @inheritdoc IGovernor
+437:217:            revert GovernorOnlyExecutor(_msgSender());
+446:272:     * @dev See {IGovernor-propose}. This function has opt-in frontrunning protection, described in {_isValidDescriptionForProposer}.
+448:284:            revert GovernorRestrictedProposer(proposer);
+449:292:                revert GovernorInsufficientProposerVotes(proposer, proposerVotes, votesThreshold);
+450:302:     * Emits a {IGovernor-ProposalCreated} event.
+452:314:            revert GovernorInvalidProposalLength(targets.length, calldatas.length, values.length);
+453:317:            revert GovernorUnexpectedProposalState(proposalId, state(proposalId), bytes32(0));
+454:343:    /// @inheritdoc IGovernor
+455:344:    function queue(
+456:354:        uint48 etaSeconds = _queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+457:358:            emit ProposalQueued(proposalId, etaSeconds);
+458:360:            revert GovernorQueueNotImplemented();
+459:368:     * performed (for example adding a vault/timelock).
+461:373:     * (which is the default value), the core will consider queueing did not succeed, and the public {queue} function
+463:377:     * `ProposalQueued` event. Queuing a proposal should be done using {queue}.
+464:379:    function _queueOperations(
+465:389:    /// @inheritdoc IGovernor
+466:390:    function execute(
+467:400:            _encodeStateBitmap(ProposalState.Succeeded) | _encodeStateBitmap(ProposalState.Queued)
+470:406:        // before execute: register governance call in queue.
+473:417:        // after execute: cleanup governance call queue.
+475:429:     * performed (for example adding a vault/timelock).
+478:434:    function _executeOperations(
+480:447:    /// @inheritdoc IGovernor
+482:460:        if (!_validateCancel(proposalId, caller)) revert GovernorUnableToCancel(proposalId, caller);
+484:469:     * Emits a {IGovernor-ProposalCanceled} event.
+487:493:    /// @inheritdoc IGovernor
+489:498:    /// @inheritdoc IGovernor
+491:507:    /// @inheritdoc IGovernor
+493:513:    /// @inheritdoc IGovernor
+495:523:    /// @inheritdoc IGovernor
+497:534:    /// @inheritdoc IGovernor
+499:542:            revert GovernorInvalidSignature(voter);
+500:547:    /// @inheritdoc IGovernor
+502:557:            revert GovernorInvalidSignature(voter);
+507:608:     * voting weight using {IGovernor-getVotes} and call the {_countVote} internal function. Uses the _defaultParams().
+508:610:     * Emits a {IGovernor-VoteCast} event.
+510:623:     * voting weight using {IGovernor-getVotes} and call the {_countVote} internal function.
+511:625:     * Emits a {IGovernor-VoteCast} event.
+514:652:     * is some contract other than the governor itself, like when using a timelock, this function can be invoked
+515:653:     * in a governance proposal to recover tokens or Ether that was sent to the governor contract by mistake.
+516:654:     * Note that if the executor is simply the governor itself, use of `relay` is redundant.
+518:662:     * @dev Address through which the governor executes action. Will be overloaded by module that executes actions
+519:663:     * through another contract such as a timelock.
+521:671:     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
+523:675:            revert GovernorDisabledDeposit();
+524:682:     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
+526:686:            revert GovernorDisabledDeposit();
+527:693:     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
+529:703:            revert GovernorDisabledDeposit();
+531:728:     * If requirements are not met, reverts with a {GovernorUnexpectedProposalState} error.
+533:733:            revert GovernorUnexpectedProposalState(proposalId, currentState, allowedStates);
+538:798:    /// @inheritdoc IGovernor
+540:801:    /// @inheritdoc IGovernor
+542:804:    /// @inheritdoc IGovernor
+547:===== governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol =====
+558:109:     * NOTE: A request may return false here but it won't cause {executeBatch} to revert if a refund
+561:127:    function execute(ForwardRequestData calldata request) public payable virtual {
+568:163:    function executeBatch(
+581:255:    function _execute(
+588:===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol =====
+589:2:// OpenZeppelin Contracts (last updated v5.5.0) (governance/extensions/GovernorTimelockCompound.sol)
+590:6:import {IGovernor, Governor} from "../Governor.sol";
+591:7:import {ICompoundTimelock} from "../../vendor/compound/ICompoundTimelock.sol";
+592:12: * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by
+593:13: * the external timelock to all successful proposals (in addition to the voting duration). The {Governor} needs to be
+594:14: * the admin of the timelock for any operation to be performed. A public, unrestricted,
+595:15: * {GovernorTimelockCompound-__acceptAdmin} is available to accept ownership of the timelock.
+596:17: * Using this model means the proposal will be operated by the {TimelockController} and not by the {Governor}. Thus,
+597:18: * the assets and permissions must be attached to the {TimelockController}. Any asset sent to the {Governor} will be
+598:19: * inaccessible from a proposal, unless executed via {Governor-relay}.
+599:21:abstract contract GovernorTimelockCompound is Governor {
+600:22:    ICompoundTimelock private _timelock;
+601:25:     * @dev Emitted when the timelock controller used for proposal execution is modified.
+602:27:    event TimelockChange(address oldTimelock, address newTimelock);
+603:30:     * @dev Set the timelock.
+604:32:    constructor(ICompoundTimelock timelockAddress) {
+605:33:        _updateTimelock(timelockAddress);
+606:37:     * @dev Overridden version of the {Governor-state} function with added support for the `Expired` state.
+608:43:            (currentState == ProposalState.Queued &&
+609:44:                block.timestamp >= proposalEta(proposalId) + _timelock.GRACE_PERIOD())
+610:50:     * @dev Public accessor to check the address of the timelock
+611:52:    function timelock() public view virtual returns (address) {
+612:53:        return address(_timelock);
+613:56:    /// @inheritdoc IGovernor
+615:62:     * @dev Function to queue a proposal to the timelock.
+616:64:    function _queueOperations(
+617:71:        uint48 etaSeconds = SafeCast.toUint48(block.timestamp + _timelock.delay());
+619:75:                _timelock.queuedTransactions(keccak256(abi.encode(targets[i], values[i], "", calldatas[i], etaSeconds)))
+620:77:                revert GovernorAlreadyQueuedProposal(proposalId);
+621:79:            _timelock.queueTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+622:86:     * @dev Overridden version of the {Governor-_executeOperations} function that run the already queued proposal
+623:87:     * through the timelock.
+624:89:    function _executeOperations(
+625:98:            revert GovernorNotQueuedProposal(proposalId);
+626:100:        Address.sendValue(payable(_timelock), msg.value);
+628:102:            _timelock.executeTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+629:107:     * @dev Overridden version of the {Governor-_cancel} function to cancel the timelocked proposal if it has already
+630:108:     * been queued.
+633:122:                _timelock.cancelTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+634:130:     * @dev Address through which the governor executes action. In this case, the timelock.
+636:133:        return address(_timelock);
+637:137:     * @dev Accept admin right over the timelock.
+639:141:        _timelock.acceptAdmin();
+640:145:     * @dev Public endpoint to update the underlying timelock instance. Restricted to the timelock itself, so updates
+641:146:     * must be proposed, scheduled, and executed through governance proposals.
+642:148:     * For security reasons, the timelock must be handed over to another admin before setting up a new one. The two
+643:149:     * operations (hand over the timelock) and do the update can be batched in a single proposal.
+644:151:     * Note that if the timelock admin has been handed over in a previous operation, we refuse updates made through the
+645:152:     * timelock if admin of the timelock has already been accepted and the operation is executed outside the scope of
+646:155:     * CAUTION: It is not recommended to change the timelock while there are other queued governance proposals.
+647:157:    function updateTimelock(ICompoundTimelock newTimelock) public virtual onlyGovernance {
+648:158:        _updateTimelock(newTimelock);
+649:161:    function _updateTimelock(ICompoundTimelock newTimelock) private {
+650:162:        emit TimelockChange(address(_timelock), address(newTimelock));
+651:163:        _timelock = newTimelock;
+652:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol =====
+653:5:import {Governor, Nonces} from "../../governance/Governor.sol";
+654:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+655:7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+656:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+657:9:import {GovernorNoncesKeyed} from "../../governance/extensions/GovernorNoncesKeyed.sol";
+658:11:abstract contract GovernorNoncesKeyedMock is
+659:12:    GovernorSettings,
+660:13:    GovernorVotesQuorumFraction,
+661:14:    GovernorCountingSimple,
+662:15:    GovernorNoncesKeyed
+663:17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+665:26:    ) internal virtual override(Governor, GovernorNoncesKeyed) returns (bool) {
+667:37:    ) internal virtual override(Governor, GovernorNoncesKeyed) returns (bool) {
+668:41:    function _useCheckedNonce(address owner, uint256 nonce) internal virtual override(Nonces, GovernorNoncesKeyed) {
+669:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol =====
+670:5:import {Governor} from "../../governance/Governor.sol";
+671:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+672:7:import {GovernorSuperQuorum} from "../../governance/extensions/GovernorSuperQuorum.sol";
+673:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+674:9:import {GovernorVotesSuperQuorumFraction} from "../../governance/extensions/GovernorVotesSuperQuorumFraction.sol";
+675:11:abstract contract GovernorVotesSuperQuorumFractionMock is
+676:12:    GovernorSettings,
+677:13:    GovernorVotesSuperQuorumFraction,
+678:14:    GovernorCountingSimple
+679:16:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+681:26:        override(GovernorCountingSimple, GovernorSuperQuorum)
+683:34:    ) public view override(Governor, GovernorVotesSuperQuorumFraction) returns (ProposalState) {
+684:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol =====
+685:5:import {Governor} from "../../governance/Governor.sol";
+686:6:import {GovernorPreventLateQuorum} from "../../governance/extensions/GovernorPreventLateQuorum.sol";
+687:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+688:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+689:9:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+690:11:abstract contract GovernorPreventLateQuorumMock is
+691:12:    GovernorSettings,
+692:13:    GovernorVotes,
+693:14:    GovernorCountingSimple,
+694:15:    GovernorPreventLateQuorum
+697:29:    ) public view override(Governor, GovernorPreventLateQuorum) returns (uint256) {
+698:33:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+699:37:    function _tallyUpdated(uint256 proposalId) internal override(Governor, GovernorPreventLateQuorum) {
+700:===== governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol =====
+746:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol =====
+747:5:import {Governor} from "../../governance/Governor.sol";
+748:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+749:7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+750:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+751:9:import {GovernorSequentialProposalId} from "../../governance/extensions/GovernorSequentialProposalId.sol";
+752:11:abstract contract GovernorSequentialProposalIdMock is
+753:12:    GovernorSettings,
+754:13:    GovernorVotesQuorumFraction,
+755:14:    GovernorCountingSimple,
+756:15:    GovernorSequentialProposalId
+757:17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+759:26:    ) public view virtual override(Governor, GovernorSequentialProposalId) returns (uint256) {
+761:36:    ) internal virtual override(Governor, GovernorSequentialProposalId) returns (uint256 proposalId) {
+762:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol =====
+763:5:import {Governor} from "../../governance/Governor.sol";
+764:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+765:7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+766:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+767:9:import {GovernorProposalGuardian} from "../../governance/extensions/GovernorProposalGuardian.sol";
+768:11:abstract contract GovernorProposalGuardianMock is
+769:12:    GovernorSettings,
+770:13:    GovernorVotesQuorumFraction,
+771:14:    GovernorCountingSimple,
+772:15:    GovernorProposalGuardian
+773:17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+775:24:    ) internal view override(Governor, GovernorProposalGuardian) returns (bool) {
+776:===== governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol =====
+821:===== governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol =====
+843:162:    function execute(bytes32 mode, bytes calldata executionCalldata) public payable virtual onlyEntryPointOrSelf {
+845:167:    function executeFromExecutor(
+849:228:    function _execute(
+872:===== governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol =====
+919:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol =====
+1019:===== governor-retrofit/lib/forge-std/src/StdConfig.sol =====
+1081:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol =====
+1082:5:import {Governor} from "../../governance/Governor.sol";
+1083:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+1084:7:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+1085:8:import {GovernorCountingOverridable} from "../../governance/extensions/GovernorCountingOverridable.sol";
+1086:10:abstract contract GovernorCountingOverridableMock is
+1087:11:    GovernorSettings,
+1088:12:    GovernorVotesQuorumFraction,
+1089:13:    GovernorCountingOverridable
+1090:15:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+1091:===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol =====
+1092:2:// OpenZeppelin Contracts (last updated v5.5.0) (governance/IGovernor.sol)
+1093:10: * @dev Interface of the {Governor} core.
+1094:12: * NOTE: Event parameters lack the `indexed` keyword for compatibility with GovernorBravo events.
+1095:15:interface IGovernor is IERC165, IERC6372 {
+1096:22:        Queued,
+1098:30:    error GovernorInvalidProposalLength(uint256 targets, uint256 calldatas, uint256 values);
+1099:35:    error GovernorAlreadyCastVote(address voter);
+1101:40:    error GovernorDisabledDeposit();
+1102:45:    error GovernorOnlyExecutor(address account);
+1103:50:    error GovernorNonexistentProposal(uint256 proposalId);
+1104:60:     * See {Governor-_encodeStateBitmap}.
+1105:62:    error GovernorUnexpectedProposalState(uint256 proposalId, ProposalState current, bytes32 expectedStates);
+1106:67:    error GovernorInvalidVotingPeriod(uint256 votingPeriod);
+1107:72:    error GovernorInsufficientProposerVotes(address proposer, uint256 votes, uint256 threshold);
+1108:77:    error GovernorRestrictedProposer(address proposer);
+1109:82:    error GovernorInvalidVoteType();
+1110:87:    error GovernorInvalidVoteParams();
+1111:90:     * @dev Queue operation is not implemented for this governor. Execute should be called directly.
+1112:92:    error GovernorQueueNotImplemented();
+1113:95:     * @dev The proposal hasn't been queued yet.
+1114:97:    error GovernorNotQueuedProposal(uint256 proposalId);
+1115:100:     * @dev The proposal has already been queued.
+1116:102:    error GovernorAlreadyQueuedProposal(uint256 proposalId);
+1118:108:    error GovernorInvalidSignature(address voter);
+1119:113:    error GovernorUnableToCancel(uint256 proposalId, address account);
+1120:131:     * @dev Emitted when a proposal is queued.
+1121:133:    event ProposalQueued(uint256 proposalId, uint256 etaSeconds);
+1124:169:     * @dev Name of the governor instance (used in building the EIP-712 domain separator).
+1126:175:     * @dev Version of the governor instance (used in building the EIP-712 domain separator). Default: "1"
+1128:187:     * - `support=bravo` refers to the vote options 0 = Against, 1 = For, 2 = Abstain, as in `GovernorBravo`.
+1139:263:     * @dev The time when a queued proposal becomes executable ("ETA"). Unlike {proposalSnapshot} and
+1140:264:     * {proposalDeadline}, this doesn't use the governor clock, and instead relies on the executor's clock which may be
+1142:271:     * @dev Whether a proposal needs to be queued before execution.
+1152:337:     * @dev Create a new proposal. Vote starts after a delay specified by {IGovernor-votingDelay} and lasts for a
+1153:338:     * duration specified by {IGovernor-votingPeriod}.
+1154:342:     * NOTE: The state of the Governor and `targets` may change between the proposal creation and its execution.
+1155:343:     * This may be the result of third party actions on the targeted contracts, or other governor proposals.
+1157:345:     * possibly compromising the proposal's ability to execute successfully (e.g. the governor doesn't have enough
+1159:356:     * @dev Queue a proposal. Some governors require this step to be performed before execution can happen. If queuing
+1161:360:     * Emits a {ProposalQueued} event.
+1162:362:    function queue(
+1164:371:     * deadline to be reached. Depending on the governor it might also be required that the proposal was queued and
+1166:376:     * NOTE: Some modules can modify the requirements for execution, for example by adding an additional timelock.
+1167:378:    function execute(
+1174:===== governor-retrofit/lib/forge-std/src/LibVariable.sol =====
+1230:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol =====
+1290:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol =====
+1291:5:import {Governor} from "../../governance/Governor.sol";
+1292:6:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+1293:7:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+1294:9:abstract contract GovernorWithParamsMock is GovernorVotes, GovernorCountingSimple {
+1299:28:    ) internal view override(Governor, GovernorVotes) returns (uint256) {
+1301:44:    ) internal override(Governor, GovernorCountingSimple) returns (uint256) {
+1302:===== governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol =====
+1307:30:    function execute(bytes32 mode, bytes calldata executionData) public payable virtual {
+1315:===== governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol =====
+1332:96:    function _execute(
+1338:6:    function _executeSemanticMultiSend(
+1352:44:    function _executeOriginalOperation(
+1359:17:    function _executeSemanticBatch(
+1377:69:    function _executeOperation(
+1378:===== governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol =====
+1444:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol =====
+1496:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol =====
+1497:5:import {Governor} from "../../governance/Governor.sol";
+1498:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+1499:7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+1500:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+1501:10:abstract contract GovernorMock is GovernorSettings, GovernorVotesQuorumFraction, GovernorCountingSimple {
+1502:11:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+1503:===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol =====
+1504:5:import {Governor} from "../../governance/Governor.sol";
+1505:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+1506:7:import {GovernorCountingFractional} from "../../governance/extensions/GovernorCountingFractional.sol";
+1507:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+1508:10:abstract contract GovernorFractionalMock is GovernorSettings, GovernorVotesQuorumFraction, GovernorCountingFractional {
+1509:11:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+1510:===== governor-retrofit/lib/forge-std/test/StdStorage.t.sol =====
+1581:===== timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol =====
+1610:===== timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol =====
+1644:===== timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol =====
+1678:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol =====
+1772:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol =====
+1801:===== governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol =====
+1835:===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol =====
+1836:2:// OpenZeppelin Contracts (last updated v5.4.0) (governance/extensions/GovernorTimelockAccess.sol)
+1837:6:import {IGovernor, Governor} from "../Governor.sol";
+1838:15: * @dev This module connects a {Governor} instance to an {AccessManager} instance, allowing the governor to make calls
+1839:16: * that are delay-restricted by the manager using the normal {queue} workflow. An optional base delay is applied to
+1840:20: * This extension allows the governor to hold and use its own assets and permissions, unlike {GovernorTimelockControl}
+1841:21: * and {GovernorTimelockCompound}, where the timelock is a separate contract that must be the one to hold assets and
+1848:34: * governor would want to call directly (e.g., token transfers) in an attempt to deny it access to those functions. To
+1849:35: * mitigate this attack vector, the governor is able to ignore the restrictions claimed by the `AccessManager` using
+1850:37: * possible. All of the governor's own functions (e.g., {setBaseDelaySeconds}) ignore the `AccessManager` by default.
+1851:40: * the same time. See {AccessManager-schedule} for a workaround.
+1852:42:abstract contract GovernorTimelockAccess is Governor {
+1854:51:        // to be scheduled and executed through the manager. Upon queuing, the value is set to nonce + 2, where the
+1857:67:    error GovernorUnmetDelay(uint256 proposalId, uint256 neededTimestamp);
+1858:68:    error GovernorMismatchedNonce(uint256 proposalId, uint256 expectedNonce, uint256 actualNonce);
+1859:69:    error GovernorLockedIgnore();
+1860:75:     * @dev Initialize the governor with an {AccessManager} and initial base delay.
+1861:83:     * @dev Returns the {AccessManager} instance associated to this governor.
+1865:95:     * expressed in seconds. Therefore, the base delay is also in seconds, regardless of the governor's clock mode.
+1873:122:        bool isGovernor = target == address(this);
+1874:123:        return _ignoreToggle[target][selector] != isGovernor; // equivalent to: isGovernor ? !toggle : toggle
+1879:144:        bool isGovernor = target == address(this);
+1880:145:        if (isGovernor && selector == this.setAccessManagerIgnored.selector) {
+1881:146:            revert GovernorLockedIgnore();
+1882:148:        _ignoreToggle[target][selector] = ignored != isGovernor; // equivalent to: isGovernor ? !ignored : ignored
+1884:155:     * the associated {AccessManager}, and another indicating which will be scheduled in {queue}. Note that
+1885:156:     * those that must be scheduled are cancellable by `AccessManager` guardians.
+1888:174:    /// @inheritdoc IGovernor
+1890:179:    /// @inheritdoc IGovernor
+1893:218:     * @dev Mechanism to queue a proposal, potentially scheduling some of its operations in the AccessManager.
+1894:223:    function _queueOperations(
+1896:236:                // This function can reenter when calling `_manager.schedule` before performing state updates in `_setManagerData`.
+1898:239:                (, uint32 nonce) = _manager.schedule(targets[i], calldatas[i], etaSeconds);
+1900:250:    function _executeOperations(
+1901:259:            revert GovernorUnmetDelay(proposalId, etaSeconds);
+1905:269:                    revert GovernorMismatchedNonce(proposalId, nonce, executedNonce);
+1906:278:    /// @inheritdoc Governor
+1908:291:        // If the proposal has been scheduled it will have an ETA and we may have to externally cancel
+1910:299:                    // already have been cancelled and rescheduled. We don't want to cancel unless it is exactly the
+1911:300:                    // instance that we previously scheduled.
+1912:317:     * @dev Returns whether the operation at an index is delayed by the manager, and its scheduling nonce once queued.
+1916:===== governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol =====
+1972:===== governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol =====
+1985:===== governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol =====
+2048:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol =====
+2060:===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol =====

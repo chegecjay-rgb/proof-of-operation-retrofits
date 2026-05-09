@@ -1,0 +1,72 @@
+10:85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+11:73:        for (uint256 i = 0; i < targets.length; ++i) {
+12:101:        for (uint256 i = 0; i < targets.length; ++i) {
+13:121:            for (uint256 i = 0; i < targets.length; ++i) {
+14:135:        for (uint256 i = 0; i < selectors.length; ++i) {
+15:167:        for (uint256 i = 0; i < length; ++i) {
+16:193:        for (uint256 i = 0; i < targets.length; ++i) {
+17:233:        for (uint256 i = 0; i < targets.length; ++i) {
+18:264:        for (uint256 i = 0; i < targets.length; ++i) {
+19:293:            for (uint256 i = 0; i < targets.length; ++i) {
+20:89:        for (uint256 i = 0; i < proposers.length; ++i) {
+21:93:        for (uint256 i = 0; i < executors.length; ++i) {
+22:177:        for (uint256 i = 0; i < targets.length; ++i) {
+23:16:        for (uint32 i = 1; i < heap.length(); ++i) {
+24:26:        for (uint256 i = 0; i < input.length; ++i) {
+25:36:        for (uint256 i = 0; i < input.length; ++i) {
+26:53:        for (uint256 i = 0; i < input.length; ++i) {
+27:63:        for (uint256 i = 0; i < input.length; ++i) {
+28:26:        for (uint256 i = 0; i < keys.length; ++i) {
+29:51:        for (uint256 i = 0; i < keys.length; ++i) {
+30:91:        for (uint256 i = 0; i < keys.length; ++i) {
+31:134:        for (uint256 i = 0; i < keys.length; ++i) {
+32:159:        for (uint256 i = 0; i < keys.length; ++i) {
+33:199:        for (uint256 i = 0; i < keys.length; ++i) {
+34:242:        for (uint256 i = 0; i < keys.length; ++i) {
+35:267:        for (uint256 i = 0; i < keys.length; ++i) {
+36:307:        for (uint256 i = 0; i < keys.length; ++i) {
+37:350:        for (uint256 i = 0; i < keys.length; ++i) {
+38:375:        for (uint256 i = 0; i < keys.length; ++i) {
+39:415:        for (uint256 i = 0; i < keys.length; ++i) {
+40:25:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+41:30:            for (uint256 i = 0; i < result; ++i) assertNotEq(buffer[i], s);
+42:42:            for (uint256 i = pos; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+43:47:            for (uint256 i = pos; i < result; ++i) assertNotEq(buffer[i], s);
+44:59:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+45:64:            for (uint256 i = result + 1; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+46:76:            for (uint256 i = 0; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+47:81:            for (uint256 i = result + 1; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+48:97:        for (uint256 i = 0; i < result.length; ++i) {
+49:117:        for (uint256 i = 0; i < result.length; ++i) {
+50:133:        for (uint256 i = 0; i < result.length; ++i) {
+51:153:        for (uint256 i = 0; i < result.length; ++i) {
+52:164:        for (uint256 i = 0; i < input.length; ++i) {
+53:187:        for (uint256 i = 0; i < buffer.length; ++i) {
+54:218:        for (uint256 i = 0; i < buffer.length; ++i) {
+55:282:        for (uint256 i = 0; i < index; ++i) {
+56:18:        for (uint256 i = 0; i < 3; i++) {
+57:199:        for (uint256 i = 0; i < buffer.length; ++i) {
+58:230:        for (uint256 i = 0; i < buffer.length; ++i) {
+59:255:        for (uint256 i = 0; i < buffer.length; ++i) {
+60:286:        for (uint256 i = 0; i < buffer.length; ++i) {
+61:311:        for (uint256 i = 0; i < buffer.length; ++i) {
+62:342:        for (uint256 i = 0; i < buffer.length; ++i) {
+63:356:        for (uint256 i = 1; i < values.length; ++i) {
+64:368:        for (uint256 i = 0; i < expectedLength; ++i) {
+65:380:        for (uint256 i = 0; i < expectedLength; ++i) {
+66:392:        for (uint256 i = 0; i < expectedLength; ++i) {
+67:401:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+68:407:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+69:413:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+70:266:        for (uint256 i = 1; i < 5; i++) {
+71:272:            for (uint256 j; j < shifts; j++) {
+72:280:            for (uint256 j; j < shiftSizes.length; j++) {
+73:313:        for (uint256 i = 0; i < nvars; i++) {
+74:332:        for (uint256 i = 0; i < nvars; i++) {
+75:339:        for (uint256 i = 0; i < nvars; i++) {
+76:474:        for (uint256 i; i < shiftSizes.length; i++) {
+77:72:        for (uint256 offset = 0; offset < 256; offset++) {
+78:126:            for (uint256 i = reads.length; --i >= 0;) {
+79:275:        while (found) {
+80:286:        for (uint256 i = 0; i < max; i++) {
+81:294:        for (uint256 i = 0; i < b.length; i++) {

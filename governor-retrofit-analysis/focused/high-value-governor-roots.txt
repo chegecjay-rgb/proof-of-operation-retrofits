@@ -1,0 +1,400 @@
+1:./shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol:6:    function _executeSemanticMultiSend(
+11:./shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol:36:            _executeOriginalOperation(
+15:./shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol:44:    function _executeOriginalOperation(
+42:./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:17:    function _executeSemanticBatch(
+56:./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:61:            _executeOperation(
+60:./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:69:    function _executeOperation(
+75:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol:14: * with {_execute} (including {execute} and {executeFromExecutor} by default) and {IERC7579Hook-postCheck} thereafter.
+76:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol:95:    /// @dev Hooked version of {AccountERC7579-_execute}.
+77:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol:96:    function _execute(
+78:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol:100:        return super._execute(mode, executionCalldata);
+80:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:118:     * should be executed on the account.
+81:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:119:     * * Executor: A module that can execute transactions on behalf of the smart account via a callback.
+82:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:162:    function execute(bytes32 mode, bytes calldata executionCalldata) public payable virtual onlyEntryPointOrSelf {
+83:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:163:        _execute(Mode.wrap(mode), executionCalldata);
+84:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:167:    function executeFromExecutor(
+85:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:177:        return _execute(Mode.wrap(mode), executionCalldata);
+86:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:228:    function _execute(
+88:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol:30:    function execute(bytes32 mode, bytes calldata executionData) public payable virtual {
+89:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol:47:     * @dev Access control mechanism for the {execute} function.
+90:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol:48:     * By default, only the contract itself is allowed to execute.
+91:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol:51:     * ERC-4337 entrypoint to execute.
+92:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:49: * used to execute arbitrary code.
+93:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:70:     * @dev Emitted when a `ForwardRequest` is executed.
+95:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:109:     * NOTE: A request may return false here but it won't cause {executeBatch} to revert if a refund
+97:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:127:    function execute(ForwardRequestData calldata request) public payable virtual {
+98:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:135:        if (!_execute(request, true)) {
+99:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:141:     * @dev Batch version of {execute} with optional refunding and atomic execution.
+100:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:150:     * a batch is required to get executed atomically (at least at the top-level). For example,
+101:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:163:    function executeBatch(
+102:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:174:            bool success = _execute(requests[i], atomic);
+103:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:197:     * @dev Validates if the provided request can be executed at current block timestamp with
+104:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:241:     * @dev Validates and executes a signed request returning the request call `success` value.
+106:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:255:    function _execute(
+108:./governor-retrofit/lib/openzeppelin-contracts/contracts/crosschain/ERC7786Recipient.sol:55:     * @dev Virtual function that should contain the logic to execute when a cross-chain message is received.
+109:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Utils.sol:21:     * The acceptance call is not executed and treated as a no-op if the target address doesn't contain code (i.e. an EOA).
+111:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Consecutive.sol:27: * values during the {_mintConsecutive} execution if the super call is not called first. To be safe, execute the
+112:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Utils.sol:21:     * The acceptance call is not executed and treated as a no-op if the target address doesn't contain code (i.e. an EOA).
+113:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Utils.sol:56:     * The acceptance call is not executed and treated as a no-op if the target address doesn't contain code (i.e. an EOA).
+115:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:29:contract CompTimelock {
+116:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:41:    event ExecuteTransaction(
+117:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:49:    event QueueTransaction(
+118:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:66:    mapping(bytes32 => bool) public queuedTransactions;
+119:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:69:        require(delay_ >= MINIMUM_DELAY, "Timelock::constructor: Delay must exceed minimum delay.");
+120:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:70:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+121:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:79:        require(msg.sender == address(this), "Timelock::setDelay: Call must come from Timelock.");
+122:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:80:        require(delay_ >= MINIMUM_DELAY, "Timelock::setDelay: Delay must exceed minimum delay.");
+123:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:81:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+124:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:88:        require(msg.sender == pendingAdmin, "Timelock::acceptAdmin: Call must come from pendingAdmin.");
+125:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:96:        require(msg.sender == address(this), "Timelock::setPendingAdmin: Call must come from Timelock.");
+126:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:102:    function queueTransaction(
+127:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:109:        require(msg.sender == admin, "Timelock::queueTransaction: Call must come from admin.");
+128:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:112:            "Timelock::queueTransaction: Estimated execution block must satisfy delay."
+129:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:116:        queuedTransactions[txHash] = true;
+130:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:118:        emit QueueTransaction(txHash, target, value, signature, data, eta);
+131:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:129:        require(msg.sender == admin, "Timelock::cancelTransaction: Call must come from admin.");
+132:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:132:        queuedTransactions[txHash] = false;
+133:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:137:    function executeTransaction(
+134:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:144:        require(msg.sender == admin, "Timelock::executeTransaction: Call must come from admin.");
+135:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:147:        require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
+136:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:148:        require(getBlockTimestamp() >= eta, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
+137:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:149:        require(getBlockTimestamp() <= eta + GRACE_PERIOD, "Timelock::executeTransaction: Transaction is stale.");
+138:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:151:        queuedTransactions[txHash] = false;
+139:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:163:        require(success, "Timelock::executeTransaction: Transaction execution reverted.");
+140:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:165:        emit ExecuteTransaction(txHash, target, value, signature, data, eta);
+141:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/BatchCaller.sol:13:    function execute(Call[] calldata calls) external returns (bytes[] memory) {
+142:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/TimelockReentrant.sol:6:contract TimelockReentrant {
+144:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+145:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:6:import {GovernorTimelockCompound} from "../../governance/extensions/GovernorTimelockCompound.sol";
+146:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+147:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+148:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+149:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:11:abstract contract GovernorTimelockCompoundMock is
+150:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:12:    GovernorSettings,
+151:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:13:    GovernorTimelockCompound,
+152:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:14:    GovernorVotesQuorumFraction,
+153:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:15:    GovernorCountingSimple
+154:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:17:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+155:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:22:        uint256 proposalId
+156:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:23:    ) public view override(Governor, GovernorTimelockCompound) returns (ProposalState) {
+157:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:24:        return super.state(proposalId);
+158:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:27:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+159:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:28:        return super.proposalThreshold();
+160:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:31:    function proposalNeedsQueuing(
+161:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:32:        uint256 proposalId
+162:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:33:    ) public view virtual override(Governor, GovernorTimelockCompound) returns (bool) {
+163:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:34:        return super.proposalNeedsQueuing(proposalId);
+164:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:37:    function _queueOperations(
+165:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:38:        uint256 proposalId,
+166:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:43:    ) internal override(Governor, GovernorTimelockCompound) returns (uint48) {
+167:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:44:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+168:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:47:    function _executeOperations(
+169:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:48:        uint256 proposalId,
+170:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:53:    ) internal override(Governor, GovernorTimelockCompound) {
+171:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:54:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+172:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:62:    ) internal override(Governor, GovernorTimelockCompound) returns (uint256) {
+173:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:66:    function _executor() internal view override(Governor, GovernorTimelockCompound) returns (address) {
+174:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+175:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:6:import {GovernorPreventLateQuorum} from "../../governance/extensions/GovernorPreventLateQuorum.sol";
+176:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+177:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+178:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:9:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+179:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:11:abstract contract GovernorPreventLateQuorumMock is
+180:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:12:    GovernorSettings,
+181:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:13:    GovernorVotes,
+182:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:14:    GovernorCountingSimple,
+183:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:15:    GovernorPreventLateQuorum
+184:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:27:    function proposalDeadline(
+185:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:28:        uint256 proposalId
+186:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:29:    ) public view override(Governor, GovernorPreventLateQuorum) returns (uint256) {
+187:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:30:        return super.proposalDeadline(proposalId);
+188:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:33:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+189:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:34:        return super.proposalThreshold();
+190:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:37:    function _tallyUpdated(uint256 proposalId) internal override(Governor, GovernorPreventLateQuorum) {
+191:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol:38:        super._tallyUpdated(proposalId);
+192:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+193:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+194:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+195:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+196:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:9:import {GovernorProposalGuardian} from "../../governance/extensions/GovernorProposalGuardian.sol";
+197:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:11:abstract contract GovernorProposalGuardianMock is
+198:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:12:    GovernorSettings,
+199:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:13:    GovernorVotesQuorumFraction,
+200:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:14:    GovernorCountingSimple,
+201:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:15:    GovernorProposalGuardian
+202:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+203:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:18:        return super.proposalThreshold();
+204:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:22:        uint256 proposalId,
+205:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:24:    ) internal view override(Governor, GovernorProposalGuardian) returns (bool) {
+206:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol:25:        return super._validateCancel(proposalId, caller);
+207:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+208:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+209:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+210:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+211:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+212:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:11:abstract contract GovernorTimelockControlMock is
+213:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:12:    GovernorSettings,
+214:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:13:    GovernorTimelockControl,
+215:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:14:    GovernorVotesQuorumFraction,
+216:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:15:    GovernorCountingSimple
+217:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:17:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+218:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:21:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+219:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:22:        return super.state(proposalId);
+220:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:25:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+221:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:26:        return super.proposalThreshold();
+222:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:29:    function proposalNeedsQueuing(
+223:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:30:        uint256 proposalId
+224:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:31:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+225:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:32:        return super.proposalNeedsQueuing(proposalId);
+226:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:35:    function _queueOperations(
+227:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:36:        uint256 proposalId,
+228:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:41:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+229:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:42:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+230:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:45:    function _executeOperations(
+231:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:46:        uint256 proposalId,
+232:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:51:    ) internal override(Governor, GovernorTimelockControl) {
+233:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:52:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+234:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:60:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+235:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:64:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+236:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVoteMock.sol:5:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+237:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVoteMock.sol:6:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+238:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVoteMock.sol:8:abstract contract GovernorVoteMocks is GovernorVotes, GovernorCountingSimple {
+239:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+240:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:6:import {GovernorTimelockAccess} from "../../governance/extensions/GovernorTimelockAccess.sol";
+241:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+242:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+243:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+244:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:11:abstract contract GovernorTimelockAccessMock is
+245:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:12:    GovernorSettings,
+246:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:13:    GovernorTimelockAccess,
+247:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:14:    GovernorVotesQuorumFraction,
+248:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:15:    GovernorCountingSimple
+249:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:19:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+250:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:23:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+251:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:24:        return super.proposalThreshold();
+252:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:27:    function proposalNeedsQueuing(
+253:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:28:        uint256 proposalId
+254:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:29:    ) public view virtual override(Governor, GovernorTimelockAccess) returns (bool) {
+255:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:30:        return super.proposalNeedsQueuing(proposalId);
+256:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:38:    ) public override(Governor, GovernorTimelockAccess) returns (uint256) {
+257:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:42:    function _queueOperations(
+258:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:43:        uint256 proposalId,
+259:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:48:    ) internal override(Governor, GovernorTimelockAccess) returns (uint48) {
+260:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:49:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+261:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:52:    function _executeOperations(
+262:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:53:        uint256 proposalId,
+263:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:58:    ) internal override(Governor, GovernorTimelockAccess) {
+264:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:59:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+265:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:67:    ) internal override(Governor, GovernorTimelockAccess) returns (uint256) {
+266:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+267:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+268:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol:7:import {GovernorCountingFractional} from "../../governance/extensions/GovernorCountingFractional.sol";
+269:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+270:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol:10:abstract contract GovernorFractionalMock is GovernorSettings, GovernorVotesQuorumFraction, GovernorCountingFractional {
+271:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol:11:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+272:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol:12:        return super.proposalThreshold();
+273:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+274:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+275:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+276:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+277:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:9:import {GovernorSequentialProposalId} from "../../governance/extensions/GovernorSequentialProposalId.sol";
+278:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:11:abstract contract GovernorSequentialProposalIdMock is
+279:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:12:    GovernorSettings,
+280:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:13:    GovernorVotesQuorumFraction,
+281:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:14:    GovernorCountingSimple,
+282:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:15:    GovernorSequentialProposalId
+283:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+284:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:18:        return super.proposalThreshold();
+285:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:21:    function getProposalId(
+286:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:26:    ) public view virtual override(Governor, GovernorSequentialProposalId) returns (uint256) {
+287:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:27:        return super.getProposalId(targets, values, calldatas, descriptionHash);
+288:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol:36:    ) internal virtual override(Governor, GovernorSequentialProposalId) returns (uint256 proposalId) {
+289:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+290:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+291:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:7:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+292:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:8:import {GovernorSuperQuorum} from "../../governance/extensions/GovernorSuperQuorum.sol";
+293:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:9:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+294:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:10:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+295:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:12:abstract contract GovernorSuperQuorumMock is
+296:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:13:    GovernorSettings,
+297:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:14:    GovernorVotes,
+298:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:15:    GovernorTimelockControl,
+299:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:16:    GovernorSuperQuorum,
+300:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:17:    GovernorCountingSimple
+301:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:36:        uint256 proposalId
+302:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:37:    ) public view override(Governor, GovernorSuperQuorum, GovernorTimelockControl) returns (ProposalState) {
+303:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:38:        return super.state(proposalId);
+304:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:41:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+305:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:42:        return super.proposalThreshold();
+306:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:45:    function proposalVotes(
+307:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:46:        uint256 proposalId
+308:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:51:        override(GovernorCountingSimple, GovernorSuperQuorum)
+309:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:54:        return super.proposalVotes(proposalId);
+310:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:62:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+311:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:66:    function _executeOperations(
+312:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:67:        uint256 proposalId,
+313:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:72:    ) internal override(Governor, GovernorTimelockControl) {
+314:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:73:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+315:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:76:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+316:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:80:    function _queueOperations(
+317:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:81:        uint256 proposalId,
+318:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:86:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+319:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:87:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+320:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:90:    function proposalNeedsQueuing(
+321:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:91:        uint256 proposalId
+322:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:92:    ) public view override(Governor, GovernorTimelockControl) returns (bool) {
+323:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:93:        return super.proposalNeedsQueuing(proposalId);
+324:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+325:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+326:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:7:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+327:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:8:import {GovernorCountingOverridable} from "../../governance/extensions/GovernorCountingOverridable.sol";
+328:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:10:abstract contract GovernorCountingOverridableMock is
+329:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:11:    GovernorSettings,
+330:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:12:    GovernorVotesQuorumFraction,
+331:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:13:    GovernorCountingOverridable
+332:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:15:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+333:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol:16:        return super.proposalThreshold();
+334:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:5:import {Governor, Nonces} from "../../governance/Governor.sol";
+335:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+336:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+337:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+338:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:9:import {GovernorNoncesKeyed} from "../../governance/extensions/GovernorNoncesKeyed.sol";
+339:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:11:abstract contract GovernorNoncesKeyedMock is
+340:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:12:    GovernorSettings,
+341:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:13:    GovernorVotesQuorumFraction,
+342:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:14:    GovernorCountingSimple,
+343:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:15:    GovernorNoncesKeyed
+344:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+345:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:18:        return super.proposalThreshold();
+346:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:22:        uint256 proposalId,
+347:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:26:    ) internal virtual override(Governor, GovernorNoncesKeyed) returns (bool) {
+348:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:27:        return super._validateVoteSig(proposalId, support, voter, signature);
+349:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:31:        uint256 proposalId,
+350:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:37:    ) internal virtual override(Governor, GovernorNoncesKeyed) returns (bool) {
+351:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:38:        return super._validateExtendedVoteSig(proposalId, support, voter, reason, params, signature);
+352:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol:41:    function _useCheckedNonce(address owner, uint256 nonce) internal virtual override(Nonces, GovernorNoncesKeyed) {
+353:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+354:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol:6:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+355:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol:7:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+356:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol:9:abstract contract GovernorWithParamsMock is GovernorVotes, GovernorCountingSimple {
+357:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol:28:    ) internal view override(Governor, GovernorVotes) returns (uint256) {
+358:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol:39:        uint256 proposalId,
+359:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol:44:    ) internal override(Governor, GovernorCountingSimple) returns (uint256) {
+360:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol:49:        return super._countVote(proposalId, account, support, weight, params);
+361:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+362:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+363:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol:7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+364:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol:8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+365:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol:10:abstract contract GovernorMock is GovernorSettings, GovernorVotesQuorumFraction, GovernorCountingSimple {
+366:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol:11:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+367:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol:12:        return super.proposalThreshold();
+368:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+369:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+370:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:7:import {GovernorSuperQuorum} from "../../governance/extensions/GovernorSuperQuorum.sol";
+371:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+372:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:9:import {GovernorVotesSuperQuorumFraction} from "../../governance/extensions/GovernorVotesSuperQuorumFraction.sol";
+373:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:11:abstract contract GovernorVotesSuperQuorumFractionMock is
+374:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:12:    GovernorSettings,
+375:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:13:    GovernorVotesSuperQuorumFraction,
+376:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:14:    GovernorCountingSimple
+377:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:16:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+378:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:17:        return super.proposalThreshold();
+379:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:20:    function proposalVotes(
+380:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:21:        uint256 proposalId
+381:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:26:        override(GovernorCountingSimple, GovernorSuperQuorum)
+382:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:29:        return super.proposalVotes(proposalId);
+383:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:33:        uint256 proposalId
+384:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:34:    ) public view override(Governor, GovernorVotesSuperQuorumFraction) returns (ProposalState) {
+385:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol:35:        return super.state(proposalId);
+386:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:5:import {Governor} from "../../governance/Governor.sol";
+387:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+388:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+389:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+390:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+391:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:10:import {GovernorStorage} from "../../governance/extensions/GovernorStorage.sol";
+392:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:12:abstract contract GovernorStorageMock is
+393:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:13:    GovernorSettings,
+394:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:14:    GovernorTimelockControl,
+395:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:15:    GovernorVotesQuorumFraction,
+396:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:16:    GovernorCountingSimple,
+397:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:17:    GovernorStorage
+398:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:19:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+399:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:23:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+400:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:24:        return super.state(proposalId);
+401:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:27:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+402:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:28:        return super.proposalThreshold();
+403:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:31:    function proposalNeedsQueuing(
+404:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:32:        uint256 proposalId
+405:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:33:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+406:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:34:        return super.proposalNeedsQueuing(proposalId);
+407:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:43:    ) internal virtual override(Governor, GovernorStorage) returns (uint256) {
+408:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:47:    function _queueOperations(
+409:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:48:        uint256 proposalId,
+410:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:53:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+411:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:54:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+412:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:57:    function _executeOperations(
+413:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:58:        uint256 proposalId,
+414:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:63:    ) internal override(Governor, GovernorTimelockControl) {
+415:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:64:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+416:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:72:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+417:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:76:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+418:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:26:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+419:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:55:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+420:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:84:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+421:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:23:     * @dev Receives and executes a batch of function calls on this contract.
+422:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:209:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+423:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:222:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+424:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:228:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+425:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:230:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+426:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:296:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+427:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:309:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+428:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:315:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+429:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:317:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+430:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:381:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+431:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:394:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+432:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:400:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+433:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:402:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+434:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:468:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+435:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:481:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+436:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:487:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+437:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:489:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+438:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:182:                // This loop is never executed if the signers are ordered by id.
+440:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:10: * FIFO queues. Storage use is optimized, and all operations are O(1) constant time. This includes {clear}, given that
+441:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:11: * the existing queue contents are left in storage.
+442:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:16: * DoubleEndedQueue.Bytes32Deque queue;
+444:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:36:     * @dev Inserts an item at the end of the queue.
+445:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:38:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+446:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:46:     * @dev Attempts to insert an item at the end of the queue.
+447:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:48:     * Returns `false` if the queue is full. Never reverts.
+448:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:61:     * @dev Removes the item at the end of the queue and returns it.
+449:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:63:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+450:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:72:     * @dev Attempts to remove the item at the end of the queue and return it.
+451:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:74:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+452:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:89:     * @dev Inserts an item at the beginning of the queue.
+453:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:91:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+454:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:99:     * @dev Attempts to insert an item at the beginning of the queue.
+455:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:101:     * Returns `false` if the queue is full. Never reverts.
+456:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:114:     * @dev Removes the item at the beginning of the queue and returns it.
+457:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:116:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+458:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:125:     * @dev Attempts to remove the item at the beginning of the queue and
+459:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:128:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+460:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:142:     * @dev Returns the item at the beginning of the queue.
+461:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:144:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+462:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:153:     * @dev Attempts to return the item at the beginning of the queue.
+463:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:155:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+464:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:163:     * @dev Returns the item at the end of the queue.
+465:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:165:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+466:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:174:     * @dev Attempts to return the item at the end of the queue.
+467:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:176:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+468:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:186:     * @dev Return the item at a position in the queue given by `index`, with the first item at 0 and last item at
+469:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:198:     * @dev Attempts to return the item at a position in the queue given by `index`, with the first item at
+470:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:212:     * @dev Resets the queue back to being empty.
+471:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:214:     * NOTE: The current items are left behind in storage. This does not affect the functioning of the queue, but misses
+472:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:223:     * @dev Returns the number of items in the queue.
+473:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:232:     * @dev Returns true if the queue is empty.
+474:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Heap.sol:14: * https://en.wikipedia.org/wiki/Priority_queue[priority queue].
+475:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:2:// OpenZeppelin Contracts (last updated v5.6.0) (governance/Governor.sol)
+476:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:12:import {DoubleEndedQueue} from "../utils/structs/DoubleEndedQueue.sol";
+477:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:17:import {IGovernor, IERC6372} from "./IGovernor.sol";
+478:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:28:abstract contract Governor is Context, ERC165, EIP712, Nonces, IGovernor, IERC721Receiver, IERC1155Receiver {
+479:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:29:    using DoubleEndedQueue for DoubleEndedQueue.Bytes32Deque;

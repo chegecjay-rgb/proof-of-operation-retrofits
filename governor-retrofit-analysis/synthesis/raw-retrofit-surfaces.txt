@@ -1,0 +1,100 @@
+45:    function _executeOperations(
+47:    function _executeOperations(
+52:    function _executeOperations(
+137:    function executeTransaction(
+89:    function _executeOperations(
+250:    function _executeOperations(
+203:    function execute(
+222:    function executeBatch(
+229:    function _execute(address target, uint256 value, bytes calldata data) internal virtual {
+85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+73:        for (uint256 i = 0; i < targets.length; ++i) {
+101:        for (uint256 i = 0; i < targets.length; ++i) {
+121:            for (uint256 i = 0; i < targets.length; ++i) {
+135:        for (uint256 i = 0; i < selectors.length; ++i) {
+167:        for (uint256 i = 0; i < length; ++i) {
+193:        for (uint256 i = 0; i < targets.length; ++i) {
+233:        for (uint256 i = 0; i < targets.length; ++i) {
+264:        for (uint256 i = 0; i < targets.length; ++i) {
+293:            for (uint256 i = 0; i < targets.length; ++i) {
+89:        for (uint256 i = 0; i < proposers.length; ++i) {
+93:        for (uint256 i = 0; i < executors.length; ++i) {
+177:        for (uint256 i = 0; i < targets.length; ++i) {
+16:        for (uint32 i = 1; i < heap.length(); ++i) {
+26:        for (uint256 i = 0; i < input.length; ++i) {
+36:        for (uint256 i = 0; i < input.length; ++i) {
+53:        for (uint256 i = 0; i < input.length; ++i) {
+63:        for (uint256 i = 0; i < input.length; ++i) {
+26:        for (uint256 i = 0; i < keys.length; ++i) {
+51:        for (uint256 i = 0; i < keys.length; ++i) {
+91:        for (uint256 i = 0; i < keys.length; ++i) {
+134:        for (uint256 i = 0; i < keys.length; ++i) {
+159:        for (uint256 i = 0; i < keys.length; ++i) {
+199:        for (uint256 i = 0; i < keys.length; ++i) {
+242:        for (uint256 i = 0; i < keys.length; ++i) {
+267:        for (uint256 i = 0; i < keys.length; ++i) {
+307:        for (uint256 i = 0; i < keys.length; ++i) {
+350:        for (uint256 i = 0; i < keys.length; ++i) {
+375:        for (uint256 i = 0; i < keys.length; ++i) {
+415:        for (uint256 i = 0; i < keys.length; ++i) {
+25:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+30:            for (uint256 i = 0; i < result; ++i) assertNotEq(buffer[i], s);
+42:            for (uint256 i = pos; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+47:            for (uint256 i = pos; i < result; ++i) assertNotEq(buffer[i], s);
+59:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+64:            for (uint256 i = result + 1; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+76:            for (uint256 i = 0; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+81:            for (uint256 i = result + 1; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+97:        for (uint256 i = 0; i < result.length; ++i) {
+117:        for (uint256 i = 0; i < result.length; ++i) {
+133:        for (uint256 i = 0; i < result.length; ++i) {
+153:        for (uint256 i = 0; i < result.length; ++i) {
+164:        for (uint256 i = 0; i < input.length; ++i) {
+187:        for (uint256 i = 0; i < buffer.length; ++i) {
+218:        for (uint256 i = 0; i < buffer.length; ++i) {
+282:        for (uint256 i = 0; i < index; ++i) {
+18:        for (uint256 i = 0; i < 3; i++) {
+199:        for (uint256 i = 0; i < buffer.length; ++i) {
+230:        for (uint256 i = 0; i < buffer.length; ++i) {
+255:        for (uint256 i = 0; i < buffer.length; ++i) {
+286:        for (uint256 i = 0; i < buffer.length; ++i) {
+311:        for (uint256 i = 0; i < buffer.length; ++i) {
+342:        for (uint256 i = 0; i < buffer.length; ++i) {
+356:        for (uint256 i = 1; i < values.length; ++i) {
+368:        for (uint256 i = 0; i < expectedLength; ++i) {
+380:        for (uint256 i = 0; i < expectedLength; ++i) {
+392:        for (uint256 i = 0; i < expectedLength; ++i) {
+401:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+407:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+413:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+266:        for (uint256 i = 1; i < 5; i++) {
+272:            for (uint256 j; j < shifts; j++) {
+280:            for (uint256 j; j < shiftSizes.length; j++) {
+313:        for (uint256 i = 0; i < nvars; i++) {
+332:        for (uint256 i = 0; i < nvars; i++) {
+339:        for (uint256 i = 0; i < nvars; i++) {
+474:        for (uint256 i; i < shiftSizes.length; i++) {
+72:        for (uint256 offset = 0; offset < 256; offset++) {
+126:            for (uint256 i = reads.length; --i >= 0;) {
+275:        while (found) {
+286:        for (uint256 i = 0; i < max; i++) {
+294:        for (uint256 i = 0; i < b.length; i++) {
+73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+85:    function delegatecallReturn64Bytes(
+90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+99:            address(this) == __self || // Must be called through delegatecall
+107:     * @dev Reverts if the execution is performed via delegatecall.
+112:            // Must not be called through delegatecall
+31:    /// @dev A `delegatecall` execution.
+32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+97:    function execDelegateCall(
+103:        returnData[0] = _delegatecall(0, execType, target, callData);
+227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+228:    function _delegatecall(
+234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);

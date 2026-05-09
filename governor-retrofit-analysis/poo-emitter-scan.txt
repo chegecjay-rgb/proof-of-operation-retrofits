@@ -1,0 +1,4 @@
+./live-semantic-adapter/contracts/SafeSemanticAdapter.sol:71:        emit ProofOfOperation(
+./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:48:            emit ProofOfOperation(
+./safe-retrofit/contracts/semantic/ProofOfOperationSemanticEmitter.sol:29:        emit ProofOfOperation(
+./safe-retrofit/contracts/semantic-runtime/SafeSemanticAdapter.sol:78:        emit ProofOfOperation(

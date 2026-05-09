@@ -1,0 +1,123 @@
+6:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:31:    /// @dev A `delegatecall` execution.
+10:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:103:        returnData[0] = _delegatecall(0, execType, target, callData);
+12:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+13:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:228:    function _delegatecall(
+14:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+18:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol:17: * WARNING: The usage of `delegatecall` in this contract is dangerous and may result in context corruption.
+19:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol:18: * Any forwarded request to this contract triggering a `delegatecall` to itself will result in an invalid {_msgSender}
+29:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyTransientMock.sol:33:            (bool success, ) = address(this).call(abi.encodeCall(this.countThisRecursive, (n - 1)));
+41:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyMock.sol:33:            (bool success, ) = address(this).call(abi.encodeCall(this.countThisRecursive, (n - 1)));
+42:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyAttack.sol:9:        (bool success, ) = _msgSender().call(data);
+43:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/RelayedCall.sol:16: * For example, instead of `target.call(data)` where the target sees this contract as `msg.sender`, use
+53:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Address.sol:117:        bool success = LowLevelCall.delegatecallNoReturn(target, data);
+54:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:17: * If a non-canonical context is identified, the following self `delegatecall` appends the last bytes of `msg.data`
+55:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:24:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+118:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+119:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+120:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+121:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+122:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:85:    function delegatecallReturn64Bytes(
+123:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+146:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+147:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+148:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+149:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:99:            address(this) == __self || // Must be called through delegatecall
+150:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:107:     * @dev Reverts if the execution is performed via delegatecall.
+151:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:112:            // Must not be called through delegatecall
+154:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:8: * instruction `delegatecall`. We refer to the second contract as the _implementation_ behind the proxy, and it has to
+155:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:31:            let result := delegatecall(gas(), implementation, 0x00, calldatasize(), 0x00, 0x00)
+156:./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:37:            // delegatecall returns 0 on error.
+157:./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.prop.sol:371:        (bool success, bytes memory retdata) = _vault_.call(data);
+159:./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:197:        (bool success,) = _vault_.call(
+160:./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:245:        (bool success,) = _vault_.call(
+161:./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:332:        (bool success, bytes memory retdata) = token.call(abi.encodeWithSelector(IERC20.approve.selector, spender, amount));
+182:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:29:        // The account was called via delegatecall.
+195:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdAssertions.sol:644:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+196:./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdAssertions.sol:645:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+222:./governor-retrofit/lib/openzeppelin-contracts/test/utils/Blockhash.t.sol:97:        (bool success, ) = Blockhash.HISTORY_STORAGE_ADDRESS.call(abi.encode(blockHash)); // set parent's blockhash
+293:./governor-retrofit/lib/forge-std/src/Vm.sol:28:        // The account was called via delegatecall.
+319:./governor-retrofit/lib/forge-std/src/StdAssertions.sol:1275:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+320:./governor-retrofit/lib/forge-std/src/StdAssertions.sol:1276:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+321:./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:31:    /// @dev A `delegatecall` execution.
+325:./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:103:        returnData[0] = _delegatecall(0, execType, target, callData);
+327:./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+328:./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:228:    function _delegatecall(
+329:./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+333:./timelock-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol:17: * WARNING: The usage of `delegatecall` in this contract is dangerous and may result in context corruption.
+334:./timelock-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol:18: * Any forwarded request to this contract triggering a `delegatecall` to itself will result in an invalid {_msgSender}
+344:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyTransientMock.sol:33:            (bool success, ) = address(this).call(abi.encodeCall(this.countThisRecursive, (n - 1)));
+356:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyMock.sol:33:            (bool success, ) = address(this).call(abi.encodeCall(this.countThisRecursive, (n - 1)));
+357:./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyAttack.sol:9:        (bool success, ) = _msgSender().call(data);
+358:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/RelayedCall.sol:16: * For example, instead of `target.call(data)` where the target sees this contract as `msg.sender`, use
+368:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Address.sol:117:        bool success = LowLevelCall.delegatecallNoReturn(target, data);
+369:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:17: * If a non-canonical context is identified, the following self `delegatecall` appends the last bytes of `msg.data`
+370:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:24:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+433:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+434:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+435:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+436:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+437:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:85:    function delegatecallReturn64Bytes(
+438:./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+462:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+463:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+464:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+465:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:99:            address(this) == __self || // Must be called through delegatecall
+466:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:107:     * @dev Reverts if the execution is performed via delegatecall.
+467:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:112:            // Must not be called through delegatecall
+470:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:8: * instruction `delegatecall`. We refer to the second contract as the _implementation_ behind the proxy, and it has to
+471:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:31:            let result := delegatecall(gas(), implementation, 0x00, calldatasize(), 0x00, 0x00)
+472:./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:37:            // delegatecall returns 0 on error.
+473:./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.prop.sol:371:        (bool success, bytes memory retdata) = _vault_.call(data);
+475:./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:197:        (bool success,) = _vault_.call(
+476:./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:245:        (bool success,) = _vault_.call(
+477:./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:332:        (bool success, bytes memory retdata) = token.call(abi.encodeWithSelector(IERC20.approve.selector, spender, amount));
+498:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:29:        // The account was called via delegatecall.
+511:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdAssertions.sol:644:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+512:./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdAssertions.sol:645:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+538:./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Blockhash.t.sol:97:        (bool success, ) = Blockhash.HISTORY_STORAGE_ADDRESS.call(abi.encode(blockHash)); // set parent's blockhash
+609:./timelock-retrofit/lib/forge-std/src/Vm.sol:28:        // The account was called via delegatecall.
+635:./timelock-retrofit/lib/forge-std/src/StdAssertions.sol:1275:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+636:./timelock-retrofit/lib/forge-std/src/StdAssertions.sol:1276:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+639:./safe-retrofit/node_modules/eth-gas-reporter/mock/contracts/EtherRouter/EtherRouter.sol:50:      let result := delegatecall(gas, destination, mload(0x40), calldatasize, mload(0x40), 0) // ignore-swc-112 calls are only to trusted contracts
+642:./safe-retrofit/contracts/delegatecall-runtime/DelegatecallMultiSendHarness.sol:6:contract DelegatecallMultiSendHarness is SemanticMultiSendShadow {
+643:./safe-retrofit/contracts/delegatecall-runtime/DelegatecallMultiSendHarness.sol:15:    function executeDelegatecallReplay(
+644:./safe-retrofit/contracts/delegatecall-runtime/DelegatecallMultiSendHarness.sol:37:        (bool success, bytes memory returndata) = multiSendLibrary.delegatecall(
+645:./safe-retrofit/contracts/semantic-runtime/MultiSend.sol:21:     *                     operation as a uint8 with 0 for a call or 1 for a delegatecall (=> 1 byte),
+646:./safe-retrofit/contracts/semantic-runtime/MultiSend.sol:27:     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+647:./safe-retrofit/contracts/semantic-runtime/MultiSend.sol:31:        require(address(this) != MULTISEND_SINGLETON, "MultiSend should only be called via delegatecall");
+648:./safe-retrofit/contracts/semantic-runtime/MultiSend.sol:63:                    success := delegatecall(gas(), to, data, dataLength, 0, 0)
+684:./safe-retrofit/lib/forge-std/src/Vm.sol:28:        // The account was called via delegatecall.
+710:./safe-retrofit/lib/forge-std/src/StdAssertions.sol:1275:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+711:./safe-retrofit/lib/forge-std/src/StdAssertions.sol:1276:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+712:./safe-retrofit/lib/safe-contracts/contracts/Safe.sol:95:        // of the  `to.delegatecall(data)` that happen in the `setupModules` call emit events in order relative to the setup
+715:./safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:11:     * @notice Executes either a delegatecall or a call with provided parameters.
+717:./safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:32:                success := delegatecall(txGas, to, add(data, 0x20), mload(data), 0, 0)
+726:./safe-retrofit/lib/safe-contracts/contracts/examples/libraries/Migrate_1_3_0_to_1_2_0.sol:26:     * @dev This can only be called via a delegatecall.
+727:./safe-retrofit/lib/safe-contracts/contracts/examples/libraries/Migrate_1_3_0_to_1_2_0.sol:29:        require(address(this) != MIGRATION_SINGLETON, "Migration should only be called via delegatecall");
+729:./safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:63:            let success := delegatecall(gas(), _singleton, 0, calldatasize(), 0, 0)
+731:./safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:38:            let success := delegatecall(gas(), targetContract, add(calldataPayload, 0x20), mload(calldataPayload), 0, 0)
+732:./safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:5: * @title DelegateCaller - A test contract that executes delegatecalls
+734:./safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:9:     * @notice makes a delegatecall
+736:./safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:14:        (success, returnData) = _called.delegatecall(_calldata);
+741:./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:15: *      to the migration functions only via delegatecall.
+742:./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:42:     * @notice Modifier to make a function callable via delegatecall only.
+744:./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:46:        require(address(this) != MIGRATION_SINGLETON, "Migration should only be called via delegatecall");
+752:./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:38:        require(address(this) != SELF, "SafeToL2Setup should only be called via delegatecall");
+755:./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:21:     *         but reverts if a transaction tries to use a delegatecall.
+756:./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:22:     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+757:./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:56:                // This version does not allow delegatecalls
+758:./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:21:     *                     operation as a uint8 with 0 for a call or 1 for a delegatecall (=> 1 byte),
+759:./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:27:     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+760:./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:31:        require(address(this) != MULTISEND_SINGLETON, "MultiSend should only be called via delegatecall");
+761:./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:63:                    success := delegatecall(gas(), to, data, dataLength, 0, 0)
+766:./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:19:     * @notice Modifier to make a function callable via delegatecall only.
+768:./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:23:        require(address(this) != ACCESSOR_SINGLETON, "SimulateTxAccessor should only be called via delegatecall");
+770:./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:30:     *      Has to be called via delegatecall.
+774:./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:37:        (bool success, ) = impl.delegatecall(
+775:./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:47:        (bool success, ) = impl.delegatecall(
+776:./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:57:        (bool success, ) = impl.delegatecall(
+777:./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:67:        (bool success, ) = impl.delegatecall(
+778:./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:77:        (bool success, ) = impl.delegatecall(
+779:./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:87:        (bool success, ) = impl.delegatecall(
+780:./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:97:        (bool success, ) = impl.delegatecall(
+782:./safe-retrofit/lib/safe-contracts/certora/harnesses/SafeHarness.sol:88:        address(this).call(abi.encodeWithSelector(selector));

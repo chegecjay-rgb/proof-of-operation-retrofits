@@ -1,0 +1,2092 @@
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/structs/DoubleEndedQueue.sol)
+10: * FIFO queues. Storage use is optimized, and all operations are O(1) constant time. This includes {clear}, given that
+11: * the existing queue contents are left in storage.
+16: * DoubleEndedQueue.Bytes32Deque queue;
+19:library DoubleEndedQueue {
+24:     * directly. Use the functions provided below instead. Modifying the struct manually may violate assumptions and
+36:     * @dev Inserts an item at the end of the queue.
+38:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+40:    function pushBack(Bytes32Deque storage deque, bytes32 value) internal {
+46:     * @dev Attempts to insert an item at the end of the queue.
+48:     * Returns `false` if the queue is full. Never reverts.
+50:    function tryPushBack(Bytes32Deque storage deque, bytes32 value) internal returns (bool success) {
+61:     * @dev Removes the item at the end of the queue and returns it.
+63:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+65:    function popBack(Bytes32Deque storage deque) internal returns (bytes32) {
+72:     * @dev Attempts to remove the item at the end of the queue and return it.
+74:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+76:    function tryPopBack(Bytes32Deque storage deque) internal returns (bool success, bytes32 value) {
+89:     * @dev Inserts an item at the beginning of the queue.
+91:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+93:    function pushFront(Bytes32Deque storage deque, bytes32 value) internal {
+99:     * @dev Attempts to insert an item at the beginning of the queue.
+101:     * Returns `false` if the queue is full. Never reverts.
+103:    function tryPushFront(Bytes32Deque storage deque, bytes32 value) internal returns (bool success) {
+114:     * @dev Removes the item at the beginning of the queue and returns it.
+116:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+118:    function popFront(Bytes32Deque storage deque) internal returns (bytes32) {
+125:     * @dev Attempts to remove the item at the beginning of the queue and
+128:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+130:    function tryPopFront(Bytes32Deque storage deque) internal returns (bool success, bytes32 value) {
+142:     * @dev Returns the item at the beginning of the queue.
+144:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+146:    function front(Bytes32Deque storage deque) internal view returns (bytes32) {
+153:     * @dev Attempts to return the item at the beginning of the queue.
+155:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+157:    function tryFront(Bytes32Deque storage deque) internal view returns (bool success, bytes32 value) {
+163:     * @dev Returns the item at the end of the queue.
+165:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+167:    function back(Bytes32Deque storage deque) internal view returns (bytes32) {
+174:     * @dev Attempts to return the item at the end of the queue.
+176:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+178:    function tryBack(Bytes32Deque storage deque) internal view returns (bool success, bytes32 value) {
+186:     * @dev Return the item at a position in the queue given by `index`, with the first item at 0 and last item at
+191:    function at(Bytes32Deque storage deque, uint256 index) internal view returns (bytes32) {
+198:     * @dev Attempts to return the item at a position in the queue given by `index`, with the first item at
+203:    function tryAt(Bytes32Deque storage deque, uint256 index) internal view returns (bool success, bytes32 value) {
+212:     * @dev Resets the queue back to being empty.
+214:     * NOTE: The current items are left behind in storage. This does not affect the functioning of the queue, but misses
+217:    function clear(Bytes32Deque storage deque) internal {
+223:     * @dev Returns the number of items in the queue.
+225:    function length(Bytes32Deque storage deque) internal view returns (uint256) {
+232:     * @dev Returns true if the queue is empty.
+234:    function empty(Bytes32Deque storage deque) internal view returns (bool) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (governance/TimelockController.sol)
+12: * @dev Contract module which acts as a timelocked controller. When set as the
+13: * owner of an `Ownable` smart contract, it enforces a timelock on all
+15: * controlled contract to exit before a potentially dangerous maintenance
+18: * By default, this contract is self administered, meaning administration tasks
+19: * have to go through the timelock process. The proposer (resp executor) role
+21: * to position this {TimelockController} as the owner of a smart contract, with
+24:contract TimelockController is AccessControl, ERC721Holder, ERC1155Holder {
+41:    error TimelockInvalidOperationLength(uint256 targets, uint256 payloads, uint256 values);
+42:     * @dev The schedule operation doesn't meet the minimum delay.
+43:    error TimelockInsufficientDelay(uint256 delay, uint256 minDelay);
+49:    error TimelockUnexpectedOperationState(bytes32 operationId, bytes32 expectedStates);
+51:    error TimelockUnexecutedPredecessor(bytes32 predecessorId);
+53:    error TimelockUnauthorizedCaller(address caller);
+54:     * @dev Emitted when a call is scheduled as part of operation `id`.
+55:    event CallScheduled(
+65:    event CallExecuted(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data);
+66:     * @dev Emitted when new proposal is scheduled with non-zero salt.
+72:     * @dev Initializes the contract with the following parameters:
+79:     * administration through timelocked proposals. Previous versions of this contract would assign
+89:        for (uint256 i = 0; i < proposers.length; ++i) {
+93:        for (uint256 i = 0; i < executors.length; ++i) {
+97:     * @dev Modifier to make a function callable only by a certain role. In
+105:     * @dev Contract might receive/hold ETH as part of the maintenance process.
+108:    function supportsInterface(
+114:    function isOperation(bytes32 id) public view returns (bool) {
+117:    function isOperationPending(bytes32 id) public view returns (bool) {
+121:    function isOperationReady(bytes32 id) public view returns (bool) {
+124:    function isOperationDone(bytes32 id) public view returns (bool) {
+128:    function getTimestamp(bytes32 id) public view virtual returns (uint256) {
+131:    function getOperationState(bytes32 id) public view virtual returns (OperationState) {
+143:    function getMinDelay() public view virtual returns (uint256) {
+147:    function hashOperation(
+154:    function hashOperationBatch(
+159:     * @dev Schedule an operation containing a single transaction.
+160:     * Emits {CallSalt} if salt is nonzero, and {CallScheduled}.
+163:    function schedule(
+167:        _schedule(id, delay);
+168:        emit CallScheduled(id, 0, target, value, data, predecessor, delay);
+171:     * @dev Schedule an operation containing a batch of transactions.
+172:     * Emits {CallSalt} if salt is nonzero, and one {CallScheduled} event per transaction in the batch.
+173:    function scheduleBatch(
+175:            revert TimelockInvalidOperationLength(targets.length, payloads.length, values.length);
+177:        for (uint256 i = 0; i < targets.length; ++i) {
+178:            emit CallScheduled(id, i, targets[i], values[i], payloads[i], predecessor, delay);
+179:     * @dev Schedule an operation that is to become valid after a given delay.
+180:    function _schedule(bytes32 id, uint256 delay) private {
+182:            revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Unset));
+185:            revert TimelockInsufficientDelay(delay, minDelay);
+189:    function cancel(bytes32 id) public virtual onlyRole(CANCELLER_ROLE) {
+191:            revert TimelockUnexpectedOperationState(
+197:     * @dev Execute a ready operation containing a single transaction.
+198:     * Emits a {CallExecuted} event.
+200:    // This function can reenter, but it doesn't pose a risk because _afterCall checks that the proposal is pending,
+203:    function execute(
+204:        // === ETL Canonical PoO Injection (TIMELOCK) ===
+206:        bytes32 opType = OperationLib.OP_TIMELOCK_EXEC;
+217:        _execute(target, value, payload);
+218:        emit CallExecuted(id, 0, target, value, payload);
+220:     * @dev Execute a ready operation containing a batch of transactions.
+221:     * Emits one {CallExecuted} event per transaction in the batch.
+222:    function executeBatch(
+226:            _execute(target, value, payload);
+227:            emit CallExecuted(id, i, target, value, payload);
+228:     * @dev Execute an operation's call.
+229:    function _execute(address target, uint256 value, bytes calldata data) internal virtual {
+231:        emit OperationExecuted(
+232:            OperationLib.TIMELOCK_SYSTEM,
+238:    function _beforeCall(bytes32 id, bytes32 predecessor) private view {
+240:            revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Ready));
+242:            revert TimelockUnexecutedPredecessor(predecessor);
+244:    function _afterCall(bytes32 id) private {
+246:     * @dev Changes the minimum timelock duration for future operations.
+248:     * - the caller must be the timelock itself. This can only be achieved by scheduling and later executing
+249:     * an operation where the timelock is the target and the data is the ABI-encoded call to this function.
+250:    function updateDelay(uint256 newDelay) public virtual {
+253:            revert TimelockUnauthorizedCaller(sender);
+264:    function _encodeStateBitmap(OperationState operationState) internal pure returns (bytes32) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol =====
+23: * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+29:contract CompTimelock {
+41:    event ExecuteTransaction(
+49:    event QueueTransaction(
+66:    mapping(bytes32 => bool) public queuedTransactions;
+69:        require(delay_ >= MINIMUM_DELAY, "Timelock::constructor: Delay must exceed minimum delay.");
+70:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+78:    function setDelay(uint256 delay_) public {
+79:        require(msg.sender == address(this), "Timelock::setDelay: Call must come from Timelock.");
+80:        require(delay_ >= MINIMUM_DELAY, "Timelock::setDelay: Delay must exceed minimum delay.");
+81:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+87:    function acceptAdmin() public {
+88:        require(msg.sender == pendingAdmin, "Timelock::acceptAdmin: Call must come from pendingAdmin.");
+95:    function setPendingAdmin(address pendingAdmin_) public {
+96:        require(msg.sender == address(this), "Timelock::setPendingAdmin: Call must come from Timelock.");
+102:    function queueTransaction(
+109:        require(msg.sender == admin, "Timelock::queueTransaction: Call must come from admin.");
+112:            "Timelock::queueTransaction: Estimated execution block must satisfy delay."
+116:        queuedTransactions[txHash] = true;
+118:        emit QueueTransaction(txHash, target, value, signature, data, eta);
+122:    function cancelTransaction(
+129:        require(msg.sender == admin, "Timelock::cancelTransaction: Call must come from admin.");
+132:        queuedTransactions[txHash] = false;
+137:    function executeTransaction(
+144:        require(msg.sender == admin, "Timelock::executeTransaction: Call must come from admin.");
+147:        require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
+148:        require(getBlockTimestamp() >= eta, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
+149:        require(getBlockTimestamp() <= eta + GRACE_PERIOD, "Timelock::executeTransaction: Transaction is stale.");
+151:        queuedTransactions[txHash] = false;
+163:        require(success, "Timelock::executeTransaction: Transaction execution reverted.");
+165:        emit ExecuteTransaction(txHash, target, value, signature, data, eta);
+170:    function getBlockTimestamp() internal view returns (uint256) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+7:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+8:import {GovernorSuperQuorum} from "../../governance/extensions/GovernorSuperQuorum.sol";
+9:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+10:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+12:abstract contract GovernorSuperQuorumMock is
+13:    GovernorSettings,
+14:    GovernorVotes,
+15:    GovernorTimelockControl,
+16:    GovernorSuperQuorum,
+17:    GovernorCountingSimple
+27:    function quorum(uint256) public view override returns (uint256) {
+31:    function superQuorum(uint256) public view override returns (uint256) {
+35:    function state(
+37:    ) public view override(Governor, GovernorSuperQuorum, GovernorTimelockControl) returns (ProposalState) {
+41:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+45:    function proposalVotes(
+51:        override(GovernorCountingSimple, GovernorSuperQuorum)
+57:    function _cancel(
+62:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+66:    function _executeOperations(
+72:    ) internal override(Governor, GovernorTimelockControl) {
+73:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+76:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+80:    function _queueOperations(
+86:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+87:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+90:    function proposalNeedsQueuing(
+92:    ) public view override(Governor, GovernorTimelockControl) returns (bool) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+10:import {GovernorStorage} from "../../governance/extensions/GovernorStorage.sol";
+12:abstract contract GovernorStorageMock is
+13:    GovernorSettings,
+14:    GovernorTimelockControl,
+15:    GovernorVotesQuorumFraction,
+16:    GovernorCountingSimple,
+17:    GovernorStorage
+19:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+23:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+27:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+31:    function proposalNeedsQueuing(
+33:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+37:    function _propose(
+43:    ) internal virtual override(Governor, GovernorStorage) returns (uint256) {
+47:    function _queueOperations(
+53:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+54:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+57:    function _executeOperations(
+63:    ) internal override(Governor, GovernorTimelockControl) {
+64:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+67:    function _cancel(
+72:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+76:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorTimelockCompound} from "../../governance/extensions/GovernorTimelockCompound.sol";
+7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+11:abstract contract GovernorTimelockCompoundMock is
+12:    GovernorSettings,
+13:    GovernorTimelockCompound,
+14:    GovernorVotesQuorumFraction,
+15:    GovernorCountingSimple
+17:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+21:    function state(
+23:    ) public view override(Governor, GovernorTimelockCompound) returns (ProposalState) {
+27:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+31:    function proposalNeedsQueuing(
+33:    ) public view virtual override(Governor, GovernorTimelockCompound) returns (bool) {
+37:    function _queueOperations(
+43:    ) internal override(Governor, GovernorTimelockCompound) returns (uint48) {
+44:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+47:    function _executeOperations(
+53:    ) internal override(Governor, GovernorTimelockCompound) {
+54:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+57:    function _cancel(
+62:    ) internal override(Governor, GovernorTimelockCompound) returns (uint256) {
+66:    function _executor() internal view override(Governor, GovernorTimelockCompound) returns (address) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+11:abstract contract GovernorTimelockControlMock is
+12:    GovernorSettings,
+13:    GovernorTimelockControl,
+14:    GovernorVotesQuorumFraction,
+15:    GovernorCountingSimple
+17:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+21:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+25:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+29:    function proposalNeedsQueuing(
+31:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+35:    function _queueOperations(
+41:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+42:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+45:    function _executeOperations(
+51:    ) internal override(Governor, GovernorTimelockControl) {
+52:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+55:    function _cancel(
+60:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+64:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+68:    function nonGovernanceFunction() external {}
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/cryptography/MerkleProof.sol)
+10: * @dev These functions deal with verification of Merkle Tree proofs.
+17: * hashing, or use a hash function other than keccak256 for hashing leaves.
+23: * IMPORTANT: Consider memory side-effects when using custom hashing functions
+27: * custom _commutative_ hashing functions (i.e. `H(a, b) == H(b, a)`). Proving
+28: * leaf inclusion in trees built using non-commutative hashing functions requires
+43:     * This version handles proofs in memory with the default hashing function.
+45:    function verify(bytes32[] memory proof, bytes32 root, bytes32 leaf) internal pure returns (bool) {
+55:     * This version handles proofs in memory with the default hashing function.
+57:    function processProof(bytes32[] memory proof, bytes32 leaf) internal pure returns (bytes32) {
+59:        for (uint256 i = 0; i < proof.length; i++) {
+71:     * This version handles proofs in memory with a custom hashing function.
+73:    function verify(
+77:        function(bytes32, bytes32) view returns (bytes32) hasher
+88:     * This version handles proofs in memory with a custom hashing function.
+90:    function processProof(
+93:        function(bytes32, bytes32) view returns (bytes32) hasher
+96:        for (uint256 i = 0; i < proof.length; i++) {
+108:     * This version handles proofs in calldata with the default hashing function.
+110:    function verifyCalldata(bytes32[] calldata proof, bytes32 root, bytes32 leaf) internal pure returns (bool) {
+120:     * This version handles proofs in calldata with the default hashing function.
+122:    function processProofCalldata(bytes32[] calldata proof, bytes32 leaf) internal pure returns (bytes32) {
+124:        for (uint256 i = 0; i < proof.length; i++) {
+136:     * This version handles proofs in calldata with a custom hashing function.
+138:    function verifyCalldata(
+142:        function(bytes32, bytes32) view returns (bytes32) hasher
+153:     * This version handles proofs in calldata with a custom hashing function.
+155:    function processProofCalldata(
+158:        function(bytes32, bytes32) view returns (bytes32) hasher
+161:        for (uint256 i = 0; i < proof.length; i++) {
+171:     * This version handles multiproofs in memory with the default hashing function.
+178:    function multiProofVerify(
+193:     * This version handles multiproofs in memory with the default hashing function.
+203:    function processMultiProof(
+208:        // This function rebuilds the root hash by traversing the tree up from the leaves. The root is rebuilt by
+209:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+222:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+228:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+230:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+232:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+256:     * This version handles multiproofs in memory with a custom hashing function.
+263:    function multiProofVerify(
+268:        function(bytes32, bytes32) view returns (bytes32) hasher
+279:     * This version handles multiproofs in memory with a custom hashing function.
+289:    function processMultiProof(
+293:        function(bytes32, bytes32) view returns (bytes32) hasher
+295:        // This function rebuilds the root hash by traversing the tree up from the leaves. The root is rebuilt by
+296:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+309:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+315:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+317:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+319:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+343:     * This version handles multiproofs in calldata with the default hashing function.
+350:    function multiProofVerifyCalldata(
+365:     * This version handles multiproofs in calldata with the default hashing function.
+375:    function processMultiProofCalldata(
+380:        // This function rebuilds the root hash by traversing the tree up from the leaves. The root is rebuilt by
+381:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+394:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+400:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+402:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+404:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+428:     * This version handles multiproofs in calldata with a custom hashing function.
+435:    function multiProofVerifyCalldata(
+440:        function(bytes32, bytes32) view returns (bytes32) hasher
+451:     * This version handles multiproofs in calldata with a custom hashing function.
+461:    function processMultiProofCalldata(
+465:        function(bytes32, bytes32) view returns (bytes32) hasher
+467:        // This function rebuilds the root hash by traversing the tree up from the leaves. The root is rebuilt by
+468:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+481:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+487:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+489:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+491:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorTimelockAccess} from "../../governance/extensions/GovernorTimelockAccess.sol";
+7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+9:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+11:abstract contract GovernorTimelockAccessMock is
+12:    GovernorSettings,
+13:    GovernorTimelockAccess,
+14:    GovernorVotesQuorumFraction,
+15:    GovernorCountingSimple
+17:    function nonGovernanceFunction() external {}
+19:    function quorum(uint256 blockNumber) public view override(Governor, GovernorVotesQuorumFraction) returns (uint256) {
+23:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+27:    function proposalNeedsQueuing(
+29:    ) public view virtual override(Governor, GovernorTimelockAccess) returns (bool) {
+33:    function propose(
+38:    ) public override(Governor, GovernorTimelockAccess) returns (uint256) {
+42:    function _queueOperations(
+48:    ) internal override(Governor, GovernorTimelockAccess) returns (uint48) {
+49:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+52:    function _executeOperations(
+58:    ) internal override(Governor, GovernorTimelockAccess) {
+59:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+62:    function _cancel(
+67:    ) internal override(Governor, GovernorTimelockAccess) returns (uint256) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (governance/Governor.sol)
+12:import {DoubleEndedQueue} from "../utils/structs/DoubleEndedQueue.sol";
+17:import {IGovernor, IERC6372} from "./IGovernor.sol";
+22: * This contract is abstract and requires several functions to be implemented in various modules:
+28:abstract contract Governor is Context, ERC165, EIP712, Nonces, IGovernor, IERC721Receiver, IERC1155Receiver {
+29:    using DoubleEndedQueue for DoubleEndedQueue.Bytes32Deque;
+42:        bool executed;
+52:    // This queue keeps track of the governor operating on itself. Calls to functions protected by the {onlyGovernance}
+53:    // modifier needs to be whitelisted in this queue. Whitelisting is set in {execute}, consumed by the
+54:    // {onlyGovernance} modifier and eventually reset after {_executeOperations} completes. This ensures that the
+56:    DoubleEndedQueue.Bytes32Deque private _governanceCall;
+59:     * @dev Restricts a function so it can only be executed through governance proposals. For example, governance
+60:     * parameter setters in {GovernorSettings} are protected using this modifier.
+62:     * The governance executing address may be different from the Governor's own address, for example it could be a
+63:     * timelock. This can be customized by modules by overriding {_executor}. The executor is only able to invoke these
+64:     * functions during the execution of the governor's {execute} function, and not under any other circumstances. Thus,
+65:     * for example, additional timelock proposers are not able to change governance parameters without going through the
+81:     * @dev Function to receive ETH that will be handled by the governor (disabled if executor is a third party contract)
+85:            revert GovernorDisabledDeposit();
+90:    function supportsInterface(bytes4 interfaceId) public view virtual override(IERC165, ERC165) returns (bool) {
+92:            interfaceId == type(IGovernor).interfaceId ||
+93:            interfaceId == type(IGovernor).interfaceId ^ IGovernor.getProposalId.selector ||
+98:    /// @inheritdoc IGovernor
+99:    function name() public view virtual returns (string memory) {
+103:    /// @inheritdoc IGovernor
+104:    function version() public view virtual returns (string memory) {
+109:     * @dev See {IGovernor-hashProposal}.
+116:     * Note that the chainId and the governor address are not part of the proposal id computation. Consequently, the
+117:     * same proposal (with same operation and same description) will have the same id if submitted on multiple governors
+118:     * across multiple networks. This also means that in order to execute the same operation twice (on the same
+119:     * governor) the proposer will have to change the description in order to avoid proposal id conflicts.
+121:    function hashProposal(
+130:    /// @inheritdoc IGovernor
+131:    function getProposalId(
+140:    /// @inheritdoc IGovernor
+141:    function state(uint256 proposalId) public view virtual returns (ProposalState) {
+144:        bool proposalExecuted = proposal.executed;
+147:        if (proposalExecuted) {
+148:            return ProposalState.Executed;
+158:            revert GovernorNonexistentProposal(proposalId);
+176:            return ProposalState.Queued;
+180:    /// @inheritdoc IGovernor
+181:    function proposalThreshold() public view virtual returns (uint256) {
+185:    /// @inheritdoc IGovernor
+186:    function proposalSnapshot(uint256 proposalId) public view virtual returns (uint256) {
+190:    /// @inheritdoc IGovernor
+191:    function proposalDeadline(uint256 proposalId) public view virtual returns (uint256) {
+195:    /// @inheritdoc IGovernor
+196:    function proposalProposer(uint256 proposalId) public view virtual returns (address) {
+200:    /// @inheritdoc IGovernor
+201:    function proposalEta(uint256 proposalId) public view virtual returns (uint256) {
+205:    /// @inheritdoc IGovernor
+206:    function proposalNeedsQueuing(uint256) public view virtual returns (bool) {
+211:     * @dev Reverts if the `msg.sender` is not the executor. In case the executor is not this contract
+212:     * itself, the function reverts if `msg.data` is not whitelisted as a result of an {execute}
+215:    function _checkGovernance() internal virtual {
+217:            revert GovernorOnlyExecutor(_msgSender());
+222:            while (_governanceCall.popFront() != msgDataHash) {}
+229:    function _quorumReached(uint256 proposalId) internal view virtual returns (bool);
+234:    function _voteSucceeded(uint256 proposalId) internal view virtual returns (bool);
+239:    function _getVotes(address account, uint256 timepoint, bytes memory params) internal view virtual returns (uint256);
+246:    function _countVote(
+257:     * Note: This function must run successfully. Reverts will result in the bricking of governance
+259:    function _tallyUpdated(uint256 proposalId) internal virtual {}
+267:    function _defaultParams() internal view virtual returns (bytes memory) {
+272:     * @dev See {IGovernor-propose}. This function has opt-in frontrunning protection, described in {_isValidDescriptionForProposer}.
+274:    function propose(
+284:            revert GovernorRestrictedProposer(proposer);
+292:                revert GovernorInsufficientProposerVotes(proposer, proposerVotes, votesThreshold);
+302:     * Emits a {IGovernor-ProposalCreated} event.
+304:    function _propose(
+314:            revert GovernorInvalidProposalLength(targets.length, calldatas.length, values.length);
+317:            revert GovernorUnexpectedProposalState(proposalId, state(proposalId), bytes32(0));
+343:    /// @inheritdoc IGovernor
+344:    function queue(
+354:        uint48 etaSeconds = _queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+358:            emit ProposalQueued(proposalId, etaSeconds);
+360:            revert GovernorQueueNotImplemented();
+368:     * performed (for example adding a vault/timelock).
+372:     * This function returns a timestamp that describes the expected ETA for execution. If the returned value is 0
+373:     * (which is the default value), the core will consider queueing did not succeed, and the public {queue} function
+376:     * NOTE: Calling this function directly will NOT check the current state of the proposal, or emit the
+377:     * `ProposalQueued` event. Queuing a proposal should be done using {queue}.
+379:    function _queueOperations(
+389:    /// @inheritdoc IGovernor
+390:    function execute(
+400:            _encodeStateBitmap(ProposalState.Succeeded) | _encodeStateBitmap(ProposalState.Queued)
+403:        // mark as executed before calls to avoid reentrancy
+404:        _proposals[proposalId].executed = true;
+406:        // before execute: register governance call in queue.
+408:            for (uint256 i = 0; i < targets.length; ++i) {
+415:        _executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+417:        // after execute: cleanup governance call queue.
+422:        emit ProposalExecuted(proposalId);
+429:     * performed (for example adding a vault/timelock).
+431:     * NOTE: Calling this function directly will NOT check the current state of the proposal, set the executed flag to
+432:     * true or emit the `ProposalExecuted` event. Executing a proposal should be done using {execute}.
+434:    function _executeOperations(
+441:        for (uint256 i = 0; i < targets.length; ++i) {
+447:    /// @inheritdoc IGovernor
+448:    function cancel(
+460:        if (!_validateCancel(proposalId, caller)) revert GovernorUnableToCancel(proposalId, caller);
+467:     * Canceled, Expired, or Executed. Once cancelled a proposal can't be re-submitted.
+469:     * Emits a {IGovernor-ProposalCanceled} event.
+471:    function _cancel(
+484:                _encodeStateBitmap(ProposalState.Executed)
+493:    /// @inheritdoc IGovernor
+494:    function getVotes(address account, uint256 timepoint) public view virtual returns (uint256) {
+498:    /// @inheritdoc IGovernor
+499:    function getVotesWithParams(
+507:    /// @inheritdoc IGovernor
+508:    function castVote(uint256 proposalId, uint8 support) public virtual returns (uint256) {
+513:    /// @inheritdoc IGovernor
+514:    function castVoteWithReason(
+523:    /// @inheritdoc IGovernor
+524:    function castVoteWithReasonAndParams(
+534:    /// @inheritdoc IGovernor
+535:    function castVoteBySig(
+542:            revert GovernorInvalidSignature(voter);
+547:    /// @inheritdoc IGovernor
+548:    function castVoteWithReasonAndParamsBySig(
+557:            revert GovernorInvalidSignature(voter);
+562:    /// @dev Validate the `signature` used in {castVoteBySig} function.
+563:    function _validateVoteSig(
+577:    /// @dev Validate the `signature` used in {castVoteWithReasonAndParamsBySig} function.
+578:    function _validateExtendedVoteSig(
+608:     * voting weight using {IGovernor-getVotes} and call the {_countVote} internal function. Uses the _defaultParams().
+610:     * Emits a {IGovernor-VoteCast} event.
+612:    function _castVote(
+623:     * voting weight using {IGovernor-getVotes} and call the {_countVote} internal function.
+625:     * Emits a {IGovernor-VoteCast} event.
+627:    function _castVote(
+651:     * @dev Relays a transaction or function call to an arbitrary target. In cases where the governance executor
+652:     * is some contract other than the governor itself, like when using a timelock, this function can be invoked
+653:     * in a governance proposal to recover tokens or Ether that was sent to the governor contract by mistake.
+654:     * Note that if the executor is simply the governor itself, use of `relay` is redundant.
+656:    function relay(address target, uint256 value, bytes calldata data) public payable virtual onlyGovernance {
+662:     * @dev Address through which the governor executes action. Will be overloaded by module that executes actions
+663:     * through another contract such as a timelock.
+665:    function _executor() internal view virtual returns (address) {
+671:     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
+673:    function onERC721Received(address, address, uint256, bytes memory) public virtual returns (bytes4) {
+675:            revert GovernorDisabledDeposit();
+682:     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
+684:    function onERC1155Received(address, address, uint256, uint256, bytes memory) public virtual returns (bytes4) {
+686:            revert GovernorDisabledDeposit();
+693:     * Receiving tokens is disabled if the governance executor is other than the governor itself (eg. when using with a timelock).
+695:    function onERC1155BatchReceived(
+703:            revert GovernorDisabledDeposit();
+720:    function _encodeStateBitmap(ProposalState proposalState) internal pure returns (bytes32) {
+728:     * If requirements are not met, reverts with a {GovernorUnexpectedProposalState} error.
+730:    function _validateStateBitmap(uint256 proposalId, bytes32 allowedStates) internal view returns (ProposalState) {
+733:            revert GovernorUnexpectedProposalState(proposalId, currentState, allowedStates);
+756:    function _isValidDescriptionForProposer(
+787:    function _validateCancel(uint256 proposalId, address caller) internal view virtual returns (bool) {
+792:    function clock() public view virtual returns (uint48);
+796:    function CLOCK_MODE() public view virtual returns (string memory);
+798:    /// @inheritdoc IGovernor
+799:    function votingDelay() public view virtual returns (uint256);
+801:    /// @inheritdoc IGovernor
+802:    function votingPeriod() public view virtual returns (uint256);
+804:    /// @inheritdoc IGovernor
+805:    function quorum(uint256 timepoint) public view virtual returns (uint256);
+810:     * NOTE: making this function internal would mean it could be used with memory unsafe offset, and marking the
+813:    function _unsafeReadBytesOffset(bytes memory buffer, uint256 offset) private pure returns (bytes32 value) {
+814:        // This is not memory safe in the general case, but all calls to this private function are within bounds.
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (metatx/ERC2771Forwarder.sol)
+14: * @dev A forwarder compatible with ERC-2771 contracts. See {ERC2771Context}.
+34: * handle `msg.data.length == 0`. `ERC2771Context` in OpenZeppelin Contracts versions prior to 4.9.3
+40: * specified in the request. This contract does not implement any kind of retribution for this gas,
+47: * relayer, consider whitelisting target contracts and function selectors. When relaying ERC-721 or
+49: * used to execute arbitrary code.
+51:contract ERC2771Forwarder is EIP712, Nonces {
+70:     * @dev Emitted when a `ForwardRequest` is executed.
+73:     * or simply a revert in the requested call. The contract guarantees that the relayer is not able to force
+76:    event ExecutedForwardRequest(address indexed signer, uint256 nonce, bool success);
+109:     * NOTE: A request may return false here but it won't cause {executeBatch} to revert if a refund
+112:    function verify(ForwardRequestData calldata request) public view virtual returns (bool) {
+118:     * @dev Executes a `request` on behalf of `signature`'s signer using the ERC-2771 protocol. The gas
+127:    function execute(ForwardRequestData calldata request) public payable virtual {
+129:        // If the request is invalid or the call reverts, this whole function
+135:        if (!_execute(request, true)) {
+141:     * @dev Batch version of {execute} with optional refunding and atomic execution.
+148:     * If the `refundReceiver` is the `address(0)`, this function will revert when at least
+150:     * a batch is required to get executed atomically (at least at the top-level). For example,
+160:     * the first-level forwarded calls. In case a forwarded request calls to a contract with another
+163:    function executeBatch(
+172:        for (uint256 i; i < requests.length; ++i) {
+174:            bool success = _execute(requests[i], atomic);
+187:        // To avoid leaving ETH in the contract this value is refunded.
+190:            // meaning we can ensure refundValue is not taken from the original contract's balance
+197:     * @dev Validates if the provided request can be executed at current block timestamp with
+200:    function _validate(
+219:    function _recoverForwardRequestSigner(
+241:     * @dev Validates and executes a signed request returning the request call `success` value.
+243:     * Internal function without msg.value validation.
+250:     * Emits an {ExecutedForwardRequest} event.
+252:     * IMPORTANT: Using this function doesn't check that all the `msg.value` was sent, potentially
+253:     * leaving value stuck in the contract.
+255:    function _execute(
+296:            emit ExecutedForwardRequest(signer, currentNonce, success);
+303:     * This function performs a static call to the target contract calling the
+304:     * {ERC2771Context-isTrustedForwarder} function.
+309:    function _isTrustedByTarget(address target) internal view virtual returns (bool) {
+341:    function _checkForwardedGas(uint256 gasLeft, ForwardRequestData calldata request) private pure {
+357:        // The contract guarantees Y <= req.gas, thus gasleft() = X - Y >= X - req.gas.
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol =====
+2:// OpenZeppelin Contracts (last updated v5.5.0) (governance/extensions/GovernorTimelockCompound.sol)
+6:import {IGovernor, Governor} from "../Governor.sol";
+7:import {ICompoundTimelock} from "../../vendor/compound/ICompoundTimelock.sol";
+12: * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by
+13: * the external timelock to all successful proposals (in addition to the voting duration). The {Governor} needs to be
+14: * the admin of the timelock for any operation to be performed. A public, unrestricted,
+15: * {GovernorTimelockCompound-__acceptAdmin} is available to accept ownership of the timelock.
+17: * Using this model means the proposal will be operated by the {TimelockController} and not by the {Governor}. Thus,
+18: * the assets and permissions must be attached to the {TimelockController}. Any asset sent to the {Governor} will be
+19: * inaccessible from a proposal, unless executed via {Governor-relay}.
+21:abstract contract GovernorTimelockCompound is Governor {
+22:    ICompoundTimelock private _timelock;
+25:     * @dev Emitted when the timelock controller used for proposal execution is modified.
+27:    event TimelockChange(address oldTimelock, address newTimelock);
+30:     * @dev Set the timelock.
+32:    constructor(ICompoundTimelock timelockAddress) {
+33:        _updateTimelock(timelockAddress);
+37:     * @dev Overridden version of the {Governor-state} function with added support for the `Expired` state.
+39:    function state(uint256 proposalId) public view virtual override returns (ProposalState) {
+43:            (currentState == ProposalState.Queued &&
+44:                block.timestamp >= proposalEta(proposalId) + _timelock.GRACE_PERIOD())
+50:     * @dev Public accessor to check the address of the timelock
+52:    function timelock() public view virtual returns (address) {
+53:        return address(_timelock);
+56:    /// @inheritdoc IGovernor
+57:    function proposalNeedsQueuing(uint256) public view virtual override returns (bool) {
+62:     * @dev Function to queue a proposal to the timelock.
+64:    function _queueOperations(
+71:        uint48 etaSeconds = SafeCast.toUint48(block.timestamp + _timelock.delay());
+73:        for (uint256 i = 0; i < targets.length; ++i) {
+75:                _timelock.queuedTransactions(keccak256(abi.encode(targets[i], values[i], "", calldatas[i], etaSeconds)))
+77:                revert GovernorAlreadyQueuedProposal(proposalId);
+79:            _timelock.queueTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+86:     * @dev Overridden version of the {Governor-_executeOperations} function that run the already queued proposal
+87:     * through the timelock.
+89:    function _executeOperations(
+98:            revert GovernorNotQueuedProposal(proposalId);
+100:        Address.sendValue(payable(_timelock), msg.value);
+101:        for (uint256 i = 0; i < targets.length; ++i) {
+102:            _timelock.executeTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+107:     * @dev Overridden version of the {Governor-_cancel} function to cancel the timelocked proposal if it has already
+108:     * been queued.
+110:    function _cancel(
+121:            for (uint256 i = 0; i < targets.length; ++i) {
+122:                _timelock.cancelTransaction(targets[i], values[i], "", calldatas[i], etaSeconds);
+130:     * @dev Address through which the governor executes action. In this case, the timelock.
+132:    function _executor() internal view virtual override returns (address) {
+133:        return address(_timelock);
+137:     * @dev Accept admin right over the timelock.
+140:    function __acceptAdmin() public {
+141:        _timelock.acceptAdmin();
+145:     * @dev Public endpoint to update the underlying timelock instance. Restricted to the timelock itself, so updates
+146:     * must be proposed, scheduled, and executed through governance proposals.
+148:     * For security reasons, the timelock must be handed over to another admin before setting up a new one. The two
+149:     * operations (hand over the timelock) and do the update can be batched in a single proposal.
+151:     * Note that if the timelock admin has been handed over in a previous operation, we refuse updates made through the
+152:     * timelock if admin of the timelock has already been accepted and the operation is executed outside the scope of
+155:     * CAUTION: It is not recommended to change the timelock while there are other queued governance proposals.
+157:    function updateTimelock(ICompoundTimelock newTimelock) public virtual onlyGovernance {
+158:        _updateTimelock(newTimelock);
+161:    function _updateTimelock(ICompoundTimelock newTimelock) private {
+162:        emit TimelockChange(address(_timelock), address(newTimelock));
+163:        _timelock = newTimelock;
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorNoncesKeyedMock.sol =====
+5:import {Governor, Nonces} from "../../governance/Governor.sol";
+6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+9:import {GovernorNoncesKeyed} from "../../governance/extensions/GovernorNoncesKeyed.sol";
+11:abstract contract GovernorNoncesKeyedMock is
+12:    GovernorSettings,
+13:    GovernorVotesQuorumFraction,
+14:    GovernorCountingSimple,
+15:    GovernorNoncesKeyed
+17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+21:    function _validateVoteSig(
+26:    ) internal virtual override(Governor, GovernorNoncesKeyed) returns (bool) {
+30:    function _validateExtendedVoteSig(
+37:    ) internal virtual override(Governor, GovernorNoncesKeyed) returns (bool) {
+41:    function _useCheckedNonce(address owner, uint256 nonce) internal virtual override(Nonces, GovernorNoncesKeyed) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorVotesSuperQuorumFractionMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+7:import {GovernorSuperQuorum} from "../../governance/extensions/GovernorSuperQuorum.sol";
+8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+9:import {GovernorVotesSuperQuorumFraction} from "../../governance/extensions/GovernorVotesSuperQuorumFraction.sol";
+11:abstract contract GovernorVotesSuperQuorumFractionMock is
+12:    GovernorSettings,
+13:    GovernorVotesSuperQuorumFraction,
+14:    GovernorCountingSimple
+16:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+20:    function proposalVotes(
+26:        override(GovernorCountingSimple, GovernorSuperQuorum)
+32:    function state(
+34:    ) public view override(Governor, GovernorVotesSuperQuorumFraction) returns (ProposalState) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorPreventLateQuorumMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorPreventLateQuorum} from "../../governance/extensions/GovernorPreventLateQuorum.sol";
+7:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+8:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+9:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+11:abstract contract GovernorPreventLateQuorumMock is
+12:    GovernorSettings,
+13:    GovernorVotes,
+14:    GovernorCountingSimple,
+15:    GovernorPreventLateQuorum
+23:    function quorum(uint256) public view override returns (uint256) {
+27:    function proposalDeadline(
+29:    ) public view override(Governor, GovernorPreventLateQuorum) returns (uint256) {
+33:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+37:    function _tallyUpdated(uint256 proposalId) internal override(Governor, GovernorPreventLateQuorum) {
+===== governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol =====
+6:import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+7:import {Bytes} from "@openzeppelin/contracts/utils/Bytes.sol";
+9:contract BytesTest is Test {
+12:    function testSymbolicEqual(bytes memory a) public pure {
+17:    function testSymbolicIndexOf(bytes memory buffer, bytes1 s) public pure {
+25:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+30:            for (uint256 i = 0; i < result; ++i) assertNotEq(buffer[i], s);
+34:    function testIndexOf(bytes memory buffer, bytes1 s, uint256 pos) public pure {
+42:            for (uint256 i = pos; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+47:            for (uint256 i = pos; i < result; ++i) assertNotEq(buffer[i], s);
+51:    function testSymbolicLastIndexOf(bytes memory buffer, bytes1 s) public pure {
+59:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+64:            for (uint256 i = result + 1; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+68:    function testLastIndexOf(bytes memory buffer, bytes1 s, uint256 pos) public pure {
+76:            for (uint256 i = 0; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+81:            for (uint256 i = result + 1; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+86:    function testSliceWithStartOnly(bytes memory buffer, uint256 start) public pure {
+97:        for (uint256 i = 0; i < result.length; ++i) {
+102:    function testSlice(bytes memory buffer, uint256 start, uint256 end) public pure {
+117:        for (uint256 i = 0; i < result.length; ++i) {
+122:    function testSpliceWithStartOnly(bytes memory buffer, uint256 start) public pure {
+133:        for (uint256 i = 0; i < result.length; ++i) {
+138:    function testSplice(bytes memory buffer, uint256 start, uint256 end) public pure {
+153:        for (uint256 i = 0; i < result.length; ++i) {
+159:    function testSymbolictoNibbles(bytes memory input) public pure {
+164:        for (uint256 i = 0; i < input.length; ++i) {
+173:    function testReplace(bytes memory buffer, uint256 pos, bytes memory replacement) public pure {
+187:        for (uint256 i = 0; i < buffer.length; ++i) {
+198:    function testReplaceFull(
+218:        for (uint256 i = 0; i < buffer.length; ++i) {
+230:    function testSymbolicReverseBytes32(bytes32 value) public pure {
+234:    function testSymbolicReverseBytes16(bytes16 value) public pure {
+238:    function testSymbolicReverseBytes16Dirty(bytes16 value) public pure {
+243:    function testSymbolicReverseBytes8(bytes8 value) public pure {
+247:    function testSymbolicReverseBytes8Dirty(bytes8 value) public pure {
+252:    function testSymbolicReverseBytes4(bytes4 value) public pure {
+256:    function testSymbolicReverseBytes4Dirty(bytes4 value) public pure {
+261:    function testSymbolicReverseBytes2(bytes2 value) public pure {
+265:    function testSymbolicReverseBytes2Dirty(bytes2 value) public pure {
+271:    function testClz(bytes memory buffer) public pure {
+282:        for (uint256 i = 0; i < index; ++i) {
+299:    function _dirtyBytes16(bytes16 value) private pure returns (bytes16 dirty) {
+305:    function _dirtyBytes8(bytes8 value) private pure returns (bytes8 dirty) {
+311:    function _dirtyBytes4(bytes4 value) private pure returns (bytes4 dirty) {
+317:    function _dirtyBytes2(bytes2 value) private pure returns (bytes2 dirty) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSequentialProposalIdMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+9:import {GovernorSequentialProposalId} from "../../governance/extensions/GovernorSequentialProposalId.sol";
+11:abstract contract GovernorSequentialProposalIdMock is
+12:    GovernorSettings,
+13:    GovernorVotesQuorumFraction,
+14:    GovernorCountingSimple,
+15:    GovernorSequentialProposalId
+17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+21:    function getProposalId(
+26:    ) public view virtual override(Governor, GovernorSequentialProposalId) returns (uint256) {
+30:    function _propose(
+36:    ) internal virtual override(Governor, GovernorSequentialProposalId) returns (uint256 proposalId) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorProposalGuardianMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+9:import {GovernorProposalGuardian} from "../../governance/extensions/GovernorProposalGuardian.sol";
+11:abstract contract GovernorProposalGuardianMock is
+12:    GovernorSettings,
+13:    GovernorVotesQuorumFraction,
+14:    GovernorCountingSimple,
+15:    GovernorProposalGuardian
+17:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+21:    function _validateCancel(
+24:    ) internal view override(Governor, GovernorProposalGuardian) returns (bool) {
+===== governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol =====
+7:import {Arrays} from "@openzeppelin/contracts/utils/Arrays.sol";
+8:import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+10:contract ArraysTest is Test, SymTest {
+11:    function testSort(uint256[] memory values) public pure {
+16:    function symbolicSort() public pure {
+18:        for (uint256 i = 0; i < 3; i++) {
+27:    function testSliceAddressWithStartOnly(address[] memory values, uint256 start) public pure {
+39:    function testSliceAddress(address[] memory values, uint256 start, uint256 end) public pure {
+53:    function testSliceBytes32WithStartOnly(bytes32[] memory values, uint256 start) public pure {
+65:    function testSliceBytes32(bytes32[] memory values, uint256 start, uint256 end) public pure {
+79:    function testSliceUint256WithStartOnly(uint256[] memory values, uint256 start) public pure {
+91:    function testSliceUint256(uint256[] memory values, uint256 start, uint256 end) public pure {
+107:    function testSpliceAddressWithStartOnly(address[] memory values, uint256 start) public pure {
+119:    function testSpliceAddress(address[] memory values, uint256 start, uint256 end) public pure {
+133:    function testSpliceBytes32WithStartOnly(bytes32[] memory values, uint256 start) public pure {
+145:    function testSpliceBytes32(bytes32[] memory values, uint256 start, uint256 end) public pure {
+159:    function testSpliceUint256WithStartOnly(uint256[] memory values, uint256 start) public pure {
+171:    function testSpliceUint256(uint256[] memory values, uint256 start, uint256 end) public pure {
+185:    function testReplaceAddress(address[] memory buffer, uint256 pos, address[] memory replacement) public pure {
+199:        for (uint256 i = 0; i < buffer.length; ++i) {
+210:    function testReplaceAddressFull(
+230:        for (uint256 i = 0; i < buffer.length; ++i) {
+241:    function testReplaceBytes32(bytes32[] memory buffer, uint256 pos, bytes32[] memory replacement) public pure {
+255:        for (uint256 i = 0; i < buffer.length; ++i) {
+266:    function testReplaceBytes32Full(
+286:        for (uint256 i = 0; i < buffer.length; ++i) {
+297:    function testReplaceUint256(uint256[] memory buffer, uint256 pos, uint256[] memory replacement) public pure {
+311:        for (uint256 i = 0; i < buffer.length; ++i) {
+322:    function testReplaceUint256Full(
+342:        for (uint256 i = 0; i < buffer.length; ++i) {
+355:    function _assertSort(uint256[] memory values) internal pure {
+356:        for (uint256 i = 1; i < values.length; ++i) {
+361:    function _assertSliceOf(
+368:        for (uint256 i = 0; i < expectedLength; ++i) {
+373:    function _assertSliceOf(
+380:        for (uint256 i = 0; i < expectedLength; ++i) {
+385:    function _assertSliceOf(
+392:        for (uint256 i = 0; i < expectedLength; ++i) {
+399:    function _copyArray(uint256[] memory values) internal pure returns (uint256[] memory) {
+401:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+405:    function _copyArray(bytes32[] memory values) internal pure returns (bytes32[] memory) {
+407:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+411:    function _copyArray(address[] memory values) internal pure returns (address[] memory) {
+413:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (account/extensions/draft-AccountERC7579.sol)
+29: * To comply with the ERC-1271 support requirement, this contract defers signature validation to
+32: * This contract does not implement validation logic for user operations since this functionality
+37: * contract MyAccountERC7579 is AccountERC7579, Initializable {
+38: *   function initializeAccount(address validator, bytes calldata validatorData) public initializer {
+48: *   internal virtual functions {_extractUserOpValidator} and {_extractSignatureValidator}. Both are implemented
+50: *   accounts may want to override these internal functions.
+58:abstract contract AccountERC7579 is Account, IERC1271, IERC7579Execution, IERC7579AccountConfig, IERC7579ModuleConfig {
+86:    function accountId() public view virtual returns (string memory) {
+88:        return "@openzeppelin/contracts.AccountERC7579.v1.0.0";
+101:     * * Try (`0x01`): Try execution type (emits ERC7579TryExecuteFail on failure).
+103:    function supportsExecutionMode(bytes32 encodedMode) public view virtual returns (bool) {
+108:                callType == ERC7579Utils.CALLTYPE_DELEGATECALL) &&
+118:     * should be executed on the account.
+119:     * * Executor: A module that can execute transactions on behalf of the smart account via a callback.
+120:     * * Fallback Handler: A module that can extend the fallback functionality of a smart account.
+122:    function supportsModule(uint256 moduleTypeId) public view virtual returns (bool) {
+130:    function installModule(
+139:    function uninstallModule(
+148:    function isModuleInstalled(
+156:            // ERC-7579 requires this function to return bool, never revert. Check length to avoid out-of-bounds access.
+162:    function execute(bytes32 mode, bytes calldata executionCalldata) public payable virtual onlyEntryPointOrSelf {
+163:        _execute(Mode.wrap(mode), executionCalldata);
+167:    function executeFromExecutor(
+177:        return _execute(Mode.wrap(mode), executionCalldata);
+187:    function isValidSignature(bytes32 hash, bytes calldata signature) public view virtual returns (bytes4) {
+211:    function _validateUserOp(
+228:    function _execute(
+235:        if (callType == ERC7579Utils.CALLTYPE_DELEGATECALL) return executionCalldata.execDelegateCall(execType);
+253:    function _installModule(uint256 moduleTypeId, address module, bytes memory initData) internal virtual {
+288:    function _uninstallModule(uint256 moduleTypeId, address module, bytes memory deInitData) internal virtual {
+311:     * @dev Fallback function that delegates the call to the installed handler for the given selector.
+318:    function _fallback() internal virtual returns (bytes memory) {
+333:    function _fallbackHandler(bytes4 selector) internal view virtual returns (address) {
+338:    function _checkModule(
+357:     * NOTE: The default behavior of this function replicates the behavior of
+359:     * https://github.com/etherspot/etherspot-prime-contracts/blob/cfcdb48c4172cea0d66038324c0bae3288aa8caa/src/modular-etherspot-wallet/wallet/ModularEtherspotWallet.sol#L227[Etherspot's Prime Account], and
+362:     * This is not standardized in ERC-7579 (or in any follow-up ERC). Some accounts may want to override these internal functions.
+364:     * For example, https://github.com/bcnmy/nexus/blob/54f4e19baaff96081a8843672977caf712ef19f4/contracts/lib/NonceLib.sol#L17[Biconomy's Nexus]
+367:    function _extractUserOpValidator(PackedUserOperation calldata userOp) internal pure virtual returns (address) {
+381:     * NOTE: The default behavior of this function replicates the behavior of
+383:     * https://github.com/bcnmy/nexus/blob/54f4e19baaff96081a8843672977caf712ef19f4/contracts/Nexus.sol#L239[Biconomy's Nexus],
+384:     * https://github.com/etherspot/etherspot-prime-contracts/blob/cfcdb48c4172cea0d66038324c0bae3288aa8caa/src/modular-etherspot-wallet/wallet/ModularEtherspotWallet.sol#L252[Etherspot's Prime Account], and
+387:     * This is not standardized in ERC-7579 (or in any follow-up ERC). Some accounts may want to override these internal functions.
+389:     * NOTE: This function expects the signature to be at least 20 bytes long. Panics with {Panic-ARRAY_OUT_OF_BOUNDS} (0x32) otherwise.
+391:    function _extractSignatureValidator(
+398:     * @dev Extract the function selector from initData/deInitData for MODULE_TYPE_FALLBACK
+402:     * bytes object. This would prevent calling `_installModule` from a contract constructor and would force the use
+406:    function _decodeFallbackData(
+414:    function _rawSignatureValidation(
+===== governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol =====
+7:import {SafeCast} from "@openzeppelin/contracts/utils/math/SafeCast.sol";
+8:import {Checkpoints} from "@openzeppelin/contracts/utils/structs/Checkpoints.sol";
+10:contract CheckpointsTrace256Test is Test {
+13:    // Maximum gap between keys used during the fuzzing tests: the `_prepareKeys` function will make sure that
+20:    function _boundUint256(uint256 x, uint256 min, uint256 max) internal pure returns (uint256) {
+24:    function _prepareKeys(uint256[] memory keys, uint256 maxSpread) internal pure {
+26:        for (uint256 i = 0; i < keys.length; ++i) {
+33:    function _assertLatestCheckpoint(bool exist, uint256 key, uint256 value) internal view {
+41:    function testPush(uint256[] memory keys, uint256[] memory values, uint256 pastKey) public {
+51:        for (uint256 i = 0; i < keys.length; ++i) {
+77:    function push(uint256 key, uint256 value) external {
+81:    function testLookup(uint256[] memory keys, uint256[] memory values, uint256 lookup) public {
+91:        for (uint256 i = 0; i < keys.length; ++i) {
+118:contract CheckpointsTrace224Test is Test {
+121:    // Maximum gap between keys used during the fuzzing tests: the `_prepareKeys` function will make sure that
+128:    function _boundUint32(uint32 x, uint32 min, uint32 max) internal pure returns (uint32) {
+132:    function _prepareKeys(uint32[] memory keys, uint32 maxSpread) internal pure {
+134:        for (uint256 i = 0; i < keys.length; ++i) {
+141:    function _assertLatestCheckpoint(bool exist, uint32 key, uint224 value) internal view {
+149:    function testPush(uint32[] memory keys, uint224[] memory values, uint32 pastKey) public {
+159:        for (uint256 i = 0; i < keys.length; ++i) {
+185:    function push(uint32 key, uint224 value) external {
+189:    function testLookup(uint32[] memory keys, uint224[] memory values, uint32 lookup) public {
+199:        for (uint256 i = 0; i < keys.length; ++i) {
+226:contract CheckpointsTrace208Test is Test {
+229:    // Maximum gap between keys used during the fuzzing tests: the `_prepareKeys` function will make sure that
+236:    function _boundUint48(uint48 x, uint48 min, uint48 max) internal pure returns (uint48) {
+240:    function _prepareKeys(uint48[] memory keys, uint48 maxSpread) internal pure {
+242:        for (uint256 i = 0; i < keys.length; ++i) {
+249:    function _assertLatestCheckpoint(bool exist, uint48 key, uint208 value) internal view {
+257:    function testPush(uint48[] memory keys, uint208[] memory values, uint48 pastKey) public {
+267:        for (uint256 i = 0; i < keys.length; ++i) {
+293:    function push(uint48 key, uint208 value) external {
+297:    function testLookup(uint48[] memory keys, uint208[] memory values, uint48 lookup) public {
+307:        for (uint256 i = 0; i < keys.length; ++i) {
+334:contract CheckpointsTrace160Test is Test {
+337:    // Maximum gap between keys used during the fuzzing tests: the `_prepareKeys` function will make sure that
+344:    function _boundUint96(uint96 x, uint96 min, uint96 max) internal pure returns (uint96) {
+348:    function _prepareKeys(uint96[] memory keys, uint96 maxSpread) internal pure {
+350:        for (uint256 i = 0; i < keys.length; ++i) {
+357:    function _assertLatestCheckpoint(bool exist, uint96 key, uint160 value) internal view {
+365:    function testPush(uint96[] memory keys, uint160[] memory values, uint96 pastKey) public {
+375:        for (uint256 i = 0; i < keys.length; ++i) {
+401:    function push(uint96 key, uint160 value) external {
+405:    function testLookup(uint96[] memory keys, uint160[] memory values, uint96 lookup) public {
+415:        for (uint256 i = 0; i < keys.length; ++i) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/Arrays.sol)
+13: * @dev Collection of functions related to array types.
+20:     * @dev Sort an array of uint256 (in memory) following the provided comparator function.
+22:     * This function does the sorting "in place", meaning that it overrides the input. The object is returned for
+25:     * NOTE: this function's cost is `O(n · log(n))` in average and `O(n²)` in the worst case, with n the length of the
+26:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+30:     * IMPORTANT: Consider memory side-effects when using custom comparator functions that access memory in an unsafe way.
+32:    function sort(
+34:        function(uint256, uint256) pure returns (bool) comp
+43:    function sort(uint256[] memory array) internal pure returns (uint256[] memory) {
+49:     * @dev Sort an array of address (in memory) following the provided comparator function.
+51:     * This function does the sorting "in place", meaning that it overrides the input. The object is returned for
+54:     * NOTE: this function's cost is `O(n · log(n))` in average and `O(n²)` in the worst case, with n the length of the
+55:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+59:     * IMPORTANT: Consider memory side-effects when using custom comparator functions that access memory in an unsafe way.
+61:    function sort(
+63:        function(address, address) pure returns (bool) comp
+72:    function sort(address[] memory array) internal pure returns (address[] memory) {
+78:     * @dev Sort an array of bytes32 (in memory) following the provided comparator function.
+80:     * This function does the sorting "in place", meaning that it overrides the input. The object is returned for
+83:     * NOTE: this function's cost is `O(n · log(n))` in average and `O(n²)` in the worst case, with n the length of the
+84:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+88:     * IMPORTANT: Consider memory side-effects when using custom comparator functions that access memory in an unsafe way.
+90:    function sort(
+92:        function(bytes32, bytes32) pure returns (bool) comp
+101:    function sort(bytes32[] memory array) internal pure returns (bytes32[] memory) {
+112:     * IMPORTANT: Memory locations between `begin` and `end` are not validated/zeroed. This function should
+115:    function _quickSort(uint256 begin, uint256 end, function(uint256, uint256) pure returns (bool) comp) private pure {
+124:            for (uint256 it = begin + 0x20; it < end; it += 0x20) {
+142:    function _begin(uint256[] memory array) private pure returns (uint256 ptr) {
+152:    function _end(uint256[] memory array) private pure returns (uint256 ptr) {
+161:    function _mload(uint256 ptr) private pure returns (uint256 value) {
+170:    function _swap(uint256 ptr1, uint256 ptr2) private pure {
+180:    function _castToUint256Array(address[] memory input) private pure returns (uint256[] memory output) {
+187:    function _castToUint256Array(bytes32[] memory input) private pure returns (uint256[] memory output) {
+193:    /// @dev Helper: low level cast address comp function to uint256 comp function
+194:    function _castToUint256Comp(
+195:        function(address, address) pure returns (bool) input
+196:    ) private pure returns (function(uint256, uint256) pure returns (bool) output) {
+202:    /// @dev Helper: low level cast bytes32 comp function to uint256 comp function
+203:    function _castToUint256Comp(
+204:        function(bytes32, bytes32) pure returns (bool) input
+205:    ) private pure returns (function(uint256, uint256) pure returns (bool) output) {
+221:     * support for repeated elements in the array. The {lowerBound} function should
+224:    function findUpperBound(uint256[] storage array, uint256 element) internal view returns (uint256) {
+232:        while (low < high) {
+260:    function lowerBound(uint256[] storage array, uint256 element) internal view returns (uint256) {
+268:        while (low < high) {
+294:    function upperBound(uint256[] storage array, uint256 element) internal view returns (uint256) {
+302:        while (low < high) {
+323:    function lowerBoundMemory(uint256[] memory array, uint256 element) internal pure returns (uint256) {
+331:        while (low < high) {
+352:    function upperBoundMemory(uint256[] memory array, uint256 element) internal pure returns (uint256) {
+360:        while (low < high) {
+384:    function slice(address[] memory array, uint256 start) internal pure returns (address[] memory) {
+394:    function slice(address[] memory array, uint256 start, uint256 end) internal pure returns (address[] memory) {
+414:    function slice(bytes32[] memory array, uint256 start) internal pure returns (bytes32[] memory) {
+424:    function slice(bytes32[] memory array, uint256 start, uint256 end) internal pure returns (bytes32[] memory) {
+444:    function slice(uint256[] memory array, uint256 start) internal pure returns (uint256[] memory) {
+454:    function slice(uint256[] memory array, uint256 start, uint256 end) internal pure returns (uint256[] memory) {
+472:     * NOTE: This function modifies the provided array in place. If you need to preserve the original array, use {slice} instead.
+474:    function splice(address[] memory array, uint256 start) internal pure returns (address[] memory) {
+483:     * NOTE: This function modifies the provided array in place. If you need to preserve the original array, use {slice} instead.
+485:    function splice(address[] memory array, uint256 start, uint256 end) internal pure returns (address[] memory) {
+505:     * NOTE: This function modifies the provided array in place.
+507:    function replace(
+524:     * NOTE: This function modifies the provided array in place.
+526:    function replace(
+554:     * NOTE: This function modifies the provided array in place. If you need to preserve the original array, use {slice} instead.
+556:    function splice(bytes32[] memory array, uint256 start) internal pure returns (bytes32[] memory) {
+565:     * NOTE: This function modifies the provided array in place. If you need to preserve the original array, use {slice} instead.
+567:    function splice(bytes32[] memory array, uint256 start, uint256 end) internal pure returns (bytes32[] memory) {
+587:     * NOTE: This function modifies the provided array in place.
+589:    function replace(
+606:     * NOTE: This function modifies the provided array in place.
+608:    function replace(
+636:     * NOTE: This function modifies the provided array in place. If you need to preserve the original array, use {slice} instead.
+638:    function splice(uint256[] memory array, uint256 start) internal pure returns (uint256[] memory) {
+647:     * NOTE: This function modifies the provided array in place. If you need to preserve the original array, use {slice} instead.
+649:    function splice(uint256[] memory array, uint256 start, uint256 end) internal pure returns (uint256[] memory) {
+669:     * NOTE: This function modifies the provided array in place.
+671:    function replace(
+688:     * NOTE: This function modifies the provided array in place.
+690:    function replace(
+719:    function unsafeAccess(address[] storage arr, uint256 pos) internal pure returns (StorageSlot.AddressSlot storage) {
+732:    function unsafeAccess(bytes32[] storage arr, uint256 pos) internal pure returns (StorageSlot.Bytes32Slot storage) {
+745:    function unsafeAccess(uint256[] storage arr, uint256 pos) internal pure returns (StorageSlot.Uint256Slot storage) {
+758:    function unsafeAccess(bytes[] storage arr, uint256 pos) internal pure returns (StorageSlot.BytesSlot storage) {
+771:    function unsafeAccess(string[] storage arr, uint256 pos) internal pure returns (StorageSlot.StringSlot storage) {
+784:    function unsafeMemoryAccess(address[] memory arr, uint256 pos) internal pure returns (address res) {
+795:    function unsafeMemoryAccess(bytes32[] memory arr, uint256 pos) internal pure returns (bytes32 res) {
+806:    function unsafeMemoryAccess(uint256[] memory arr, uint256 pos) internal pure returns (uint256 res) {
+817:    function unsafeMemoryAccess(bytes[] memory arr, uint256 pos) internal pure returns (bytes memory res) {
+828:    function unsafeMemoryAccess(string[] memory arr, uint256 pos) internal pure returns (string memory res) {
+839:    function unsafeSetLength(address[] storage array, uint256 len) internal {
+850:    function unsafeSetLength(bytes32[] storage array, uint256 len) internal {
+861:    function unsafeSetLength(uint256[] storage array, uint256 len) internal {
+872:    function unsafeSetLength(bytes[] storage array, uint256 len) internal {
+883:    function unsafeSetLength(string[] storage array, uint256 len) internal {
+===== governor-retrofit/lib/forge-std/src/StdConfig.sol =====
+7:/// @notice  A contract that parses a toml configuration file and loads its
+10:/// @dev     This contract assumes a toml structure where top-level keys
+34:contract StdConfig {
+97:        for (uint256 i = 0; i < chain_keys.length; i++) {
+117:            for (uint8 t = 1; t <= NUM_TYPES; t++) {
+122:                    for (uint256 j = 0; j < keys.length; j++) {
+135:    function _loadAndCacheValue(
+234:    // -- HELPER FUNCTIONS -----------------------------------------------------
+238:    function writeUpdatesBackToFile(bool enabled) public {
+251:    function resolveChainId(string memory aliasOrId) public view returns (uint256) {
+264:    function _getChainKeyFromId(uint256 chainId) private view returns (string memory) {
+265:        for (uint256 i = 0; i < _chainKeys.length; i++) {
+275:    function _ensureTypeConsistency(uint256 chainId, string memory key, Type memory ty) private {
+286:    function _quote(string memory s) private pure returns (string memory) {
+295:    function _writeToToml(uint256 chainId, string memory ty, string memory key, string memory jsonValue) private {
+301:    // -- GETTER FUNCTIONS -----------------------------------------------------
+310:    function get(uint256 chain_id, string memory key) public view returns (Variable memory) {
+320:    function get(string memory key) public view returns (Variable memory) {
+330:    function exists(uint256 chain_id, string memory key) public view returns (bool) {
+339:    function exists(string memory key) public view returns (bool) {
+344:    function getChainIds() public view returns (uint256[] memory) {
+348:        for (uint256 i = 0; i < keys.length; i++) {
+356:    function getRpcUrl(uint256 chainId) public view returns (string memory) {
+361:    function getRpcUrl() public view returns (string memory) {
+365:    // -- SETTER FUNCTIONS (SINGLE VALUES) -------------------------------------
+369:    function set(uint256 chainId, string memory key, bool value) public {
+378:    function set(string memory key, bool value) public {
+384:    function set(uint256 chainId, string memory key, address value) public {
+393:    function set(string memory key, address value) public {
+399:    function set(uint256 chainId, string memory key, bytes32 value) public {
+408:    function set(string memory key, bytes32 value) public {
+414:    function set(uint256 chainId, string memory key, uint256 value) public {
+423:    function set(string memory key, uint256 value) public {
+428:    function set(uint256 chainId, string memory key, int256 value) public {
+436:    function set(string memory key, int256 value) public {
+442:    function set(uint256 chainId, string memory key, string memory value) public {
+451:    function set(string memory key, string memory value) public {
+457:    function set(uint256 chainId, string memory key, bytes memory value) public {
+466:    function set(string memory key, bytes memory value) public {
+470:    // -- SETTER FUNCTIONS (ARRAYS) --------------------------------------------
+474:    function set(uint256 chainId, string memory key, bool[] memory value) public {
+480:            for (uint256 i = 0; i < value.length; i++) {
+491:    function set(string memory key, bool[] memory value) public {
+497:    function set(uint256 chainId, string memory key, address[] memory value) public {
+503:            for (uint256 i = 0; i < value.length; i++) {
+514:    function set(string memory key, address[] memory value) public {
+520:    function set(uint256 chainId, string memory key, bytes32[] memory value) public {
+526:            for (uint256 i = 0; i < value.length; i++) {
+537:    function set(string memory key, bytes32[] memory value) public {
+543:    function set(uint256 chainId, string memory key, uint256[] memory value) public {
+549:            for (uint256 i = 0; i < value.length; i++) {
+560:    function set(string memory key, uint256[] memory value) public {
+566:    function set(uint256 chainId, string memory key, int256[] memory value) public {
+572:            for (uint256 i = 0; i < value.length; i++) {
+583:    function set(string memory key, int256[] memory value) public {
+589:    function set(uint256 chainId, string memory key, string[] memory value) public {
+595:            for (uint256 i = 0; i < value.length; i++) {
+606:    function set(string memory key, string[] memory value) public {
+612:    function set(uint256 chainId, string memory key, bytes[] memory value) public {
+618:            for (uint256 i = 0; i < value.length; i++) {
+629:    function set(string memory key, bytes[] memory value) public {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorCountingOverridableMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+7:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+8:import {GovernorCountingOverridable} from "../../governance/extensions/GovernorCountingOverridable.sol";
+10:abstract contract GovernorCountingOverridableMock is
+11:    GovernorSettings,
+12:    GovernorVotesQuorumFraction,
+13:    GovernorCountingOverridable
+15:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol =====
+2:// OpenZeppelin Contracts (last updated v5.5.0) (governance/IGovernor.sol)
+10: * @dev Interface of the {Governor} core.
+12: * NOTE: Event parameters lack the `indexed` keyword for compatibility with GovernorBravo events.
+15:interface IGovernor is IERC165, IERC6372 {
+22:        Queued,
+24:        Executed
+30:    error GovernorInvalidProposalLength(uint256 targets, uint256 calldatas, uint256 values);
+35:    error GovernorAlreadyCastVote(address voter);
+38:     * @dev Token deposits are disabled in this contract.
+40:    error GovernorDisabledDeposit();
+45:    error GovernorOnlyExecutor(address account);
+50:    error GovernorNonexistentProposal(uint256 proposalId);
+60:     * See {Governor-_encodeStateBitmap}.
+62:    error GovernorUnexpectedProposalState(uint256 proposalId, ProposalState current, bytes32 expectedStates);
+67:    error GovernorInvalidVotingPeriod(uint256 votingPeriod);
+72:    error GovernorInsufficientProposerVotes(address proposer, uint256 votes, uint256 threshold);
+77:    error GovernorRestrictedProposer(address proposer);
+82:    error GovernorInvalidVoteType();
+87:    error GovernorInvalidVoteParams();
+90:     * @dev Queue operation is not implemented for this governor. Execute should be called directly.
+92:    error GovernorQueueNotImplemented();
+95:     * @dev The proposal hasn't been queued yet.
+97:    error GovernorNotQueuedProposal(uint256 proposalId);
+100:     * @dev The proposal has already been queued.
+102:    error GovernorAlreadyQueuedProposal(uint256 proposalId);
+106:     * If the `voter` is a contract, the signature is not valid using {IERC1271-isValidSignature}.
+108:    error GovernorInvalidSignature(address voter);
+113:    error GovernorUnableToCancel(uint256 proposalId, address account);
+131:     * @dev Emitted when a proposal is queued.
+133:    event ProposalQueued(uint256 proposalId, uint256 etaSeconds);
+136:     * @dev Emitted when a proposal is executed.
+138:    event ProposalExecuted(uint256 proposalId);
+169:     * @dev Name of the governor instance (used in building the EIP-712 domain separator).
+171:    function name() external view returns (string memory);
+175:     * @dev Version of the governor instance (used in building the EIP-712 domain separator). Default: "1"
+177:    function version() external view returns (string memory);
+187:     * - `support=bravo` refers to the vote options 0 = Against, 1 = For, 2 = Abstain, as in `GovernorBravo`.
+202:    function COUNTING_MODE() external view returns (string memory);
+206:     * @dev Hashing function used to (re)build the proposal id from the proposal details.
+210:    function hashProposal(
+219:     * @dev Function used to get the proposal id from the proposal details.
+221:    function getProposalId(
+232:    function state(uint256 proposalId) external view returns (ProposalState);
+238:    function proposalThreshold() external view returns (uint256);
+246:    function proposalSnapshot(uint256 proposalId) external view returns (uint256);
+253:    function proposalDeadline(uint256 proposalId) external view returns (uint256);
+259:    function proposalProposer(uint256 proposalId) external view returns (address);
+263:     * @dev The time when a queued proposal becomes executable ("ETA"). Unlike {proposalSnapshot} and
+264:     * {proposalDeadline}, this doesn't use the governor clock, and instead relies on the executor's clock which may be
+267:    function proposalEta(uint256 proposalId) external view returns (uint256);
+271:     * @dev Whether a proposal needs to be queued before execution.
+273:    function proposalNeedsQueuing(uint256 proposalId) external view returns (bool);
+278:     * on the clock (see ERC-6372) this contract uses.
+286:    function votingDelay() external view returns (uint256);
+291:     * (see ERC-6372) this contract uses.
+300:    function votingPeriod() external view returns (uint256);
+309:    function quorum(uint256 timepoint) external view returns (uint256);
+318:    function getVotes(address account, uint256 timepoint) external view returns (uint256);
+324:    function getVotesWithParams(
+334:    function hasVoted(uint256 proposalId, address account) external view returns (bool);
+337:     * @dev Create a new proposal. Vote starts after a delay specified by {IGovernor-votingDelay} and lasts for a
+338:     * duration specified by {IGovernor-votingPeriod}.
+342:     * NOTE: The state of the Governor and `targets` may change between the proposal creation and its execution.
+343:     * This may be the result of third party actions on the targeted contracts, or other governor proposals.
+344:     * For example, the balance of this contract could be updated or its access control permissions may be modified,
+345:     * possibly compromising the proposal's ability to execute successfully (e.g. the governor doesn't have enough
+348:    function propose(
+356:     * @dev Queue a proposal. Some governors require this step to be performed before execution can happen. If queuing
+357:     * is not necessary, this function may revert.
+360:     * Emits a {ProposalQueued} event.
+362:    function queue(
+370:     * @dev Execute a successful proposal. This requires the quorum to be reached, the vote to be successful, and the
+371:     * deadline to be reached. Depending on the governor it might also be required that the proposal was queued and
+374:     * Emits a {ProposalExecuted} event.
+376:     * NOTE: Some modules can modify the requirements for execution, for example by adding an additional timelock.
+378:    function execute(
+391:    function cancel(
+403:    function castVote(uint256 proposalId, uint8 support) external returns (uint256 balance);
+410:    function castVoteWithReason(
+421:    function castVoteWithReasonAndParams(
+433:    function castVoteBySig(
+446:    function castVoteWithReasonAndParamsBySig(
+===== governor-retrofit/lib/forge-std/src/LibVariable.sol =====
+32:///         Provides functions to check types, convert them to strings, and coerce `Variable` instances into
+39:///         contract MyContract {
+43:///             function readValues() public {
+63:    function isEqual(Type memory self, Type memory other) internal pure returns (bool) {
+68:    function assertEq(Type memory self, Type memory other) internal pure {
+75:    function toString(Type memory self) internal pure returns (string memory) {
+85:    function toString(TypeKind self) internal pure returns (string memory) {
+97:    function toTomlKey(TypeKind self) internal pure returns (string memory) {
+118:    function assertExists(Variable memory self) public pure {
+124:    // -- VARIABLE COERCION FUNCTIONS (SINGLE VALUES) --------------------------
+127:    function toBool(Variable memory self) internal pure check(self, Type(TypeKind.Bool, false)) returns (bool) {
+132:    function toAddress(Variable memory self)
+142:    function toBytes32(Variable memory self)
+152:    function toUint256(Variable memory self)
+162:    function toUint128(Variable memory self) internal pure returns (uint128) {
+171:    function toUint64(Variable memory self) internal pure returns (uint64) {
+180:    function toUint32(Variable memory self) internal pure returns (uint32) {
+189:    function toUint16(Variable memory self) internal pure returns (uint16) {
+198:    function toUint8(Variable memory self) internal pure returns (uint8) {
+207:    function toInt256(Variable memory self) internal pure check(self, Type(TypeKind.Int256, false)) returns (int256) {
+212:    function toInt128(Variable memory self) internal pure returns (int128) {
+221:    function toInt64(Variable memory self) internal pure returns (int64) {
+230:    function toInt32(Variable memory self) internal pure returns (int32) {
+239:    function toInt16(Variable memory self) internal pure returns (int16) {
+248:    function toInt8(Variable memory self) internal pure returns (int8) {
+257:    function toString(Variable memory self)
+267:    function toBytes(Variable memory self)
+276:    // -- VARIABLE COERCION FUNCTIONS (ARRAYS) ---------------------------------
+279:    function toBoolArray(Variable memory self)
+289:    function toAddressArray(Variable memory self)
+299:    function toBytes32Array(Variable memory self)
+309:    function toUint256Array(Variable memory self)
+319:    function toUint128Array(Variable memory self) internal pure returns (uint128[] memory) {
+322:        for (uint256 i = 0; i < values.length; i++) {
+332:    function toUint64Array(Variable memory self) internal pure returns (uint64[] memory) {
+335:        for (uint256 i = 0; i < values.length; i++) {
+345:    function toUint32Array(Variable memory self) internal pure returns (uint32[] memory) {
+348:        for (uint256 i = 0; i < values.length; i++) {
+358:    function toUint16Array(Variable memory self) internal pure returns (uint16[] memory) {
+361:        for (uint256 i = 0; i < values.length; i++) {
+371:    function toUint8Array(Variable memory self) internal pure returns (uint8[] memory) {
+374:        for (uint256 i = 0; i < values.length; i++) {
+384:    function toInt256Array(Variable memory self)
+394:    function toInt128Array(Variable memory self) internal pure returns (int128[] memory) {
+397:        for (uint256 i = 0; i < values.length; i++) {
+407:    function toInt64Array(Variable memory self) internal pure returns (int64[] memory) {
+410:        for (uint256 i = 0; i < values.length; i++) {
+420:    function toInt32Array(Variable memory self) internal pure returns (int32[] memory) {
+423:        for (uint256 i = 0; i < values.length; i++) {
+433:    function toInt16Array(Variable memory self) internal pure returns (int16[] memory) {
+436:        for (uint256 i = 0; i < values.length; i++) {
+446:    function toInt8Array(Variable memory self) internal pure returns (int8[] memory) {
+449:        for (uint256 i = 0; i < values.length; i++) {
+459:    function toStringArray(Variable memory self)
+469:    function toBytesArray(Variable memory self)
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol =====
+2:// OpenZeppelin Contracts (last updated v5.5.0) (utils/structs/Checkpoints.sol)
+13: * To create a history of checkpoints define a variable type `Checkpoints.Trace*` in your contract, and store a new
+14: * checkpoint for the current transaction block using the {push} function.
+39:    function push(
+51:    function lowerLookup(Trace256 storage self, uint256 key) internal view returns (uint256) {
+61:    function upperLookup(Trace256 storage self, uint256 key) internal view returns (uint256) {
+74:    function upperLookupRecent(Trace256 storage self, uint256 key) internal view returns (uint256) {
+97:    function latest(Trace256 storage self) internal view returns (uint256) {
+106:    function latestCheckpoint(Trace256 storage self) internal view returns (bool exists, uint256 _key, uint256 _value) {
+119:    function length(Trace256 storage self) internal view returns (uint256) {
+126:    function at(Trace256 storage self, uint32 pos) internal view returns (Checkpoint256 memory) {
+134:    function _insert(
+171:    function _upperBinaryLookup(
+177:        while (low < high) {
+195:    function _lowerBinaryLookup(
+201:        while (low < high) {
+215:    function _unsafeAccess(
+242:    function push(
+254:    function lowerLookup(Trace224 storage self, uint32 key) internal view returns (uint224) {
+264:    function upperLookup(Trace224 storage self, uint32 key) internal view returns (uint224) {
+277:    function upperLookupRecent(Trace224 storage self, uint32 key) internal view returns (uint224) {
+300:    function latest(Trace224 storage self) internal view returns (uint224) {
+309:    function latestCheckpoint(Trace224 storage self) internal view returns (bool exists, uint32 _key, uint224 _value) {
+322:    function length(Trace224 storage self) internal view returns (uint256) {
+329:    function at(Trace224 storage self, uint32 pos) internal view returns (Checkpoint224 memory) {
+337:    function _insert(
+374:    function _upperBinaryLookup(
+380:        while (low < high) {
+398:    function _lowerBinaryLookup(
+404:        while (low < high) {
+418:    function _unsafeAccess(
+445:    function push(
+457:    function lowerLookup(Trace208 storage self, uint48 key) internal view returns (uint208) {
+467:    function upperLookup(Trace208 storage self, uint48 key) internal view returns (uint208) {
+480:    function upperLookupRecent(Trace208 storage self, uint48 key) internal view returns (uint208) {
+503:    function latest(Trace208 storage self) internal view returns (uint208) {
+512:    function latestCheckpoint(Trace208 storage self) internal view returns (bool exists, uint48 _key, uint208 _value) {
+525:    function length(Trace208 storage self) internal view returns (uint256) {
+532:    function at(Trace208 storage self, uint32 pos) internal view returns (Checkpoint208 memory) {
+540:    function _insert(
+577:    function _upperBinaryLookup(
+583:        while (low < high) {
+601:    function _lowerBinaryLookup(
+607:        while (low < high) {
+621:    function _unsafeAccess(
+648:    function push(
+660:    function lowerLookup(Trace160 storage self, uint96 key) internal view returns (uint160) {
+670:    function upperLookup(Trace160 storage self, uint96 key) internal view returns (uint160) {
+683:    function upperLookupRecent(Trace160 storage self, uint96 key) internal view returns (uint160) {
+706:    function latest(Trace160 storage self) internal view returns (uint160) {
+715:    function latestCheckpoint(Trace160 storage self) internal view returns (bool exists, uint96 _key, uint160 _value) {
+728:    function length(Trace160 storage self) internal view returns (uint256) {
+735:    function at(Trace160 storage self, uint32 pos) internal view returns (Checkpoint160 memory) {
+743:    function _insert(
+780:    function _upperBinaryLookup(
+786:        while (low < high) {
+804:    function _lowerBinaryLookup(
+810:        while (low < high) {
+824:    function _unsafeAccess(
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorWithParamsMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+7:import {GovernorVotes} from "../../governance/extensions/GovernorVotes.sol";
+9:abstract contract GovernorWithParamsMock is GovernorVotes, GovernorCountingSimple {
+12:    function quorum(uint256) public pure override returns (uint256) {
+16:    function votingDelay() public pure override returns (uint256) {
+20:    function votingPeriod() public pure override returns (uint256) {
+24:    function _getVotes(
+28:    ) internal view override(Governor, GovernorVotes) returns (uint256) {
+38:    function _countVote(
+44:    ) internal override(Governor, GovernorCountingSimple) returns (uint256) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol =====
+2:// OpenZeppelin Contracts (last updated v5.5.0) (account/extensions/draft-ERC7821.sol)
+17:abstract contract ERC7821 is IERC7821 {
+23:     * @dev Executes the calls in `executionData` with no optional `opData` support.
+25:     * NOTE: Access to this function is controlled by {_erc7821AuthorizedExecutor}. Changing access permissions, for
+30:    function execute(bytes32 mode, bytes calldata executionData) public payable virtual {
+38:    function supportsExecutionMode(bytes32 mode) public view virtual returns (bool result) {
+47:     * @dev Access control mechanism for the {execute} function.
+48:     * By default, only the contract itself is allowed to execute.
+50:     * Override this function to implement custom access control, for example to allow the
+51:     * ERC-4337 entrypoint to execute.
+54:     * function _erc7821AuthorizedExecutor(
+63:    function _erc7821AuthorizedExecutor(
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (account/extensions/draft-AccountERC7579Hooked.sol)
+14: * with {_execute} (including {execute} and {executeFromExecutor} by default) and {IERC7579Hook-postCheck} thereafter.
+18: * before the preHook or after the postHook. That is the case on all functions here, but it may not be the case if
+19: * functions that have this modifier are overridden. Developers should be extremely careful when implementing hook
+20: * modules or further overriding functions that involve hooks.
+22:abstract contract AccountERC7579Hooked is AccountERC7579 {
+25:    /// @dev A hook module is already present. This contract only supports one hook module.
+29:     * @dev Calls {IERC7579Hook-preCheck} before executing the modified function and {IERC7579Hook-postCheck}
+43:    function accountId() public view virtual override returns (string memory) {
+45:        return "@openzeppelin/contracts.AccountERC7579Hooked.v1.0.0";
+49:    function hook() public view virtual returns (address) {
+54:    function supportsModule(uint256 moduleTypeId) public view virtual override returns (bool) {
+59:    function isModuleInstalled(
+70:    function _installModule(
+83:    function _uninstallModule(
+95:    /// @dev Hooked version of {AccountERC7579-_execute}.
+96:    function _execute(
+100:        return super._execute(mode, executionCalldata);
+104:    function _fallback() internal virtual override withHook returns (bytes memory) {
+===== shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol =====
+3:import "../../live-semantic-adapter/contracts/SafeSemanticAdapter.sol";
+5:abstract contract SafeMultiSendSemanticShadow is SafeSemanticAdapter {
+6:    function _executeSemanticMultiSend(
+16:        bytes32 parentOperationId = _deriveParentOperationId(
+21:        uint16 operationCount = uint16(targets.length);
+23:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+27:                targets[operationIndex],
+28:                values[operationIndex],
+29:                payloads[operationIndex],
+30:                parentOperationId,
+32:                operationIndex,
+33:                operationCount
+36:            _executeOriginalOperation(
+37:                targets[operationIndex],
+38:                values[operationIndex],
+39:                payloads[operationIndex]
+44:    function _executeOriginalOperation(
+===== semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol =====
+3:abstract contract CanonicalMultiSendSemanticInjection {
+4:    event ProofOfOperation(
+11:        bytes32 parentOperationId,
+13:        uint16 operationIndex,
+14:        uint16 operationCount
+17:    function _executeSemanticBatch(
+27:        bytes32 parentOperationId = keccak256(
+34:        uint16 operationCount = uint16(targets.length);
+36:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+37:            bytes32 payloadHash = keccak256(payloads[operationIndex]);
+41:                    targets[operationIndex],
+43:                    operationIndex,
+44:                    parentOperationId
+48:            emit ProofOfOperation(
+52:                targets[operationIndex],
+53:                values[operationIndex],
+55:                parentOperationId,
+57:                operationIndex,
+58:                operationCount
+61:            _executeOperation(
+62:                targets[operationIndex],
+63:                values[operationIndex],
+64:                payloads[operationIndex]
+69:    function _executeOperation(
+===== governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol =====
+7:contract StdStorageTest is Test {
+12:    function setUp() public {
+16:    function test_StorageHidden() public {
+20:    function test_StorageObvious() public {
+24:    function test_StorageExtraSload() public {
+28:    function test_StorageCheckedWriteHidden() public {
+33:    function test_StorageCheckedWriteObvious() public {
+38:    function test_StorageCheckedWriteSignedIntegerHidden() public {
+43:    function test_StorageCheckedWriteSignedIntegerObvious() public {
+48:    function test_StorageMapStructA() public {
+54:    function test_StorageMapStructB() public {
+60:    function test_StorageDeepMap() public {
+67:    function test_StorageCheckedWriteDeepMap() public {
+73:    function test_StorageDeepMapStructA() public {
+82:    function test_StorageDeepMapStructB() public {
+91:    function test_StorageCheckedWriteDeepMapStructA() public {
+100:    function test_StorageCheckedWriteDeepMapStructB() public {
+109:    function test_StorageCheckedWriteMapStructA() public {
+116:    function test_StorageCheckedWriteMapStructB() public {
+123:    function test_StorageStructA() public {
+128:    function test_StorageStructB() public {
+133:    function test_StorageCheckedWriteStructA() public {
+140:    function test_StorageCheckedWriteStructB() public {
+147:    function test_StorageMapAddrFound() public {
+152:    function test_StorageMapAddrRoot() public {
+161:    function test_StorageMapUintFound() public {
+166:    function test_StorageCheckedWriteMapUint() public {
+171:    function test_StorageCheckedWriteMapAddr() public {
+176:    function test_StorageCheckedWriteMapBool() public {
+181:    function testFuzz_StorageCheckedWriteMapPacked(address addr, uint128 value) public {
+191:    function test_StorageCheckedWriteMapPackedFullSuccess() public {
+201:    function test_RevertStorageConst() public {
+208:    function testFuzz_StorageNativePack(uint248 val1, uint248 val2, bool boolVal1, bool boolVal2) public {
+220:    function test_StorageReadBytes32() public {
+225:    function test_StorageReadBool_False() public {
+230:    function test_StorageReadBool_True() public {
+235:    function test_RevertIf_ReadingNonBoolValue() public {
+240:    function readNonBoolValue() public {
+244:    function test_StorageReadAddress() public {
+249:    function test_StorageReadUint() public {
+254:    function test_StorageReadInt() public {
+259:    function testFuzz_Packed(uint256 val, uint8 elemToGet) public {
+260:        // This function tries an assortment of packed slots, shifts meaning number of elements
+266:        for (uint256 i = 1; i < 5; i++) {
+272:            for (uint256 j; j < shifts; j++) {
+280:            for (uint256 j; j < shiftSizes.length; j++) {
+301:    function testFuzz_Packed2(uint256 nvars, uint256 seed) public {
+313:        for (uint256 i = 0; i < nvars; i++) {
+332:        for (uint256 i = 0; i < nvars; i++) {
+339:        for (uint256 i = 0; i < nvars; i++) {
+351:    function testEdgeCaseArray() public {
+357:contract StorageTestTarget {
+367:    function expectRevertStorageConst() public {
+372:contract StorageTest {
+414:    function read_struct_upper(address who) public view returns (uint256) {
+418:    function read_struct_lower(address who) public view returns (uint256) {
+422:    function hidden() public view returns (bytes32 t) {
+430:    function const() public pure returns (bytes32 t) {
+434:    function extra_sload() public view returns (bytes32 t) {
+442:    function setRandomPacking(uint256 val) public {
+446:    function _getMask(uint256 size) internal pure returns (uint256 mask) {
+453:    function setRandomPacking(uint256 val, uint256 size, uint256 offset) public {
+462:    function getRandomPacked(uint256 size, uint256 offset) public view returns (uint256) {
+469:    function getRandomPacked(uint8 shifts, uint8[] memory shiftSizes, uint8 elem) public view returns (uint256) {
+474:        for (uint256 i; i < shiftSizes.length; i++) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/Strings.sol)
+42:    function toString(uint256 value) internal pure returns (string memory) {
+50:            while (true) {
+65:    function toStringSigned(int256 value) internal pure returns (string memory) {
+72:    function toHexString(uint256 value) internal pure returns (string memory) {
+81:    function toHexString(uint256 value, uint256 length) internal pure returns (string memory) {
+86:        for (uint256 i = 2 * length + 1; i > 1; --i) {
+100:    function toHexString(address addr) internal pure returns (string memory) {
+108:    function toChecksumHexString(address addr) internal pure returns (string memory) {
+117:        for (uint256 i = 41; i > 1; --i) {
+131:    function toHexString(bytes memory input) internal pure returns (string memory) {
+136:            for (uint256 i = 0; i < input.length; ++i) {
+148:    function equal(string memory a, string memory b) internal pure returns (bool) {
+159:    function parseUint(string memory input) internal pure returns (uint256) {
+171:    function parseUint(string memory input, uint256 begin, uint256 end) internal pure returns (uint256) {
+180:     * NOTE: This function will revert if the result does not fit in a `uint256`.
+182:    function tryParseUint(string memory input) internal pure returns (bool success, uint256 value) {
+190:     * NOTE: This function will revert if the result does not fit in a `uint256`.
+192:    function tryParseUint(
+205:    function _tryParseUintUncheckedBounds(
+213:        for (uint256 i = begin; i < end; ++i) {
+229:    function parseInt(string memory input) internal pure returns (int256) {
+241:    function parseInt(string memory input, uint256 begin, uint256 end) internal pure returns (int256) {
+251:     * NOTE: This function will revert if the absolute value of the result does not fit in a `uint256`.
+253:    function tryParseInt(string memory input) internal pure returns (bool success, int256 value) {
+263:     * NOTE: This function will revert if the absolute value of the result does not fit in a `uint256`.
+265:    function tryParseInt(
+278:    function _tryParseIntUncheckedBounds(
+307:    function parseHexUint(string memory input) internal pure returns (uint256) {
+319:    function parseHexUint(string memory input, uint256 begin, uint256 end) internal pure returns (uint256) {
+328:     * NOTE: This function will revert if the result does not fit in a `uint256`.
+330:    function tryParseHexUint(string memory input) internal pure returns (bool success, uint256 value) {
+338:     * NOTE: This function will revert if the result does not fit in a `uint256`.
+340:    function tryParseHexUint(
+353:    function _tryParseHexUintUncheckedBounds(
+365:        for (uint256 i = begin + offset; i < end; ++i) {
+384:    function parseAddress(string memory input) internal pure returns (address) {
+395:    function parseAddress(string memory input, uint256 begin, uint256 end) internal pure returns (address) {
+405:    function tryParseAddress(string memory input) internal pure returns (bool success, address value) {
+413:    function tryParseAddress(
+433:    function _tryParseChr(bytes1 chr) private pure returns (uint8) {
+454:     * WARNING: This function should only be used in double quoted JSON strings. Single quotes are not escaped.
+456:     * NOTE: This function escapes backslashes (including those in \uXXXX sequences) and the characters in ranges
+461:    function escapeJSON(string memory input) internal pure returns (string memory) {
+473:        for (uint256 i = 0; i < buffer.length; ++i) {
+510:     * NOTE: making this function internal would mean it could be used with memory unsafe offset, and marking the
+513:    function _unsafeReadBytesOffset(bytes memory buffer, uint256 offset) private pure returns (bytes32 value) {
+514:        // This is not memory safe in the general case, but all calls to this private function are within bounds.
+523:     * NOTE: making this function internal would mean it could be used with memory unsafe offset, and marking the
+526:    function _unsafeWriteBytesOffset(bytes memory buffer, uint256 offset, bytes1 value) private pure {
+527:        // This is not memory safe in the general case, but all calls to this private function are within bounds.
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+7:import {GovernorCountingSimple} from "../../governance/extensions/GovernorCountingSimple.sol";
+8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+10:abstract contract GovernorMock is GovernorSettings, GovernorVotesQuorumFraction, GovernorCountingSimple {
+11:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorFractionalMock.sol =====
+5:import {Governor} from "../../governance/Governor.sol";
+6:import {GovernorSettings} from "../../governance/extensions/GovernorSettings.sol";
+7:import {GovernorCountingFractional} from "../../governance/extensions/GovernorCountingFractional.sol";
+8:import {GovernorVotesQuorumFraction} from "../../governance/extensions/GovernorVotesQuorumFraction.sol";
+10:abstract contract GovernorFractionalMock is GovernorSettings, GovernorVotesQuorumFraction, GovernorCountingFractional {
+11:    function proposalThreshold() public view override(Governor, GovernorSettings) returns (uint256) {
+===== governor-retrofit/lib/forge-std/test/StdStorage.t.sol =====
+7:contract StdStorageTest is Test {
+12:    function setUp() public {
+16:    function test_StorageHidden() public {
+20:    function test_StorageObvious() public {
+24:    function test_StorageExtraSload() public {
+28:    function test_StorageCheckedWriteHidden() public {
+33:    function test_StorageCheckedWriteObvious() public {
+38:    function test_StorageCheckedWriteSignedIntegerHidden() public {
+43:    function test_StorageCheckedWriteSignedIntegerObvious() public {
+48:    function test_StorageMapStructA() public {
+54:    function test_StorageMapStructB() public {
+60:    function test_StorageDeepMap() public {
+66:    function test_StorageCheckedWriteDeepMap() public {
+72:    function test_StorageDeepMapStructA() public {
+83:    function test_StorageDeepMapStructB() public {
+94:    function test_StorageCheckedWriteDeepMapStructA() public {
+102:    function test_StorageCheckedWriteDeepMapStructB() public {
+110:    function test_StorageCheckedWriteMapStructA() public {
+117:    function test_StorageCheckedWriteMapStructB() public {
+124:    function test_StorageStructA() public {
+129:    function test_StorageStructB() public {
+134:    function test_StorageCheckedWriteStructA() public {
+141:    function test_StorageCheckedWriteStructB() public {
+148:    function test_StorageMapAddrFound() public {
+153:    function test_StorageMapAddrRoot() public {
+162:    function test_StorageMapUintFound() public {
+167:    function test_StorageCheckedWriteMapUint() public {
+172:    function test_StorageCheckedWriteMapAddr() public {
+177:    function test_StorageCheckedWriteMapBool() public {
+182:    function testFuzz_StorageCheckedWriteMapPacked(address addr, uint128 value) public {
+192:    function test_StorageCheckedWriteMapPackedFullSuccess() public {
+201:    function test_RevertStorageConst() public {
+208:    function testFuzz_StorageNativePack(uint248 val1, uint248 val2, bool boolVal1, bool boolVal2) public {
+220:    function test_StorageReadBytes32() public {
+225:    function test_StorageReadBool_False() public {
+230:    function test_StorageReadBool_True() public {
+235:    function test_RevertIf_ReadingNonBoolValue() public {
+240:    function readNonBoolValue() public {
+244:    function test_StorageReadAddress() public {
+249:    function test_StorageReadUint() public {
+254:    function test_StorageReadInt() public {
+259:    function testFuzz_Packed(uint256 val, uint8 elemToGet) public {
+260:        // This function tries an assortment of packed slots, shifts meaning number of elements
+266:        for (uint256 i = 1; i < 5; i++) {
+272:            for (uint256 j; j < shifts; j++) {
+280:            for (uint256 j; j < shiftSizes.length; j++) {
+301:    function testFuzz_Packed2(uint256 nvars, uint256 seed) public {
+313:        for (uint256 i = 0; i < nvars; i++) {
+332:        for (uint256 i = 0; i < nvars; i++) {
+338:        for (uint256 i = 0; i < nvars; i++) {
+349:    function testEdgeCaseArray() public {
+357:    function test_RevertFindOnReflectionToken() public {
+365:contract StorageTestTarget {
+375:    function expectRevertStorageConst() public {
+380:contract ReflectionTokenTarget {
+390:    function findBalanceOf(address who) public {
+395:contract StorageTest {
+437:    function read_struct_upper(address who) public view returns (uint256) {
+441:    function read_struct_lower(address who) public view returns (uint256) {
+445:    function hidden() public view returns (bytes32 t) {
+452:    function const() public pure returns (bytes32 t) {
+456:    function extra_sload() public view returns (bytes32 t) {
+464:    function setRandomPacking(uint256 val) public {
+468:    function _getMask(uint256 size) internal pure returns (uint256 mask) {
+475:    function setRandomPacking(uint256 val, uint256 size, uint256 offset) public {
+484:    function getRandomPacked(uint256 size, uint256 offset) public view returns (uint256) {
+491:    function getRandomPacked(uint8 shifts, uint8[] memory shiftSizes, uint8 elem) public view returns (uint256) {
+496:        for (uint256 i; i < shiftSizes.length; i++) {
+515:contract MockReflectionToken {
+527:    function balanceOf(address account) public view returns (uint256) {
+===== timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/LowLevelCall.sol)
+7: * @dev Library of low level call functions that implement different calling strategies to deal with the return data.
+13:    /// @dev Performs a Solidity function call using a low level `call` and ignoring the return data.
+14:    function callNoReturn(address target, bytes memory data) internal returns (bool success) {
+19:    function callNoReturn(address target, uint256 value, bytes memory data) internal returns (bool success) {
+25:    /// @dev Performs a Solidity function call using a low level `call` and returns the first 64 bytes of the result
+26:    /// in the scratch space of memory. Useful for functions that return a tuple with two single-word values.
+29:    /// and this function doesn't zero it out.
+30:    function callReturn64Bytes(
+38:    function callReturn64Bytes(
+50:    /// @dev Performs a Solidity function call using a low level `staticcall` and ignoring the return data.
+51:    function staticcallNoReturn(address target, bytes memory data) internal view returns (bool success) {
+57:    /// @dev Performs a Solidity function call using a low level `staticcall` and returns the first 64 bytes of the result
+58:    /// in the scratch space of memory. Useful for functions that return a tuple with two single-word values.
+61:    /// and this function doesn't zero it out.
+62:    function staticcallReturn64Bytes(
+73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+81:    /// in the scratch space of memory. Useful for functions that return a tuple with two single-word values.
+84:    /// and this function doesn't zero it out.
+85:    function delegatecallReturn64Bytes(
+90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+97:    function returnDataSize() internal pure returns (uint256 size) {
+104:    function returnData() internal pure returns (bytes memory result) {
+114:    function bubbleRevert() internal pure {
+122:    function bubbleRevert(bytes memory returndata) internal pure {
+===== timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol =====
+2:// OpenZeppelin Contracts (last updated v5.5.0) (proxy/utils/UUPSUpgradeable.sol)
+10: * @dev An upgradeability mechanism designed for UUPS proxies. The functions included here can perform an upgrade of an
+11: * {ERC1967Proxy}, when this contract is set as the implementation behind such a proxy.
+17: * The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism.
+21:abstract contract UUPSUpgradeable is IERC1822Proxiable {
+26:     * @dev The version of the upgrade interface of the contract. If this getter is missing, both `upgradeTo(address)`
+27:     * and `upgradeToAndCall(address,bytes)` are present, and `upgradeTo` must be used if no function should be called,
+28:     * while `upgradeToAndCall` will invoke the `receive` function if the second argument is the empty byte string.
+30:     * be the empty byte string if no function should be called, making it impossible to invoke the `receive` function
+46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+47:     * a proxy contract with an implementation (as defined in ERC-1967) pointing to self. This should only be the case
+48:     * for UUPS and transparent proxies that are using the current contract as their implementation. Execution of a
+49:     * function through ERC-1167 minimal proxies (clones) would not normally pass this test, but is not guaranteed to
+58:     * @dev Check that the execution is not being performed through a delegate call. This allows a function to be
+59:     * callable on the implementing contract but not through proxies.
+67:     * @dev Implementation of the ERC-1822 {proxiableUUID} function. This returns the storage slot used by the
+70:     * IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks
+72:     * function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.
+74:    function proxiableUUID() external view notDelegated returns (bytes32) {
+79:     * @dev Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call
+86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+88:    function upgradeToAndCall(address newImplementation, bytes memory data) public payable virtual onlyProxy {
+94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+97:    function _checkProxy() internal view virtual {
+99:            address(this) == __self || // Must be called through delegatecall
+107:     * @dev Reverts if the execution is performed via delegatecall.
+110:    function _checkNotDelegated() internal view virtual {
+112:            // Must not be called through delegatecall
+118:     * @dev Function that should revert when `msg.sender` is not authorized to upgrade the contract. Called by
+121:     * Normally, this function will use an xref:access.adoc[access control] modifier such as {Ownable-onlyOwner}.
+124:     * function _authorizeUpgrade(address) internal onlyOwner {}
+127:    function _authorizeUpgrade(address newImplementation) internal virtual;
+137:    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data) private {
+===== timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (account/utils/draft-ERC7579Utils.sol)
+17: * @dev Library with common ERC-7579 utility functions.
+31:    /// @dev A `delegatecall` execution.
+32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+45:    event ERC7579TryExecuteFail(uint256 batchExecutionIndex, bytes returndata);
+68:    /// @dev Executes a single call.
+69:    function execSingle(
+78:    /// @dev Executes a batch of calls.
+79:    function execBatch(
+85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+96:    /// @dev Executes a delegate call.
+97:    function execDelegateCall(
+103:        returnData[0] = _delegatecall(0, execType, target, callData);
+107:    function encodeMode(
+125:    function decodeMode(
+137:    function encodeSingle(
+146:    function decodeSingle(
+155:    function encodeDelegate(
+163:    function decodeDelegate(
+171:    function encodeBatch(Execution[] memory executionBatch) internal pure returns (bytes memory executionCalldata) {
+177:    /// NOTE: This function runs some checks and will throw a {ERC7579DecodingError} if the input is not properly formatted.
+178:    function decodeBatch(bytes calldata executionCalldata) internal pure returns (Execution[] calldata executionBatch) {
+213:    /// @dev Executes a `call` to the target with the provided {ExecType}.
+214:    function _call(
+227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+228:    function _delegatecall(
+234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+239:    function _validateExecutionMode(
+248:            if (!success) emit ERC7579TryExecuteFail(index, returndata);
+263:function eqCallType(CallType a, CallType b) pure returns (bool) {
+268:function eqExecType(ExecType a, ExecType b) pure returns (bool) {
+273:function eqModeSelector(ModeSelector a, ModeSelector b) pure returns (bool) {
+278:function eqModePayload(ModePayload a, ModePayload b) pure returns (bool) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/structs/EnumerableSet.sol)
+23: * contract Example {
+55:    // The Set implementation uses private functions, and user-facing
+75:    function _add(Set storage set, bytes32 value) private returns (bool) {
+93:    function _remove(Set storage set, bytes32 value) private returns (bool) {
+130:     * WARNING: This function has an unbounded cost that scales with set size. Developers should keep in mind that
+131:     * using it may render the function uncallable if the set grows to the point where clearing it consumes too much
+134:    function _clear(Set storage set) private {
+136:        for (uint256 i = 0; i < len; ++i) {
+145:    function _contains(Set storage set, bytes32 value) private view returns (bool) {
+152:    function _length(Set storage set) private view returns (uint256) {
+166:    function _at(Set storage set, uint256 index) private view returns (bytes32) {
+175:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+178:    function _values(Set storage set) private view returns (bytes32[] memory) {
+187:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+190:    function _values(Set storage set, uint256 start, uint256 end) private view returns (bytes32[] memory) {
+197:            for (uint256 i = 0; i < len; ++i) {
+216:    function add(Bytes32Set storage set, bytes32 value) internal returns (bool) {
+226:    function remove(Bytes32Set storage set, bytes32 value) internal returns (bool) {
+233:     * WARNING: Developers should keep in mind that this function has an unbounded cost and using it may render the
+234:     * function uncallable if the set grows to the point where clearing it consumes too much gas to fit in a block.
+236:    function clear(Bytes32Set storage set) internal {
+243:    function contains(Bytes32Set storage set, bytes32 value) internal view returns (bool) {
+250:    function length(Bytes32Set storage set) internal view returns (uint256) {
+264:    function at(Bytes32Set storage set, uint256 index) internal view returns (bytes32) {
+273:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+276:    function values(Bytes32Set storage set) internal view returns (bytes32[] memory) {
+292:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+295:    function values(Bytes32Set storage set, uint256 start, uint256 end) internal view returns (bytes32[] memory) {
+318:    function add(Bytes4Set storage set, bytes4 value) internal returns (bool) {
+328:    function remove(Bytes4Set storage set, bytes4 value) internal returns (bool) {
+335:     * WARNING: Developers should keep in mind that this function has an unbounded cost and using it may render the
+336:     * function uncallable if the set grows to the point where clearing it consumes too much gas to fit in a block.
+338:    function clear(Bytes4Set storage set) internal {
+345:    function contains(Bytes4Set storage set, bytes4 value) internal view returns (bool) {
+352:    function length(Bytes4Set storage set) internal view returns (uint256) {
+366:    function at(Bytes4Set storage set, uint256 index) internal view returns (bytes4) {
+375:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+378:    function values(Bytes4Set storage set) internal view returns (bytes4[] memory) {
+394:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+397:    function values(Bytes4Set storage set, uint256 start, uint256 end) internal view returns (bytes4[] memory) {
+420:    function add(AddressSet storage set, address value) internal returns (bool) {
+430:    function remove(AddressSet storage set, address value) internal returns (bool) {
+437:     * WARNING: Developers should keep in mind that this function has an unbounded cost and using it may render the
+438:     * function uncallable if the set grows to the point where clearing it consumes too much gas to fit in a block.
+440:    function clear(AddressSet storage set) internal {
+447:    function contains(AddressSet storage set, address value) internal view returns (bool) {
+454:    function length(AddressSet storage set) internal view returns (uint256) {
+468:    function at(AddressSet storage set, uint256 index) internal view returns (address) {
+477:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+480:    function values(AddressSet storage set) internal view returns (address[] memory) {
+496:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+499:    function values(AddressSet storage set, uint256 start, uint256 end) internal view returns (address[] memory) {
+522:    function add(UintSet storage set, uint256 value) internal returns (bool) {
+532:    function remove(UintSet storage set, uint256 value) internal returns (bool) {
+539:     * WARNING: Developers should keep in mind that this function has an unbounded cost and using it may render the
+540:     * function uncallable if the set grows to the point where clearing it consumes too much gas to fit in a block.
+542:    function clear(UintSet storage set) internal {
+549:    function contains(UintSet storage set, uint256 value) internal view returns (bool) {
+556:    function length(UintSet storage set) internal view returns (uint256) {
+570:    function at(UintSet storage set, uint256 index) internal view returns (uint256) {
+579:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+582:    function values(UintSet storage set) internal view returns (uint256[] memory) {
+598:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+601:    function values(UintSet storage set, uint256 start, uint256 end) internal view returns (uint256[] memory) {
+626:    function add(StringSet storage set, string memory value) internal returns (bool) {
+644:    function remove(StringSet storage set, string memory value) internal returns (bool) {
+681:     * WARNING: Developers should keep in mind that this function has an unbounded cost and using it may render the
+682:     * function uncallable if the set grows to the point where clearing it consumes too much gas to fit in a block.
+684:    function clear(StringSet storage set) internal {
+686:        for (uint256 i = 0; i < len; ++i) {
+695:    function contains(StringSet storage set, string memory value) internal view returns (bool) {
+702:    function length(StringSet storage set) internal view returns (uint256) {
+716:    function at(StringSet storage set, uint256 index) internal view returns (string memory) {
+725:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+728:    function values(StringSet storage set) internal view returns (string[] memory) {
+737:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+740:    function values(StringSet storage set, uint256 start, uint256 end) internal view returns (string[] memory) {
+747:            for (uint256 i = 0; i < len; ++i) {
+768:    function add(BytesSet storage set, bytes memory value) internal returns (bool) {
+786:    function remove(BytesSet storage set, bytes memory value) internal returns (bool) {
+823:     * WARNING: Developers should keep in mind that this function has an unbounded cost and using it may render the
+824:     * function uncallable if the set grows to the point where clearing it consumes too much gas to fit in a block.
+826:    function clear(BytesSet storage set) internal {
+828:        for (uint256 i = 0; i < len; ++i) {
+837:    function contains(BytesSet storage set, bytes memory value) internal view returns (bool) {
+844:    function length(BytesSet storage set) internal view returns (uint256) {
+858:    function at(BytesSet storage set, uint256 index) internal view returns (bytes memory) {
+867:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+870:    function values(BytesSet storage set) internal view returns (bytes[] memory) {
+879:     * this function has an unbounded cost, and using it as part of a state-changing function may render the function
+882:    function values(BytesSet storage set, uint256 start, uint256 end) internal view returns (bytes[] memory) {
+889:            for (uint256 i = 0; i < len; ++i) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/LowLevelCall.sol)
+7: * @dev Library of low level call functions that implement different calling strategies to deal with the return data.
+13:    /// @dev Performs a Solidity function call using a low level `call` and ignoring the return data.
+14:    function callNoReturn(address target, bytes memory data) internal returns (bool success) {
+19:    function callNoReturn(address target, uint256 value, bytes memory data) internal returns (bool success) {
+25:    /// @dev Performs a Solidity function call using a low level `call` and returns the first 64 bytes of the result
+26:    /// in the scratch space of memory. Useful for functions that return a tuple with two single-word values.
+29:    /// and this function doesn't zero it out.
+30:    function callReturn64Bytes(
+38:    function callReturn64Bytes(
+50:    /// @dev Performs a Solidity function call using a low level `staticcall` and ignoring the return data.
+51:    function staticcallNoReturn(address target, bytes memory data) internal view returns (bool success) {
+57:    /// @dev Performs a Solidity function call using a low level `staticcall` and returns the first 64 bytes of the result
+58:    /// in the scratch space of memory. Useful for functions that return a tuple with two single-word values.
+61:    /// and this function doesn't zero it out.
+62:    function staticcallReturn64Bytes(
+73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+81:    /// in the scratch space of memory. Useful for functions that return a tuple with two single-word values.
+84:    /// and this function doesn't zero it out.
+85:    function delegatecallReturn64Bytes(
+90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+97:    function returnDataSize() internal pure returns (uint256 size) {
+104:    function returnData() internal pure returns (bytes memory result) {
+114:    function bubbleRevert() internal pure {
+122:    function bubbleRevert(bytes memory returndata) internal pure {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol =====
+2:// OpenZeppelin Contracts (last updated v5.5.0) (proxy/utils/UUPSUpgradeable.sol)
+10: * @dev An upgradeability mechanism designed for UUPS proxies. The functions included here can perform an upgrade of an
+11: * {ERC1967Proxy}, when this contract is set as the implementation behind such a proxy.
+17: * The {_authorizeUpgrade} function must be overridden to include access restriction to the upgrade mechanism.
+21:abstract contract UUPSUpgradeable is IERC1822Proxiable {
+26:     * @dev The version of the upgrade interface of the contract. If this getter is missing, both `upgradeTo(address)`
+27:     * and `upgradeToAndCall(address,bytes)` are present, and `upgradeTo` must be used if no function should be called,
+28:     * while `upgradeToAndCall` will invoke the `receive` function if the second argument is the empty byte string.
+30:     * be the empty byte string if no function should be called, making it impossible to invoke the `receive` function
+46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+47:     * a proxy contract with an implementation (as defined in ERC-1967) pointing to self. This should only be the case
+48:     * for UUPS and transparent proxies that are using the current contract as their implementation. Execution of a
+49:     * function through ERC-1167 minimal proxies (clones) would not normally pass this test, but is not guaranteed to
+58:     * @dev Check that the execution is not being performed through a delegate call. This allows a function to be
+59:     * callable on the implementing contract but not through proxies.
+67:     * @dev Implementation of the ERC-1822 {proxiableUUID} function. This returns the storage slot used by the
+70:     * IMPORTANT: A proxy pointing at a proxiable contract should not be considered proxiable itself, because this risks
+72:     * function revert if invoked through a proxy. This is guaranteed by the `notDelegated` modifier.
+74:    function proxiableUUID() external view notDelegated returns (bytes32) {
+79:     * @dev Upgrade the implementation of the proxy to `newImplementation`, and subsequently execute the function call
+86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+88:    function upgradeToAndCall(address newImplementation, bytes memory data) public payable virtual onlyProxy {
+94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+97:    function _checkProxy() internal view virtual {
+99:            address(this) == __self || // Must be called through delegatecall
+107:     * @dev Reverts if the execution is performed via delegatecall.
+110:    function _checkNotDelegated() internal view virtual {
+112:            // Must not be called through delegatecall
+118:     * @dev Function that should revert when `msg.sender` is not authorized to upgrade the contract. Called by
+121:     * Normally, this function will use an xref:access.adoc[access control] modifier such as {Ownable-onlyOwner}.
+124:     * function _authorizeUpgrade(address) internal onlyOwner {}
+127:    function _authorizeUpgrade(address newImplementation) internal virtual;
+137:    function _upgradeToAndCallUUPS(address newImplementation, bytes memory data) private {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol =====
+2:// OpenZeppelin Contracts (last updated v5.4.0) (governance/extensions/GovernorTimelockAccess.sol)
+6:import {IGovernor, Governor} from "../Governor.sol";
+15: * @dev This module connects a {Governor} instance to an {AccessManager} instance, allowing the governor to make calls
+16: * that are delay-restricted by the manager using the normal {queue} workflow. An optional base delay is applied to
+20: * This extension allows the governor to hold and use its own assets and permissions, unlike {GovernorTimelockControl}
+21: * and {GovernorTimelockCompound}, where the timelock is a separate contract that must be the one to hold assets and
+22: * permissions. Operations that are delay-restricted by the manager, however, will be executed through the
+23: * {AccessManager-execute} function.
+28: * restricted function being invoked. Since proposals are atomic, the cancellation by a guardian of a single operation
+29: * in a proposal will cause all of the proposal to become unable to execute. Consider proposing cancellable operations
+32: * By default, function calls will be routed through the associated `AccessManager` whenever it claims the target
+33: * function to be restricted by it. However, admins may configure the manager to make that claim for functions that a
+34: * governor would want to call directly (e.g., token transfers) in an attempt to deny it access to those functions. To
+35: * mitigate this attack vector, the governor is able to ignore the restrictions claimed by the `AccessManager` using
+37: * possible. All of the governor's own functions (e.g., {setBaseDelaySeconds}) ignore the `AccessManager` by default.
+40: * the same time. See {AccessManager-schedule} for a workaround.
+42:abstract contract GovernorTimelockAccess is Governor {
+44:    // execution semantics of the proposal, namely whether a call will go through {AccessManager-execute}.
+51:        // to be scheduled and executed through the manager. Upon queuing, the value is set to nonce + 2, where the
+56:    // The meaning of the "toggle" set to true depends on the target contract.
+58:    // For all other target contracts, the manager is used by default, and a true toggle means it will be ignored.
+67:    error GovernorUnmetDelay(uint256 proposalId, uint256 neededTimestamp);
+68:    error GovernorMismatchedNonce(uint256 proposalId, uint256 expectedNonce, uint256 actualNonce);
+69:    error GovernorLockedIgnore();
+75:     * @dev Initialize the governor with an {AccessManager} and initial base delay.
+83:     * @dev Returns the {AccessManager} instance associated to this governor.
+85:    function accessManager() public view virtual returns (IAccessManager) {
+90:     * @dev Base delay that will be applied to all function calls. Some may be further delayed by their associated
+94:     * NOTE: Execution delays are processed by the `AccessManager` contracts, and according to that contract are
+95:     * expressed in seconds. Therefore, the base delay is also in seconds, regardless of the governor's clock mode.
+97:    function baseDelaySeconds() public view virtual returns (uint32) {
+104:    function setBaseDelaySeconds(uint32 newBaseDelay) public virtual onlyGovernance {
+109:     * @dev Change the value of {baseDelaySeconds}. Internal function without access control.
+111:    function _setBaseDelaySeconds(uint32 newBaseDelay) internal virtual {
+117:     * @dev Check if restrictions from the associated {AccessManager} are ignored for a target function. Returns true
+118:     * when the target function will be invoked directly regardless of `AccessManager` settings for the function.
+121:    function isAccessManagerIgnored(address target, bytes4 selector) public view virtual returns (bool) {
+122:        bool isGovernor = target == address(this);
+123:        return _ignoreToggle[target][selector] != isGovernor; // equivalent to: isGovernor ? !toggle : toggle
+127:     * @dev Configure whether restrictions from the associated {AccessManager} are ignored for a target function.
+130:    function setAccessManagerIgnored(
+135:        for (uint256 i = 0; i < selectors.length; ++i) {
+143:    function _setAccessManagerIgnored(address target, bytes4 selector, bool ignored) internal virtual {
+144:        bool isGovernor = target == address(this);
+145:        if (isGovernor && selector == this.setAccessManagerIgnored.selector) {
+146:            revert GovernorLockedIgnore();
+148:        _ignoreToggle[target][selector] = ignored != isGovernor; // equivalent to: isGovernor ? !ignored : ignored
+154:     * delayed since queuing, an array indicating which of the proposal actions will be executed indirectly through
+155:     * the associated {AccessManager}, and another indicating which will be scheduled in {queue}. Note that
+156:     * those that must be scheduled are cancellable by `AccessManager` guardians.
+158:    function proposalExecutionPlan(
+167:        for (uint256 i = 0; i < length; ++i) {
+174:    /// @inheritdoc IGovernor
+175:    function proposalNeedsQueuing(uint256 proposalId) public view virtual override returns (bool) {
+179:    /// @inheritdoc IGovernor
+180:    function propose(
+193:        for (uint256 i = 0; i < targets.length; ++i) {
+218:     * @dev Mechanism to queue a proposal, potentially scheduling some of its operations in the AccessManager.
+223:    function _queueOperations(
+233:        for (uint256 i = 0; i < targets.length; ++i) {
+236:                // This function can reenter when calling `_manager.schedule` before performing state updates in `_setManagerData`.
+237:                // However, the `manager` is a trusted contract in the current context's security model (e.g. an `AccessManager`).
+239:                (, uint32 nonce) = _manager.schedule(targets[i], calldatas[i], etaSeconds);
+248:     * @dev Mechanism to execute a proposal, potentially going through {AccessManager-execute} for delayed operations.
+250:    function _executeOperations(
+259:            revert GovernorUnmetDelay(proposalId, etaSeconds);
+264:        for (uint256 i = 0; i < targets.length; ++i) {
+267:                uint32 executedNonce = _manager.execute{value: values[i]}(targets[i], calldatas[i]);
+268:                if (withDelay && executedNonce != nonce) {
+269:                    revert GovernorMismatchedNonce(proposalId, nonce, executedNonce);
+278:    /// @inheritdoc Governor
+279:    function _cancel(
+291:        // If the proposal has been scheduled it will have an ETA and we may have to externally cancel
+293:            for (uint256 i = 0; i < targets.length; ++i) {
+299:                    // already have been cancelled and rescheduled. We don't want to cancel unless it is exactly the
+300:                    // instance that we previously scheduled.
+317:     * @dev Returns whether the operation at an index is delayed by the manager, and its scheduling nonce once queued.
+319:    function _getManagerData(
+334:    function _setManagerData(ExecutionPlan storage plan, uint256 index, bool withDelay, uint32 nonce) private {
+342:    function _getManagerDataIndices(uint256 index) private pure returns (uint256 bucket, uint256 subindex) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (account/utils/draft-ERC7579Utils.sol)
+17: * @dev Library with common ERC-7579 utility functions.
+31:    /// @dev A `delegatecall` execution.
+32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+45:    event ERC7579TryExecuteFail(uint256 batchExecutionIndex, bytes returndata);
+68:    /// @dev Executes a single call.
+69:    function execSingle(
+78:    /// @dev Executes a batch of calls.
+79:    function execBatch(
+85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+96:    /// @dev Executes a delegate call.
+97:    function execDelegateCall(
+103:        returnData[0] = _delegatecall(0, execType, target, callData);
+107:    function encodeMode(
+125:    function decodeMode(
+137:    function encodeSingle(
+146:    function decodeSingle(
+155:    function encodeDelegate(
+163:    function decodeDelegate(
+171:    function encodeBatch(Execution[] memory executionBatch) internal pure returns (bytes memory executionCalldata) {
+177:    /// NOTE: This function runs some checks and will throw a {ERC7579DecodingError} if the input is not properly formatted.
+178:    function decodeBatch(bytes calldata executionCalldata) internal pure returns (Execution[] calldata executionBatch) {
+213:    /// @dev Executes a `call` to the target with the provided {ExecType}.
+214:    function _call(
+227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+228:    function _delegatecall(
+234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+239:    function _validateExecutionMode(
+248:            if (!success) emit ERC7579TryExecuteFail(index, returndata);
+263:function eqCallType(CallType a, CallType b) pure returns (bool) {
+268:function eqExecType(ExecType a, ExecType b) pure returns (bool) {
+273:function eqModeSelector(ModeSelector a, ModeSelector b) pure returns (bool) {
+278:function eqModePayload(ModePayload a, ModePayload b) pure returns (bool) {
+===== safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol =====
+4:import {SafeStorage} from "../../contracts/libraries/SafeStorage.sol";
+6:contract SafeMock is SafeStorage {
+11:    function setFallbackHandler(address a) public {
+15:    function getFallbackHandler() public view returns (address) {
+19:    function getNonce() public view returns (uint256) {
+23:    function getSingleton() public view returns (address) {
+27:    function getChainId() public view returns (uint256 result) {
+36:    function delegateCallSetupToL2(address l2Singleton) public {
+37:        (bool success, ) = impl.delegatecall(
+46:    function delegateMigrateSingleton() public {
+47:        (bool success, ) = impl.delegatecall(
+56:    function delegateMigrateWithFallbackHandler() public {
+57:        (bool success, ) = impl.delegatecall(
+66:    function delegateMigrateL2Singleton() public {
+67:        (bool success, ) = impl.delegatecall(
+76:    function delegateMigrateL2WithFallbackHandler() public {
+77:        (bool success, ) = impl.delegatecall(
+86:    function delegateMigrateToL2(address l2Singleton) public {
+87:        (bool success, ) = impl.delegatecall(
+96:    function delegateMigrateFromV111(address l2Singleton, address fallbackHandlerAddr) public {
+97:        (bool success, ) = impl.delegatecall(
+===== governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol =====
+6:import {Math} from "@openzeppelin/contracts/utils/math/Math.sol";
+7:import {Heap} from "@openzeppelin/contracts/utils/structs/Heap.sol";
+8:import {Comparators} from "@openzeppelin/contracts/utils/Comparators.sol";
+10:contract Uint256HeapTest is Test {
+15:    function _validateHeap(function(uint256, uint256) view returns (bool) comp) internal view {
+16:        for (uint32 i = 1; i < heap.length(); ++i) {
+21:    function testFuzz(uint256[] calldata input) public {
+26:        for (uint256 i = 0; i < input.length; ++i) {
+36:        for (uint256 i = 0; i < input.length; ++i) {
+48:    function testFuzzGt(uint256[] calldata input) public {
+53:        for (uint256 i = 0; i < input.length; ++i) {
+63:        for (uint256 i = 0; i < input.length; ++i) {
+===== governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol =====
+31:    function sigs(string memory sigStr) internal pure returns (bytes4) {
+35:    function getCallParams(StdStorage storage self) internal view returns (bytes memory) {
+43:    // Calls target contract with configured parameters
+44:    function callTarget(StdStorage storage self) internal view returns (bool, bytes32) {
+55:    function checkSlotMutatesCall(StdStorage storage self, bytes32 slot) internal returns (bool) {
+71:    function findOffset(StdStorage storage self, bytes32 slot, bool left) internal returns (bool, uint256) {
+72:        for (uint256 offset = 0; offset < 256; offset++) {
+85:    function findOffsets(StdStorage storage self, bytes32 slot) internal returns (bool, uint256, uint256) {
+96:    function find(StdStorage storage self) internal returns (FindData storage) {
+100:    /// @notice find an arbitrary storage slot given a function sig, input data, address of the contract and a value to check against
+106:    function find(StdStorage storage self, bool _clear) internal returns (FindData storage) {
+126:            for (uint256 i = reads.length; --i >= 0;) {
+171:    function target(StdStorage storage self, address _target) internal returns (StdStorage storage) {
+176:    function sig(StdStorage storage self, bytes4 _sig) internal returns (StdStorage storage) {
+181:    function sig(StdStorage storage self, string memory _sig) internal returns (StdStorage storage) {
+186:    function with_calldata(StdStorage storage self, bytes memory _calldata) internal returns (StdStorage storage) {
+191:    function with_key(StdStorage storage self, address who) internal returns (StdStorage storage) {
+196:    function with_key(StdStorage storage self, uint256 amt) internal returns (StdStorage storage) {
+201:    function with_key(StdStorage storage self, bytes32 key) internal returns (StdStorage storage) {
+206:    function enable_packed_slots(StdStorage storage self) internal returns (StdStorage storage) {
+211:    function depth(StdStorage storage self, uint256 _depth) internal returns (StdStorage storage) {
+216:    function read(StdStorage storage self) private returns (bytes memory) {
+224:    function read_bytes32(StdStorage storage self) internal returns (bytes32) {
+228:    function read_bool(StdStorage storage self) internal returns (bool) {
+235:    function read_address(StdStorage storage self) internal returns (address) {
+239:    function read_uint(StdStorage storage self) internal returns (uint256) {
+243:    function read_int(StdStorage storage self) internal returns (int256) {
+247:    function parent(StdStorage storage self) internal returns (uint256, bytes32) {
+261:    function root(StdStorage storage self) internal returns (uint256) {
+275:        while (found) {
+282:    function bytesToBytes32(bytes memory b, uint256 offset) private pure returns (bytes32) {
+286:        for (uint256 i = 0; i < max; i++) {
+292:    function flatten(bytes32[] memory b) private pure returns (bytes memory) {
+294:        for (uint256 i = 0; i < b.length; i++) {
+305:    function clear(StdStorage storage self) internal {
+316:    function getMaskByOffsets(uint256 offsetLeft, uint256 offsetRight) internal pure returns (uint256 mask) {
+325:    function getUpdatedSlotValue(bytes32 curValue, uint256 varValue, uint256 offsetLeft, uint256 offsetRight)
+337:    function sigs(string memory sigStr) internal pure returns (bytes4) {
+341:    function find(StdStorage storage self) internal returns (uint256) {
+345:    function find(StdStorage storage self, bool _clear) internal returns (uint256) {
+349:    function target(StdStorage storage self, address _target) internal returns (StdStorage storage) {
+353:    function sig(StdStorage storage self, bytes4 _sig) internal returns (StdStorage storage) {
+357:    function sig(StdStorage storage self, string memory _sig) internal returns (StdStorage storage) {
+361:    function with_key(StdStorage storage self, address who) internal returns (StdStorage storage) {
+365:    function with_key(StdStorage storage self, uint256 amt) internal returns (StdStorage storage) {
+369:    function with_key(StdStorage storage self, bytes32 key) internal returns (StdStorage storage) {
+373:    function with_calldata(StdStorage storage self, bytes memory _calldata) internal returns (StdStorage storage) {
+377:    function enable_packed_slots(StdStorage storage self) internal returns (StdStorage storage) {
+381:    function depth(StdStorage storage self, uint256 _depth) internal returns (StdStorage storage) {
+385:    function clear(StdStorage storage self) internal {
+389:    function checked_write(StdStorage storage self, address who) internal {
+393:    function checked_write(StdStorage storage self, uint256 amt) internal {
+397:    function checked_write_int(StdStorage storage self, int256 val) internal {
+401:    function checked_write(StdStorage storage self, bool write) internal {
+410:    function checked_write(StdStorage storage self, bytes32 set) internal {
+446:    function read_bytes32(StdStorage storage self) internal returns (bytes32) {
+450:    function read_bool(StdStorage storage self) internal returns (bool) {
+454:    function read_address(StdStorage storage self) internal returns (address) {
+458:    function read_uint(StdStorage storage self) internal returns (uint256) {
+462:    function read_int(StdStorage storage self) internal returns (int256) {
+466:    function parent(StdStorage storage self) internal returns (uint256, bytes32) {
+470:    function root(StdStorage storage self) internal returns (uint256) {
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol =====
+2:// OpenZeppelin Contracts (last updated v5.5.0) (utils/Multicall.sol)
+10: * @dev Provides a function to batch together multiple calls in a single external call.
+13: * careful about sending transactions invoking {multicall}. For example, a relay address that filters function
+16: * NOTE: Since 5.0.1 and 4.9.4, this contract identifies non-canonical contexts (i.e. `msg.sender` is not {Context-_msgSender}).
+17: * If a non-canonical context is identified, the following self `delegatecall` appends the last bytes of `msg.data`
+21:abstract contract Multicall is Context {
+23:     * @dev Receives and executes a batch of function calls on this contract.
+24:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+26:    function multicall(bytes[] calldata data) public virtual returns (bytes[] memory results) {
+32:        for (uint256 i = 0; i < data.length; i++) {
+33:            results[i] = Address.functionDelegateCall(address(this), bytes.concat(data[i], context));
+===== governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol =====
+2:// OpenZeppelin Contracts (last updated v5.6.0) (utils/Bytes.sol)
+19:    function indexOf(bytes memory buffer, bytes1 s) internal pure returns (uint256) {
+30:    function indexOf(bytes memory buffer, bytes1 s, uint256 pos) internal pure returns (uint256) {
+32:        for (uint256 i = pos; i < length; ++i) {
+47:    function lastIndexOf(bytes memory buffer, bytes1 s) internal pure returns (uint256) {
+58:    function lastIndexOf(bytes memory buffer, bytes1 s, uint256 pos) internal pure returns (uint256) {
+61:            for (uint256 i = Math.min(Math.saturatingAdd(pos, 1), length); i > 0; --i) {
+76:    function slice(bytes memory buffer, uint256 start) internal pure returns (bytes memory) {
+86:    function slice(bytes memory buffer, uint256 start, uint256 end) internal pure returns (bytes memory) {
+104:     * NOTE: This function modifies the provided buffer in place. If you need to preserve the original buffer, use {slice} instead
+106:    function splice(bytes memory buffer, uint256 start) internal pure returns (bytes memory) {
+115:     * NOTE: This function modifies the provided buffer in place. If you need to preserve the original buffer, use {slice} instead
+117:    function splice(bytes memory buffer, uint256 start, uint256 end) internal pure returns (bytes memory) {
+137:     * NOTE: This function modifies the provided buffer in place.
+139:    function replace(bytes memory buffer, uint256 pos, bytes memory replacement) internal pure returns (bytes memory) {
+152:     * NOTE: This function modifies the provided buffer in place.
+154:    function replace(
+183:    function concat(bytes[] memory buffers) internal pure returns (bytes memory) {
+185:        for (uint256 i = 0; i < buffers.length; ++i) {
+192:        for (uint256 i = 0; i < buffers.length; ++i) {
+210:    function toNibbles(bytes memory input) internal pure returns (bytes memory output) {
+250:    function equal(bytes memory a, bytes memory b) internal pure returns (bool) {
+258:    function reverseBytes32(bytes32 value) internal pure returns (bytes32) {
+275:    function reverseBytes16(bytes16 value) internal pure returns (bytes16) {
+289:    function reverseBytes8(bytes8 value) internal pure returns (bytes8) {
+296:    function reverseBytes4(bytes4 value) internal pure returns (bytes4) {
+302:    function reverseBytes2(bytes2 value) internal pure returns (bytes2) {
+310:    function clz(bytes memory buffer) internal pure returns (uint256) {
+311:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+323:     * NOTE: making this function internal would mean it could be used with memory unsafe offset, and marking the
+326:    function _unsafeReadBytesOffset(bytes memory buffer, uint256 offset) private pure returns (bytes32 value) {
+327:        // This is not memory safe in the general case, but all calls to this private function are within bounds.

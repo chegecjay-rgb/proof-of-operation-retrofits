@@ -1,0 +1,300 @@
+1:./shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol:6:    function _executeSemanticMultiSend(
+2:./shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol:36:            _executeOriginalOperation(
+3:./shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol:44:    function _executeOriginalOperation(
+7:./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:17:    function _executeSemanticBatch(
+8:./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:61:            _executeOperation(
+9:./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:69:    function _executeOperation(
+17:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol:14: * with {_execute} (including {execute} and {executeFromExecutor} by default) and {IERC7579Hook-postCheck} thereafter.
+18:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol:95:    /// @dev Hooked version of {AccountERC7579-_execute}.
+19:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol:96:    function _execute(
+20:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579Hooked.sol:100:        return super._execute(mode, executionCalldata);
+22:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:118:     * should be executed on the account.
+23:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:119:     * * Executor: A module that can execute transactions on behalf of the smart account via a callback.
+24:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:162:    function execute(bytes32 mode, bytes calldata executionCalldata) public payable virtual onlyEntryPointOrSelf {
+25:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:163:        _execute(Mode.wrap(mode), executionCalldata);
+26:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:167:    function executeFromExecutor(
+27:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:177:        return _execute(Mode.wrap(mode), executionCalldata);
+28:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:228:    function _execute(
+30:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol:30:    function execute(bytes32 mode, bytes calldata executionData) public payable virtual {
+31:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol:47:     * @dev Access control mechanism for the {execute} function.
+32:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol:48:     * By default, only the contract itself is allowed to execute.
+33:./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-ERC7821.sol:51:     * ERC-4337 entrypoint to execute.
+34:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:49: * used to execute arbitrary code.
+35:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:70:     * @dev Emitted when a `ForwardRequest` is executed.
+37:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:109:     * NOTE: A request may return false here but it won't cause {executeBatch} to revert if a refund
+39:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:127:    function execute(ForwardRequestData calldata request) public payable virtual {
+40:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:135:        if (!_execute(request, true)) {
+41:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:141:     * @dev Batch version of {execute} with optional refunding and atomic execution.
+42:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:150:     * a batch is required to get executed atomically (at least at the top-level). For example,
+43:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:163:    function executeBatch(
+44:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:174:            bool success = _execute(requests[i], atomic);
+45:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:197:     * @dev Validates if the provided request can be executed at current block timestamp with
+46:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:241:     * @dev Validates and executes a signed request returning the request call `success` value.
+48:./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:255:    function _execute(
+50:./governor-retrofit/lib/openzeppelin-contracts/contracts/crosschain/ERC7786Recipient.sol:55:     * @dev Virtual function that should contain the logic to execute when a cross-chain message is received.
+51:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/utils/ERC721Utils.sol:21:     * The acceptance call is not executed and treated as a no-op if the target address doesn't contain code (i.e. an EOA).
+53:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Consecutive.sol:27: * values during the {_mintConsecutive} execution if the super call is not called first. To be safe, execute the
+54:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Utils.sol:21:     * The acceptance call is not executed and treated as a no-op if the target address doesn't contain code (i.e. an EOA).
+55:./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/utils/ERC1155Utils.sol:56:     * The acceptance call is not executed and treated as a no-op if the target address doesn't contain code (i.e. an EOA).
+56:./governor-retrofit/lib/openzeppelin-contracts/contracts/finance/VestingWalletCliff.sol:10: * @dev Extension of {VestingWallet} that adds a cliff to the vesting schedule.
+57:./governor-retrofit/lib/openzeppelin-contracts/contracts/finance/VestingWalletCliff.sol:23:     * @dev Set the duration of the cliff, in seconds. The cliff starts vesting schedule (see {VestingWallet}'s
+58:./governor-retrofit/lib/openzeppelin-contracts/contracts/finance/VestingWalletCliff.sol:44:     * IMPORTANT: The cliff not only makes the schedule return 0, but it also ignores every possible side
+62:./governor-retrofit/lib/openzeppelin-contracts/contracts/finance/VestingWallet.sol:14: * assets to the wallet owner, also referred to as "beneficiary", according to a vesting schedule.
+63:./governor-retrofit/lib/openzeppelin-contracts/contracts/finance/VestingWallet.sol:16: * Any assets transferred to this contract will follow the vesting schedule as if they were locked from the beginning.
+65:./governor-retrofit/lib/openzeppelin-contracts/contracts/finance/VestingWallet.sol:29: * sure to account the supply/balance adjustment in the vesting schedule to ensure the vested amount is as intended.
+72:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC20Reentrant.sol:18:    function scheduleReenter(Type when, address target, bytes calldata data) external {
+73:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:29:contract CompTimelock {
+74:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:41:    event ExecuteTransaction(
+75:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:49:    event QueueTransaction(
+76:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:66:    mapping(bytes32 => bool) public queuedTransactions;
+77:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:69:        require(delay_ >= MINIMUM_DELAY, "Timelock::constructor: Delay must exceed minimum delay.");
+78:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:70:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+79:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:79:        require(msg.sender == address(this), "Timelock::setDelay: Call must come from Timelock.");
+80:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:80:        require(delay_ >= MINIMUM_DELAY, "Timelock::setDelay: Delay must exceed minimum delay.");
+81:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:81:        require(delay_ <= MAXIMUM_DELAY, "Timelock::setDelay: Delay must not exceed maximum delay.");
+82:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:88:        require(msg.sender == pendingAdmin, "Timelock::acceptAdmin: Call must come from pendingAdmin.");
+83:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:96:        require(msg.sender == address(this), "Timelock::setPendingAdmin: Call must come from Timelock.");
+84:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:102:    function queueTransaction(
+85:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:109:        require(msg.sender == admin, "Timelock::queueTransaction: Call must come from admin.");
+86:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:112:            "Timelock::queueTransaction: Estimated execution block must satisfy delay."
+87:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:116:        queuedTransactions[txHash] = true;
+88:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:118:        emit QueueTransaction(txHash, target, value, signature, data, eta);
+89:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:129:        require(msg.sender == admin, "Timelock::cancelTransaction: Call must come from admin.");
+90:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:132:        queuedTransactions[txHash] = false;
+91:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:137:    function executeTransaction(
+92:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:144:        require(msg.sender == admin, "Timelock::executeTransaction: Call must come from admin.");
+93:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:147:        require(queuedTransactions[txHash], "Timelock::executeTransaction: Transaction hasn't been queued.");
+94:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:148:        require(getBlockTimestamp() >= eta, "Timelock::executeTransaction: Transaction hasn't surpassed time lock.");
+95:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:149:        require(getBlockTimestamp() <= eta + GRACE_PERIOD, "Timelock::executeTransaction: Transaction is stale.");
+96:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:151:        queuedTransactions[txHash] = false;
+97:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:163:        require(success, "Timelock::executeTransaction: Transaction execution reverted.");
+98:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:165:        emit ExecuteTransaction(txHash, target, value, signature, data, eta);
+99:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/BatchCaller.sol:13:    function execute(Call[] calldata calls) external returns (bytes[] memory) {
+100:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/TimelockReentrant.sol:6:contract TimelockReentrant {
+102:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:6:import {GovernorTimelockCompound} from "../../governance/extensions/GovernorTimelockCompound.sol";
+103:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:11:abstract contract GovernorTimelockCompoundMock is
+104:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:13:    GovernorTimelockCompound,
+105:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:23:    ) public view override(Governor, GovernorTimelockCompound) returns (ProposalState) {
+106:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:33:    ) public view virtual override(Governor, GovernorTimelockCompound) returns (bool) {
+107:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:37:    function _queueOperations(
+108:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:43:    ) internal override(Governor, GovernorTimelockCompound) returns (uint48) {
+109:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:44:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+110:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:47:    function _executeOperations(
+111:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:53:    ) internal override(Governor, GovernorTimelockCompound) {
+112:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:54:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+113:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:62:    ) internal override(Governor, GovernorTimelockCompound) returns (uint256) {
+114:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockCompoundMock.sol:66:    function _executor() internal view override(Governor, GovernorTimelockCompound) returns (address) {
+115:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+116:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:11:abstract contract GovernorTimelockControlMock is
+117:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:13:    GovernorTimelockControl,
+118:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:21:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+119:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:31:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+120:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:35:    function _queueOperations(
+121:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:41:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+122:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:42:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+123:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:45:    function _executeOperations(
+124:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:51:    ) internal override(Governor, GovernorTimelockControl) {
+125:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:52:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+126:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:60:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+127:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockControlMock.sol:64:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+128:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:6:import {GovernorTimelockAccess} from "../../governance/extensions/GovernorTimelockAccess.sol";
+129:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:11:abstract contract GovernorTimelockAccessMock is
+130:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:13:    GovernorTimelockAccess,
+131:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:29:    ) public view virtual override(Governor, GovernorTimelockAccess) returns (bool) {
+132:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:38:    ) public override(Governor, GovernorTimelockAccess) returns (uint256) {
+133:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:42:    function _queueOperations(
+134:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:48:    ) internal override(Governor, GovernorTimelockAccess) returns (uint48) {
+135:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:49:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+136:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:52:    function _executeOperations(
+137:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:58:    ) internal override(Governor, GovernorTimelockAccess) {
+138:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:59:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+139:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorTimelockAccessMock.sol:67:    ) internal override(Governor, GovernorTimelockAccess) returns (uint256) {
+140:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:10:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+141:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:15:    GovernorTimelockControl,
+142:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:37:    ) public view override(Governor, GovernorSuperQuorum, GovernorTimelockControl) returns (ProposalState) {
+143:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:62:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+144:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:66:    function _executeOperations(
+145:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:72:    ) internal override(Governor, GovernorTimelockControl) {
+146:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:73:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+147:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:76:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+148:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:80:    function _queueOperations(
+149:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:86:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+150:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:87:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+151:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorSuperQuorumMock.sol:92:    ) public view override(Governor, GovernorTimelockControl) returns (bool) {
+152:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:6:import {GovernorTimelockControl} from "../../governance/extensions/GovernorTimelockControl.sol";
+153:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:14:    GovernorTimelockControl,
+154:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:23:    function state(uint256 proposalId) public view override(Governor, GovernorTimelockControl) returns (ProposalState) {
+155:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:33:    ) public view virtual override(Governor, GovernorTimelockControl) returns (bool) {
+156:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:47:    function _queueOperations(
+157:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:53:    ) internal override(Governor, GovernorTimelockControl) returns (uint48) {
+158:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:54:        return super._queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+159:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:57:    function _executeOperations(
+160:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:63:    ) internal override(Governor, GovernorTimelockControl) {
+161:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:64:        super._executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+162:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:72:    ) internal override(Governor, GovernorTimelockControl) returns (uint256) {
+163:./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/governance/GovernorStorageMock.sol:76:    function _executor() internal view override(Governor, GovernorTimelockControl) returns (address) {
+166:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:26:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+167:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:55:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+168:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:84:     * array. Using it in view functions that are executed through `eth_call` is safe, but one should be very careful
+169:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:23:     * @dev Receives and executes a batch of function calls on this contract.
+170:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:209:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+171:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:222:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+172:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:228:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+173:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:230:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+174:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:296:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+175:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:309:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+176:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:315:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+177:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:317:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+178:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:381:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+179:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:394:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+180:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:400:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+181:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:402:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+182:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:468:        // consuming and producing values on a queue. The queue starts with the `leaves` array, then goes onto the
+183:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:481:            // `xxx[xxxPos++]`, which return the current value and increment the pointer, thus mimicking a queue's "pop".
+184:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:487:            // - a value from the "main queue". If not all leaves have been consumed, we get the next leaf, otherwise we
+185:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:489:            // - depending on the flag, either another value from the "main queue" (merging branches) or an element from the
+186:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:182:                // This loop is never executed if the signers are ordered by id.
+187:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/types/Time.sol:71:     * @dev Get the value at a given timepoint plus the pending value and effect timepoint if there is a scheduled
+188:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/types/Time.sol:83:     * @dev Get the current value plus the pending value and effect timepoint if there is a scheduled change. If the
+190:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:10: * FIFO queues. Storage use is optimized, and all operations are O(1) constant time. This includes {clear}, given that
+191:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:11: * the existing queue contents are left in storage.
+192:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:16: * DoubleEndedQueue.Bytes32Deque queue;
+194:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:36:     * @dev Inserts an item at the end of the queue.
+195:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:38:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+196:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:46:     * @dev Attempts to insert an item at the end of the queue.
+197:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:48:     * Returns `false` if the queue is full. Never reverts.
+198:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:61:     * @dev Removes the item at the end of the queue and returns it.
+199:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:63:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+200:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:72:     * @dev Attempts to remove the item at the end of the queue and return it.
+201:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:74:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+202:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:89:     * @dev Inserts an item at the beginning of the queue.
+203:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:91:     * Reverts with {Panic-RESOURCE_ERROR} if the queue is full.
+204:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:99:     * @dev Attempts to insert an item at the beginning of the queue.
+205:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:101:     * Returns `false` if the queue is full. Never reverts.
+206:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:114:     * @dev Removes the item at the beginning of the queue and returns it.
+207:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:116:     * Reverts with {Panic-EMPTY_ARRAY_POP} if the queue is empty.
+208:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:125:     * @dev Attempts to remove the item at the beginning of the queue and
+209:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:128:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+210:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:142:     * @dev Returns the item at the beginning of the queue.
+211:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:144:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+212:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:153:     * @dev Attempts to return the item at the beginning of the queue.
+213:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:155:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+214:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:163:     * @dev Returns the item at the end of the queue.
+215:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:165:     * Reverts with {Panic-ARRAY_OUT_OF_BOUNDS} if the queue is empty.
+216:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:174:     * @dev Attempts to return the item at the end of the queue.
+217:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:176:     * Returns `(false, 0x00)` if the queue is empty. Never reverts.
+218:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:186:     * @dev Return the item at a position in the queue given by `index`, with the first item at 0 and last item at
+219:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:198:     * @dev Attempts to return the item at a position in the queue given by `index`, with the first item at
+220:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:212:     * @dev Resets the queue back to being empty.
+221:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:214:     * NOTE: The current items are left behind in storage. This does not affect the functioning of the queue, but misses
+222:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:223:     * @dev Returns the number of items in the queue.
+223:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/DoubleEndedQueue.sol:232:     * @dev Returns true if the queue is empty.
+224:./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Heap.sol:14: * https://en.wikipedia.org/wiki/Priority_queue[priority queue].
+227:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:42:        bool executed;
+228:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:52:    // This queue keeps track of the governor operating on itself. Calls to functions protected by the {onlyGovernance}
+229:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:53:    // modifier needs to be whitelisted in this queue. Whitelisting is set in {execute}, consumed by the
+230:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:54:    // {onlyGovernance} modifier and eventually reset after {_executeOperations} completes. This ensures that the
+232:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:59:     * @dev Restricts a function so it can only be executed through governance proposals. For example, governance
+234:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:64:     * functions during the execution of the governor's {execute} function, and not under any other circumstances. Thus,
+236:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:118:     * across multiple networks. This also means that in order to execute the same operation twice (on the same
+237:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:144:        bool proposalExecuted = proposal.executed;
+241:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:212:     * itself, the function reverts if `msg.data` is not whitelisted as a result of an {execute}
+242:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:344:    function queue(
+243:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:354:        uint48 etaSeconds = _queueOperations(proposalId, targets, values, calldatas, descriptionHash);
+247:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:373:     * (which is the default value), the core will consider queueing did not succeed, and the public {queue} function
+248:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:377:     * `ProposalQueued` event. Queuing a proposal should be done using {queue}.
+249:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:379:    function _queueOperations(
+250:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:390:    function execute(
+252:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:403:        // mark as executed before calls to avoid reentrancy
+253:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:404:        _proposals[proposalId].executed = true;
+254:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:406:        // before execute: register governance call in queue.
+255:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:415:        _executeOperations(proposalId, targets, values, calldatas, descriptionHash);
+256:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:417:        // after execute: cleanup governance call queue.
+259:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:431:     * NOTE: Calling this function directly will NOT check the current state of the proposal, set the executed flag to
+260:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:432:     * true or emit the `ProposalExecuted` event. Executing a proposal should be done using {execute}.
+261:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:434:    function _executeOperations(
+265:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:662:     * @dev Address through which the governor executes action. Will be overloaded by module that executes actions
+274:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:95:     * @dev The proposal hasn't been queued yet.
+276:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:100:     * @dev The proposal has already been queued.
+278:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:131:     * @dev Emitted when a proposal is queued.
+280:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:136:     * @dev Emitted when a proposal is executed.
+282:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:263:     * @dev The time when a queued proposal becomes executable ("ETA"). Unlike {proposalSnapshot} and
+283:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:271:     * @dev Whether a proposal needs to be queued before execution.
+284:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:345:     * possibly compromising the proposal's ability to execute successfully (e.g. the governor doesn't have enough
+287:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:362:    function queue(
+289:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:371:     * deadline to be reached. Depending on the governor it might also be required that the proposal was queued and
+292:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/IGovernor.sol:378:    function execute(
+293:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:2:// OpenZeppelin Contracts (last updated v5.6.0) (governance/TimelockController.sol)
+294:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:12: * @dev Contract module which acts as a timelocked controller. When set as the
+295:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:13: * owner of an `Ownable` smart contract, it enforces a timelock on all
+296:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:19: * have to go through the timelock process. The proposer (resp executor) role
+297:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:21: * to position this {TimelockController} as the owner of a smart contract, with
+298:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:24:contract TimelockController is AccessControl, ERC721Holder, ERC1155Holder {
+299:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:41:    error TimelockInvalidOperationLength(uint256 targets, uint256 payloads, uint256 values);
+300:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:42:     * @dev The schedule operation doesn't meet the minimum delay.
+301:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:43:    error TimelockInsufficientDelay(uint256 delay, uint256 minDelay);
+302:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:49:    error TimelockUnexpectedOperationState(bytes32 operationId, bytes32 expectedStates);
+303:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:51:    error TimelockUnexecutedPredecessor(bytes32 predecessorId);
+304:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:53:    error TimelockUnauthorizedCaller(address caller);
+305:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:54:     * @dev Emitted when a call is scheduled as part of operation `id`.
+306:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:55:    event CallScheduled(
+307:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:65:    event CallExecuted(bytes32 indexed id, uint256 indexed index, address target, uint256 value, bytes data);
+308:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:66:     * @dev Emitted when new proposal is scheduled with non-zero salt.
+309:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:79:     * administration through timelocked proposals. Previous versions of this contract would assign
+310:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:159:     * @dev Schedule an operation containing a single transaction.
+311:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:160:     * Emits {CallSalt} if salt is nonzero, and {CallScheduled}.
+312:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:163:    function schedule(
+313:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:167:        _schedule(id, delay);
+314:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:168:        emit CallScheduled(id, 0, target, value, data, predecessor, delay);
+315:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:171:     * @dev Schedule an operation containing a batch of transactions.
+316:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:172:     * Emits {CallSalt} if salt is nonzero, and one {CallScheduled} event per transaction in the batch.
+317:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:173:    function scheduleBatch(
+318:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:175:            revert TimelockInvalidOperationLength(targets.length, payloads.length, values.length);
+319:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:178:            emit CallScheduled(id, i, targets[i], values[i], payloads[i], predecessor, delay);
+320:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:179:     * @dev Schedule an operation that is to become valid after a given delay.
+321:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:180:    function _schedule(bytes32 id, uint256 delay) private {
+322:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:182:            revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Unset));
+323:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:185:            revert TimelockInsufficientDelay(delay, minDelay);
+324:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:191:            revert TimelockUnexpectedOperationState(
+325:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:197:     * @dev Execute a ready operation containing a single transaction.
+326:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:198:     * Emits a {CallExecuted} event.
+327:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:203:    function execute(
+328:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:204:        // === ETL Canonical PoO Injection (TIMELOCK) ===
+329:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:206:        bytes32 opType = OperationLib.OP_TIMELOCK_EXEC;
+330:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:217:        _execute(target, value, payload);
+331:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:218:        emit CallExecuted(id, 0, target, value, payload);
+332:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:220:     * @dev Execute a ready operation containing a batch of transactions.
+333:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:221:     * Emits one {CallExecuted} event per transaction in the batch.
+334:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:222:    function executeBatch(
+335:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:226:            _execute(target, value, payload);
+336:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:227:            emit CallExecuted(id, i, target, value, payload);
+337:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:228:     * @dev Execute an operation's call.
+338:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:229:    function _execute(address target, uint256 value, bytes calldata data) internal virtual {
+339:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:231:        emit OperationExecuted(
+340:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:232:            OperationLib.TIMELOCK_SYSTEM,
+341:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:240:            revert TimelockUnexpectedOperationState(id, _encodeStateBitmap(OperationState.Ready));
+342:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:242:            revert TimelockUnexecutedPredecessor(predecessor);
+343:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:246:     * @dev Changes the minimum timelock duration for future operations.
+344:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:248:     * - the caller must be the timelock itself. This can only be achieved by scheduling and later executing
+345:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:249:     * an operation where the timelock is the target and the data is the ABI-encoded call to this function.
+346:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:253:            revert TimelockUnauthorizedCaller(sender);
+347:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:2:// OpenZeppelin Contracts (last updated v5.5.0) (governance/extensions/GovernorTimelockCompound.sol)
+348:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:7:import {ICompoundTimelock} from "../../vendor/compound/ICompoundTimelock.sol";
+349:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:12: * @dev Extension of {Governor} that binds the execution process to a Compound Timelock. This adds a delay, enforced by
+350:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:13: * the external timelock to all successful proposals (in addition to the voting duration). The {Governor} needs to be
+351:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:14: * the admin of the timelock for any operation to be performed. A public, unrestricted,
+352:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:15: * {GovernorTimelockCompound-__acceptAdmin} is available to accept ownership of the timelock.
+353:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:17: * Using this model means the proposal will be operated by the {TimelockController} and not by the {Governor}. Thus,
+354:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:18: * the assets and permissions must be attached to the {TimelockController}. Any asset sent to the {Governor} will be
+355:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:19: * inaccessible from a proposal, unless executed via {Governor-relay}.
+356:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:21:abstract contract GovernorTimelockCompound is Governor {
+357:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:22:    ICompoundTimelock private _timelock;
+358:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:25:     * @dev Emitted when the timelock controller used for proposal execution is modified.
+359:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:27:    event TimelockChange(address oldTimelock, address newTimelock);
+360:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:30:     * @dev Set the timelock.
+361:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:32:    constructor(ICompoundTimelock timelockAddress) {
+362:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:33:        _updateTimelock(timelockAddress);
+363:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:43:            (currentState == ProposalState.Queued &&
+364:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:44:                block.timestamp >= proposalEta(proposalId) + _timelock.GRACE_PERIOD())
+365:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:50:     * @dev Public accessor to check the address of the timelock
+366:./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:52:    function timelock() public view virtual returns (address) {

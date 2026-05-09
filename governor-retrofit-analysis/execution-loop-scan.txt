@@ -1,0 +1,783 @@
+./shadow-retrofit/contracts/SafeMultiSendSemanticShadow.sol:23:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+./semantic-injection/examples/CanonicalMultiSendSemanticInjection.sol:36:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+./semantic-live-binding/contracts/SemanticMultiSendShadow.sol:35:        while (i < length + 0x20) {
+./semantic-live-binding/contracts/SemanticMultiSendShadow.sol:51:            for (uint256 j = 0; j < dataLength; j++) {
+./semantic-live-binding/contracts/SemanticMultiSendShadow.sol:82:        while (i < length + 0x20) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:31:    /// @dev A `delegatecall` execution.
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:97:    function execDelegateCall(
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:103:        returnData[0] = _delegatecall(0, execType, target, callData);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:221:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).call{value: value}(
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:228:    function _delegatecall(
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:108:                callType == ERC7579Utils.CALLTYPE_DELEGATECALL) &&
+./governor-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:235:        if (callType == ERC7579Utils.CALLTYPE_DELEGATECALL) return executionCalldata.execDelegateCall(execType);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:172:        for (uint256 i; i < requests.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol:17: * WARNING: The usage of `delegatecall` in this contract is dangerous and may result in context corruption.
+./governor-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol:18: * Any forwarded request to this contract triggering a `delegatecall` to itself will result in an invalid {_msgSender}
+./governor-retrofit/lib/openzeppelin-contracts/contracts/crosschain/CrosschainLinked.sol:47:        for (uint256 i = 0; i < links.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Wrapper.sol:55:    function depositFor(address account, uint256 value) public virtual returns (bool) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:31:    function depositFor(address account, uint256[] memory tokenIds) public virtual returns (bool) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:33:        for (uint256 i = 0; i < length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:51:        for (uint256 i = 0; i < length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol:81:        for (uint256 i = 0; i < accounts.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol:144:        for (uint256 i = 0; i < ids.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol:60:            for (uint256 i = 0; i < ids.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol:72:            for (uint256 i = 0; i < ids.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyTransientMock.sol:33:            (bool success, ) = address(this).call(abi.encodeCall(this.countThisRecursive, (n - 1)));
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveEnumerableMock.sol:16:        for (uint256 i = 0; i < receivers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol:27:        for (uint256 i = 0; i < delegates.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol:31:        for (uint256 i = 0; i < receivers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC20VotesLegacyMock.sol:114:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:162:        (bool success, bytes memory returnData) = target.call{value: value}(callData);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/BatchCaller.sol:15:        for (uint256 i = 0; i < calls.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/CallReceiverMock.sol:86:        for (uint256 i = 0; ; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol:14:        for (uint256 i = 0; i < recipients.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol:19:        for (uint256 i = 0; i < results.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ERC165Mock.sol:54:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ERC165Mock.sol:63:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyMock.sol:33:            (bool success, ) = address(this).call(abi.encodeCall(this.countThisRecursive, (n - 1)));
+./governor-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyAttack.sol:9:        (bool success, ) = _msgSender().call(data);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/RelayedCall.sol:16: * For example, instead of `target.call(data)` where the target sees this contract as `msg.sender`, use
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/RelayedCall.sol:46:        return getRelayer(salt).call{value: value}(abi.encodePacked(target, data));
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/RLP.sol:369:        for (uint256 currentOffset = listOffset; currentOffset < itemLength; ptr += 0x20) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:124:            for (uint256 it = begin + 0x20; it < end; it += 0x20) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:232:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:268:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:302:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:331:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:360:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Address.sol:116:    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Address.sol:117:        bool success = LowLevelCall.delegatecallNoReturn(target, data);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:17: * If a non-canonical context is identified, the following self `delegatecall` appends the last bytes of `msg.data`
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:24:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:32:        for (uint256 i = 0; i < data.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:33:            results[i] = Address.functionDelegateCall(address(this), bytes.concat(data[i], context));
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/TrieProof.sol:114:        for (uint256 i = 0; i < proof.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/TrieProof.sol:131:            for (Memory.Slice[] memory decoded = encoded.decodeList(); ; ) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:59:        for (uint256 i = 0; i < proof.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:96:        for (uint256 i = 0; i < proof.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:124:        for (uint256 i = 0; i < proof.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:161:        for (uint256 i = 0; i < proof.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:232:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:319:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:404:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:491:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/P256.sol:336:            for (uint256 i = 0; i < 128; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:170:        for (uint256 i = 0; i < signers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:183:                for (uint256 j = 0; j < i; ++j) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:106:        for (uint256 i = 0; i < signers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:161:            for (uint256 i = 0; i < signers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:201:            for (uint256 i = 0; i < signers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:126:        for (uint256 i = 0; i < newSigners.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:143:        for (uint256 i = 0; i < oldSigners.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:244:        for (uint256 i = 0; i < signers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol:64:            for (uint256 i = 0; i < length; i += 0x20) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol:130:            for (uint256 i = 2; i < paddingEnd; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol:176:            for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol:190:            for (uint256 i = buffer.length; i > 0; --i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol:62:            for (uint256 i = 0; i < interfaceIds.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol:86:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:32:        for (uint256 i = pos; i < length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:61:            for (uint256 i = Math.min(Math.saturatingAdd(pos, 1), length); i > 0; --i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:185:        for (uint256 i = 0; i < buffers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:192:        for (uint256 i = 0; i < buffers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:311:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/CircularBuffer.sol:145:        for (uint256 i = 0; i < total; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol:104:        for (uint256 i = 0; i < len; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol:1355:        for (uint256 i = 0; i < len; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:177:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:201:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:380:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:404:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:583:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:607:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:786:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:810:        while (low < high) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Heap.sol:250:            while (index > 0) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:98:        for (uint256 i = 0; i < treeDepth; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:153:        for (uint256 i = 0; i < treeDepth; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:235:            for (uint32 i = 0; i < treeDepth; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:136:        for (uint256 i = 0; i < len; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:197:            for (uint256 i = 0; i < len; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:686:        for (uint256 i = 0; i < len; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:747:            for (uint256 i = 0; i < len; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:828:        for (uint256 i = 0; i < len; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:889:            for (uint256 i = 0; i < len; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/math/Math.sol:338:            while (remainder != 0) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/math/Math.sol:480:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:50:            while (true) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:86:        for (uint256 i = 2 * length + 1; i > 1; --i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:117:        for (uint256 i = 41; i > 1; --i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:136:            for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:213:        for (uint256 i = begin; i < end; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:365:        for (uint256 i = begin + offset; i < end; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:473:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:85:    function delegatecallReturn64Bytes(
+./governor-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:222:            while (_governanceCall.popFront() != msgDataHash) {}
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:408:            for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:441:        for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:442:            (bool success, bytes memory returndata) = targets[i].call{value: values[i]}(calldatas[i]);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:657:        (bool success, bytes memory returndata) = target.call{value: value}(data);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:89:        for (uint256 i = 0; i < proposers.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:93:        for (uint256 i = 0; i < executors.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:177:        for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:235:        (bool success, bytes memory returndata) = target.call{value: value}(data);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:73:        for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:101:        for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:121:            for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:135:        for (uint256 i = 0; i < selectors.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:167:        for (uint256 i = 0; i < length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:193:        for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:233:        for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:264:        for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:272:                (bool success, bytes memory returndata) = targets[i].call{value: values[i]}(calldatas[i]);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:293:            for (uint256 i = 0; i < targets.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/access/manager/AccessManager.sol:380:        for (uint256 i = 0; i < selectors.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/contracts/interfaces/IERC777.sol:110:    function isOperatorFor(address operator, address tokenHolder) external view returns (bool);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol:43:        proxy.upgradeToAndCall{value: msg.value}(implementation, data);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:99:            address(this) == __self || // Must be called through delegatecall
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:107:     * @dev Reverts if the execution is performed via delegatecall.
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:112:            // Must not be called through delegatecall
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Utils.sol:72:            Address.functionDelegateCall(newImplementation, data);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Utils.sol:162:            Address.functionDelegateCall(IBeacon(newBeacon).implementation(), data);
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:8: * instruction `delegatecall`. We refer to the second contract as the _implementation_ behind the proxy, and it has to
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:31:            let result := delegatecall(gas(), implementation, 0x00, calldatasize(), 0x00, 0x00)
+./governor-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:37:            // delegatecall returns 0 on error.
+./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.prop.sol:371:        (bool success, bytes memory retdata) = _vault_.call(data);
+./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:32:        for (uint i = 0; i < N; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:197:        (bool success,) = _vault_.call(
+./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:245:        (bool success,) = _vault_.call(
+./governor-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:332:        (bool success, bytes memory retdata) = token.call(abi.encodeWithSelector(IERC20.approve.selector, spender, amount));
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:339:        for (uint256 i = 0; i < nvars; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:474:        for (uint256 i; i < shiftSizes.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:315:        for (uint256 i; i < 10000; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:331:        for (uint256 i = 0; i < b.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:339:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; --i >= 0;) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:275:        while (found) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:286:        for (uint256 i = 0; i < max; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:294:        for (uint256 i = 0; i < b.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:148:        for (uint256 i = 0; i < length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:150:            calls[i] = IMulticall3.Call({target: token, callData: abi.encodeWithSelector(0x70a08231, (addresses[i]))});
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:158:        for (uint256 i = 0; i < length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:29:        // The account was called via delegatecall.
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:30:        DelegateCall,
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:193:        // If kind is Call, DelegateCall, StaticCall or CallCode, then the account is the callee.
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:1966:    function prank(address msgSender, bool delegateCall) external;
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:1969:    function prank(address msgSender, address txOrigin, bool delegateCall) external;
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:2061:    function startPrank(address msgSender, bool delegateCall) external;
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:2064:    function startPrank(address msgSender, address txOrigin, bool delegateCall) external;
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:293:        (bool success,) = payable(addr).call{value: 1}("");
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:386:        for (uint256 i; i < rawTxs.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:454:        for (uint256 i; i < rawReceipts.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:485:        for (uint256 i; i < rawLogs.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:819:        (bool success, bytes memory runtimeBytecode) = where.call{value: value}("");
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdAssertions.sol:644:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+./governor-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdAssertions.sol:645:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+./governor-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:82:            (bool success, ) = payable(msg.sender).call{value: missingAccountFunds}("");
+./governor-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:101:        } else if (callType == ERC7579Utils.CALLTYPE_DELEGATECALL) {
+./governor-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:102:            executionCalldata.execDelegateCall(execType);
+./governor-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:399:        for (uint256 i = 0; i < logs.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:419:        for (uint256 i = 0; i < calls.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:176:        for (uint256 i = 0; i < batchSize; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:234:        for (uint256 i = 0; i < requests.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:257:        for (uint256 i = 0; i < requests.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/token/ERC721/extensions/ERC721Consecutive.t.sol:23:        for (uint256 i = 0; i < batches.length; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/RLP.t.sol:44:        for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/RLP.t.sol:52:        for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:18:        for (uint256 i = 0; i < 3; i++) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:199:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:230:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:255:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:286:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:311:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:342:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:356:        for (uint256 i = 1; i < values.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:368:        for (uint256 i = 0; i < expectedLength; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:380:        for (uint256 i = 0; i < expectedLength; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:392:        for (uint256 i = 0; i < expectedLength; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:401:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:407:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:413:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Blockhash.t.sol:97:        (bool success, ) = Blockhash.HISTORY_STORAGE_ADDRESS.call(abi.encode(blockHash)); // set parent's blockhash
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:25:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:30:            for (uint256 i = 0; i < result; ++i) assertNotEq(buffer[i], s);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:42:            for (uint256 i = pos; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:47:            for (uint256 i = pos; i < result; ++i) assertNotEq(buffer[i], s);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:59:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:64:            for (uint256 i = result + 1; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:76:            for (uint256 i = 0; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:81:            for (uint256 i = result + 1; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:97:        for (uint256 i = 0; i < result.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:117:        for (uint256 i = 0; i < result.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:133:        for (uint256 i = 0; i < result.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:153:        for (uint256 i = 0; i < result.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:164:        for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:187:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:218:        for (uint256 i = 0; i < buffer.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:282:        for (uint256 i = 0; i < index; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Base64.t.sol:23:        for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/Base64.t.sol:30:        for (uint256 i = 0; i < output.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:26:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:51:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:91:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:134:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:159:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:199:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:242:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:267:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:307:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:350:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:375:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:415:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Accumulators.t.sol:26:        for (uint256 i = 0; i < input.length; ++i) acc.push(input[i]);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Accumulators.t.sol:32:        for (uint256 i = input.length; i > 0; --i) acc.shift(input[i - 1]);
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:16:        for (uint32 i = 1; i < heap.length(); ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:26:        for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:36:        for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:53:        for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:63:        for (uint256 i = 0; i < input.length; ++i) {
+./governor-retrofit/lib/openzeppelin-contracts/test/utils/math/Math.t.sol:361:        while (e > 0) {
+./governor-retrofit/lib/forge-std/test/Config.t.sol:143:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/forge-std/test/Config.t.sol:151:        for (uint256 i = 0; i < keys.length; ++i) {
+./governor-retrofit/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+./governor-retrofit/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:338:        for (uint256 i = 0; i < nvars; i++) {
+./governor-retrofit/lib/forge-std/test/StdStorage.t.sol:496:        for (uint256 i; i < shiftSizes.length; i++) {
+./governor-retrofit/lib/forge-std/test/StdCheats.t.sol:314:        for (uint256 i; i < 10000; i++) {
+./governor-retrofit/lib/forge-std/test/StdCheats.t.sol:330:        for (uint256 i = 0; i < b.length; i++) {
+./governor-retrofit/lib/forge-std/test/StdCheats.t.sol:338:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+./governor-retrofit/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+./governor-retrofit/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; i > 0;) {
+./governor-retrofit/lib/forge-std/src/StdStorage.sol:276:        while (found) {
+./governor-retrofit/lib/forge-std/src/StdStorage.sol:291:        for (uint256 i = 0; i < max; i++) {
+./governor-retrofit/lib/forge-std/src/StdStorage.sol:299:        for (uint256 i = 0; i < b.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:322:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:335:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:348:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:361:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:374:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:397:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:410:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:423:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:436:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/LibVariable.sol:449:        for (uint256 i = 0; i < values.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdUtils.sol:140:        for (uint256 i = 0; i < length; ++i) {
+./governor-retrofit/lib/forge-std/src/StdUtils.sol:142:            calls[i] = IMulticall3.Call({target: token, callData: abi.encodeWithSelector(0x70a08231, (addresses[i]))});
+./governor-retrofit/lib/forge-std/src/StdUtils.sol:150:        for (uint256 i = 0; i < length; ++i) {
+./governor-retrofit/lib/forge-std/src/Vm.sol:28:        // The account was called via delegatecall.
+./governor-retrofit/lib/forge-std/src/Vm.sol:29:        DelegateCall,
+./governor-retrofit/lib/forge-std/src/Vm.sol:204:        // If kind is Call, DelegateCall, StaticCall or CallCode, then the account is the callee.
+./governor-retrofit/lib/forge-std/src/Vm.sol:2209:    function prank(address msgSender, bool delegateCall) external;
+./governor-retrofit/lib/forge-std/src/Vm.sol:2212:    function prank(address msgSender, address txOrigin, bool delegateCall) external;
+./governor-retrofit/lib/forge-std/src/Vm.sol:2304:    function startPrank(address msgSender, bool delegateCall) external;
+./governor-retrofit/lib/forge-std/src/Vm.sol:2307:    function startPrank(address msgSender, address txOrigin, bool delegateCall) external;
+./governor-retrofit/lib/forge-std/src/Config.sol:51:        for (uint256 i = 0; i < chains.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdCheats.sol:291:        (bool success,) = payable(addr).call{value: 1}("");
+./governor-retrofit/lib/forge-std/src/StdCheats.sol:384:        for (uint256 i; i < rawTxs.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdCheats.sol:453:        for (uint256 i; i < rawReceipts.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdCheats.sol:484:        for (uint256 i; i < rawLogs.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdCheats.sol:867:        (bool success, bytes memory runtimeBytecode) = where.call{value: value}("");
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:97:        for (uint256 i = 0; i < chain_keys.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:117:            for (uint8 t = 1; t <= NUM_TYPES; t++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:122:                    for (uint256 j = 0; j < keys.length; j++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:265:        for (uint256 i = 0; i < _chainKeys.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:348:        for (uint256 i = 0; i < keys.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:480:            for (uint256 i = 0; i < value.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:503:            for (uint256 i = 0; i < value.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:526:            for (uint256 i = 0; i < value.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:549:            for (uint256 i = 0; i < value.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:572:            for (uint256 i = 0; i < value.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:595:            for (uint256 i = 0; i < value.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdConfig.sol:618:            for (uint256 i = 0; i < value.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+./governor-retrofit/lib/forge-std/src/StdAssertions.sol:1275:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+./governor-retrofit/lib/forge-std/src/StdAssertions.sol:1276:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:31:    /// @dev A `delegatecall` execution.
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:32:    CallType internal constant CALLTYPE_DELEGATECALL = CallType.wrap(0xFF);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:85:        for (uint256 i = 0; i < executionBatch.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:97:    function execDelegateCall(
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:103:        returnData[0] = _delegatecall(0, execType, target, callData);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:221:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).call{value: value}(
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:227:    /// @dev Executes a `delegatecall` to the target with the provided {ExecType}.
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:228:    function _delegatecall(
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/utils/draft-ERC7579Utils.sol:234:        (bool success, bytes memory returndata) = (target == address(0) ? address(this) : target).delegatecall(data);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:108:                callType == ERC7579Utils.CALLTYPE_DELEGATECALL) &&
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/account/extensions/draft-AccountERC7579.sol:235:        if (callType == ERC7579Utils.CALLTYPE_DELEGATECALL) return executionCalldata.execDelegateCall(execType);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Forwarder.sol:172:        for (uint256 i; i < requests.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol:17: * WARNING: The usage of `delegatecall` in this contract is dangerous and may result in context corruption.
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/metatx/ERC2771Context.sol:18: * Any forwarded request to this contract triggering a `delegatecall` to itself will result in an invalid {_msgSender}
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/crosschain/CrosschainLinked.sol:47:        for (uint256 i = 0; i < links.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC20/extensions/ERC20Wrapper.sol:55:    function depositFor(address account, uint256 value) public virtual returns (bool) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:31:    function depositFor(address account, uint256[] memory tokenIds) public virtual returns (bool) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:33:        for (uint256 i = 0; i < length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC721/extensions/ERC721Wrapper.sol:51:        for (uint256 i = 0; i < length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol:81:        for (uint256 i = 0; i < accounts.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/ERC1155.sol:144:        for (uint256 i = 0; i < ids.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol:60:            for (uint256 i = 0; i < ids.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/token/ERC1155/extensions/ERC1155Supply.sol:72:            for (uint256 i = 0; i < ids.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyTransientMock.sol:33:            (bool success, ) = address(this).call(abi.encodeCall(this.countThisRecursive, (n - 1)));
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveEnumerableMock.sol:16:        for (uint256 i = 0; i < receivers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol:27:        for (uint256 i = 0; i < delegates.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC721ConsecutiveMock.sol:31:        for (uint256 i = 0; i < receivers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/token/ERC20VotesLegacyMock.sol:114:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/compound/CompTimelock.sol:162:        (bool success, bytes memory returnData) = target.call{value: value}(callData);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/BatchCaller.sol:15:        for (uint256 i = 0; i < calls.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/CallReceiverMock.sol:86:        for (uint256 i = 0; ; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol:14:        for (uint256 i = 0; i < recipients.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/MulticallHelper.sol:19:        for (uint256 i = 0; i < results.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ERC165Mock.sol:54:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ERC165Mock.sol:63:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyMock.sol:33:            (bool success, ) = address(this).call(abi.encodeCall(this.countThisRecursive, (n - 1)));
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/mocks/ReentrancyAttack.sol:9:        (bool success, ) = _msgSender().call(data);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/RelayedCall.sol:16: * For example, instead of `target.call(data)` where the target sees this contract as `msg.sender`, use
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/RelayedCall.sol:46:        return getRelayer(salt).call{value: value}(abi.encodePacked(target, data));
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/RLP.sol:369:        for (uint256 currentOffset = listOffset; currentOffset < itemLength; ptr += 0x20) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:124:            for (uint256 it = begin + 0x20; it < end; it += 0x20) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:232:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:268:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:302:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:331:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Arrays.sol:360:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Address.sol:116:    function functionDelegateCall(address target, bytes memory data) internal returns (bytes memory) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Address.sol:117:        bool success = LowLevelCall.delegatecallNoReturn(target, data);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:17: * If a non-canonical context is identified, the following self `delegatecall` appends the last bytes of `msg.data`
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:24:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:32:        for (uint256 i = 0; i < data.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Multicall.sol:33:            results[i] = Address.functionDelegateCall(address(this), bytes.concat(data[i], context));
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/TrieProof.sol:114:        for (uint256 i = 0; i < proof.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/TrieProof.sol:131:            for (Memory.Slice[] memory decoded = encoded.decodeList(); ; ) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:59:        for (uint256 i = 0; i < proof.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:96:        for (uint256 i = 0; i < proof.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:124:        for (uint256 i = 0; i < proof.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:161:        for (uint256 i = 0; i < proof.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:232:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:319:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:404:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/MerkleProof.sol:491:            for (uint256 i = 0; i < proofFlagsLen; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/P256.sol:336:            for (uint256 i = 0; i < 128; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:170:        for (uint256 i = 0; i < signers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/SignatureChecker.sol:183:                for (uint256 j = 0; j < i; ++j) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:106:        for (uint256 i = 0; i < signers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:161:            for (uint256 i = 0; i < signers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913Weighted.sol:201:            for (uint256 i = 0; i < signers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:126:        for (uint256 i = 0; i < newSigners.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:143:        for (uint256 i = 0; i < oldSigners.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/signers/MultiSignerERC7913.sol:244:        for (uint256 i = 0; i < signers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol:64:            for (uint256 i = 0; i < length; i += 0x20) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/RSA.sol:130:            for (uint256 i = 2; i < paddingEnd; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol:176:            for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/cryptography/draft-ERC7739Utils.sol:190:            for (uint256 i = buffer.length; i > 0; --i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol:62:            for (uint256 i = 0; i < interfaceIds.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/introspection/ERC165Checker.sol:86:        for (uint256 i = 0; i < interfaceIds.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:32:        for (uint256 i = pos; i < length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:61:            for (uint256 i = Math.min(Math.saturatingAdd(pos, 1), length); i > 0; --i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:185:        for (uint256 i = 0; i < buffers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:192:        for (uint256 i = 0; i < buffers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Bytes.sol:311:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/CircularBuffer.sol:145:        for (uint256 i = 0; i < total; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol:104:        for (uint256 i = 0; i < len; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableMap.sol:1355:        for (uint256 i = 0; i < len; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:177:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:201:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:380:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:404:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:583:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:607:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:786:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Checkpoints.sol:810:        while (low < high) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/Heap.sol:250:            while (index > 0) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:98:        for (uint256 i = 0; i < treeDepth; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:153:        for (uint256 i = 0; i < treeDepth; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/MerkleTree.sol:235:            for (uint32 i = 0; i < treeDepth; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:136:        for (uint256 i = 0; i < len; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:197:            for (uint256 i = 0; i < len; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:686:        for (uint256 i = 0; i < len; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:747:            for (uint256 i = 0; i < len; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:828:        for (uint256 i = 0; i < len; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/structs/EnumerableSet.sol:889:            for (uint256 i = 0; i < len; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/math/Math.sol:338:            while (remainder != 0) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/math/Math.sol:480:        for (uint256 i = 0; i < buffer.length; i += 0x20) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:50:            while (true) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:86:        for (uint256 i = 2 * length + 1; i > 1; --i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:117:        for (uint256 i = 41; i > 1; --i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:136:            for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:213:        for (uint256 i = begin; i < end; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:365:        for (uint256 i = begin + offset; i < end; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/Strings.sol:473:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:73:    /// @dev Performs a Solidity function call using a low level `delegatecall` and ignoring the return data.
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:74:    function delegatecallNoReturn(address target, bytes memory data) internal returns (bool success) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:76:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x00)
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:80:    /// @dev Performs a Solidity function call using a low level `delegatecall` and returns the first 64 bytes of the result
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:85:    function delegatecallReturn64Bytes(
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/utils/LowLevelCall.sol:90:            success := delegatecall(gas(), target, add(data, 0x20), mload(data), 0x00, 0x40)
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:222:            while (_governanceCall.popFront() != msgDataHash) {}
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:408:            for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:441:        for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:442:            (bool success, bytes memory returndata) = targets[i].call{value: values[i]}(calldatas[i]);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/Governor.sol:657:        (bool success, bytes memory returndata) = target.call{value: value}(data);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:125:        for (uint256 i = 0; i < proposers.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:131:        for (uint256 i = 0; i < executors.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:303:        for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:397:        for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/TimelockController.sol:411:        (bool success, bytes memory returndata) = target.call{value: value}(data);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:73:        for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:101:        for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockCompound.sol:121:            for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:135:        for (uint256 i = 0; i < selectors.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:167:        for (uint256 i = 0; i < length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:193:        for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:233:        for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:264:        for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:272:                (bool success, bytes memory returndata) = targets[i].call{value: values[i]}(calldatas[i]);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/governance/extensions/GovernorTimelockAccess.sol:293:            for (uint256 i = 0; i < targets.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/access/manager/AccessManager.sol:380:        for (uint256 i = 0; i < selectors.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/interfaces/IERC777.sol:110:    function isOperatorFor(address operator, address tokenHolder) external view returns (bool);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/transparent/ProxyAdmin.sol:43:        proxy.upgradeToAndCall{value: msg.value}(implementation, data);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:46:     * @dev Check that the execution is being performed through a delegatecall call and that the execution context is
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:86:     * @custom:oz-upgrades-unsafe-allow-reachable delegatecall
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:94:     * @dev Reverts if the execution is not performed via delegatecall or the execution
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:99:            address(this) == __self || // Must be called through delegatecall
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:107:     * @dev Reverts if the execution is performed via delegatecall.
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/utils/UUPSUpgradeable.sol:112:            // Must not be called through delegatecall
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Utils.sol:72:            Address.functionDelegateCall(newImplementation, data);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/ERC1967/ERC1967Utils.sol:162:            Address.functionDelegateCall(IBeacon(newBeacon).implementation(), data);
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:8: * instruction `delegatecall`. We refer to the second contract as the _implementation_ behind the proxy, and it has to
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:31:            let result := delegatecall(gas(), implementation, 0x00, calldatasize(), 0x00, 0x00)
+./timelock-retrofit/lib/openzeppelin-contracts/contracts/proxy/Proxy.sol:37:            // delegatecall returns 0 on error.
+./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.prop.sol:371:        (bool success, bytes memory retdata) = _vault_.call(data);
+./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:32:        for (uint i = 0; i < N; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:197:        (bool success,) = _vault_.call(
+./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:245:        (bool success,) = _vault_.call(
+./timelock-retrofit/lib/openzeppelin-contracts/lib/erc4626-tests/ERC4626.test.sol:332:        (bool success, bytes memory retdata) = token.call(abi.encodeWithSelector(IERC20.approve.selector, spender, amount));
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:339:        for (uint256 i = 0; i < nvars; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdStorage.t.sol:474:        for (uint256 i; i < shiftSizes.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:315:        for (uint256 i; i < 10000; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:331:        for (uint256 i = 0; i < b.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/test/StdCheats.t.sol:339:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; --i >= 0;) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:275:        while (found) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:286:        for (uint256 i = 0; i < max; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdStorage.sol:294:        for (uint256 i = 0; i < b.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:148:        for (uint256 i = 0; i < length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:150:            calls[i] = IMulticall3.Call({target: token, callData: abi.encodeWithSelector(0x70a08231, (addresses[i]))});
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdUtils.sol:158:        for (uint256 i = 0; i < length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:29:        // The account was called via delegatecall.
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:30:        DelegateCall,
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:193:        // If kind is Call, DelegateCall, StaticCall or CallCode, then the account is the callee.
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:1966:    function prank(address msgSender, bool delegateCall) external;
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:1969:    function prank(address msgSender, address txOrigin, bool delegateCall) external;
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:2061:    function startPrank(address msgSender, bool delegateCall) external;
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/Vm.sol:2064:    function startPrank(address msgSender, address txOrigin, bool delegateCall) external;
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:293:        (bool success,) = payable(addr).call{value: 1}("");
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:386:        for (uint256 i; i < rawTxs.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:454:        for (uint256 i; i < rawReceipts.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:485:        for (uint256 i; i < rawLogs.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdCheats.sol:819:        (bool success, bytes memory runtimeBytecode) = where.call{value: value}("");
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdAssertions.sol:644:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+./timelock-retrofit/lib/openzeppelin-contracts/lib/forge-std/src/StdAssertions.sol:645:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+./timelock-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:82:            (bool success, ) = payable(msg.sender).call{value: missingAccountFunds}("");
+./timelock-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:101:        } else if (callType == ERC7579Utils.CALLTYPE_DELEGATECALL) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:102:            executionCalldata.execDelegateCall(execType);
+./timelock-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:399:        for (uint256 i = 0; i < logs.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/account/utils/draft-ERC7579Utils.t.sol:419:        for (uint256 i = 0; i < calls.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:176:        for (uint256 i = 0; i < batchSize; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:234:        for (uint256 i = 0; i < requests.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/metatx/ERC2771Forwarder.t.sol:257:        for (uint256 i = 0; i < requests.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/token/ERC721/extensions/ERC721Consecutive.t.sol:23:        for (uint256 i = 0; i < batches.length; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/RLP.t.sol:44:        for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/RLP.t.sol:52:        for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:18:        for (uint256 i = 0; i < 3; i++) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:199:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:230:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:255:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:286:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:311:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:342:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:356:        for (uint256 i = 1; i < values.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:368:        for (uint256 i = 0; i < expectedLength; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:380:        for (uint256 i = 0; i < expectedLength; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:392:        for (uint256 i = 0; i < expectedLength; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:401:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:407:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Arrays.t.sol:413:        for (uint256 i = 0; i < values.length; ++i) copy[i] = values[i];
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Blockhash.t.sol:97:        (bool success, ) = Blockhash.HISTORY_STORAGE_ADDRESS.call(abi.encode(blockHash)); // set parent's blockhash
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:25:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:30:            for (uint256 i = 0; i < result; ++i) assertNotEq(buffer[i], s);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:42:            for (uint256 i = pos; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:47:            for (uint256 i = pos; i < result; ++i) assertNotEq(buffer[i], s);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:59:            for (uint256 i = 0; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:64:            for (uint256 i = result + 1; i < buffer.length; ++i) assertNotEq(buffer[i], s);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:76:            for (uint256 i = 0; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:81:            for (uint256 i = result + 1; i <= Math.min(pos, buffer.length - 1); ++i) assertNotEq(buffer[i], s);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:97:        for (uint256 i = 0; i < result.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:117:        for (uint256 i = 0; i < result.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:133:        for (uint256 i = 0; i < result.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:153:        for (uint256 i = 0; i < result.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:164:        for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:187:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:218:        for (uint256 i = 0; i < buffer.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Bytes.t.sol:282:        for (uint256 i = 0; i < index; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Base64.t.sol:23:        for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/Base64.t.sol:30:        for (uint256 i = 0; i < output.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:26:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:51:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:91:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:134:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:159:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:199:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:242:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:267:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:307:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:350:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:375:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Checkpoints.t.sol:415:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Accumulators.t.sol:26:        for (uint256 i = 0; i < input.length; ++i) acc.push(input[i]);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Accumulators.t.sol:32:        for (uint256 i = input.length; i > 0; --i) acc.shift(input[i - 1]);
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:16:        for (uint32 i = 1; i < heap.length(); ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:26:        for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:36:        for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:53:        for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/structs/Heap.t.sol:63:        for (uint256 i = 0; i < input.length; ++i) {
+./timelock-retrofit/lib/openzeppelin-contracts/test/utils/math/Math.t.sol:361:        while (e > 0) {
+./timelock-retrofit/lib/forge-std/test/Config.t.sol:143:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/forge-std/test/Config.t.sol:151:        for (uint256 i = 0; i < keys.length; ++i) {
+./timelock-retrofit/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+./timelock-retrofit/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:338:        for (uint256 i = 0; i < nvars; i++) {
+./timelock-retrofit/lib/forge-std/test/StdStorage.t.sol:496:        for (uint256 i; i < shiftSizes.length; i++) {
+./timelock-retrofit/lib/forge-std/test/StdCheats.t.sol:314:        for (uint256 i; i < 10000; i++) {
+./timelock-retrofit/lib/forge-std/test/StdCheats.t.sol:330:        for (uint256 i = 0; i < b.length; i++) {
+./timelock-retrofit/lib/forge-std/test/StdCheats.t.sol:338:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+./timelock-retrofit/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+./timelock-retrofit/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; i > 0;) {
+./timelock-retrofit/lib/forge-std/src/StdStorage.sol:276:        while (found) {
+./timelock-retrofit/lib/forge-std/src/StdStorage.sol:291:        for (uint256 i = 0; i < max; i++) {
+./timelock-retrofit/lib/forge-std/src/StdStorage.sol:299:        for (uint256 i = 0; i < b.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:322:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:335:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:348:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:361:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:374:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:397:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:410:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:423:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:436:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/LibVariable.sol:449:        for (uint256 i = 0; i < values.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdUtils.sol:140:        for (uint256 i = 0; i < length; ++i) {
+./timelock-retrofit/lib/forge-std/src/StdUtils.sol:142:            calls[i] = IMulticall3.Call({target: token, callData: abi.encodeWithSelector(0x70a08231, (addresses[i]))});
+./timelock-retrofit/lib/forge-std/src/StdUtils.sol:150:        for (uint256 i = 0; i < length; ++i) {
+./timelock-retrofit/lib/forge-std/src/Vm.sol:28:        // The account was called via delegatecall.
+./timelock-retrofit/lib/forge-std/src/Vm.sol:29:        DelegateCall,
+./timelock-retrofit/lib/forge-std/src/Vm.sol:204:        // If kind is Call, DelegateCall, StaticCall or CallCode, then the account is the callee.
+./timelock-retrofit/lib/forge-std/src/Vm.sol:2209:    function prank(address msgSender, bool delegateCall) external;
+./timelock-retrofit/lib/forge-std/src/Vm.sol:2212:    function prank(address msgSender, address txOrigin, bool delegateCall) external;
+./timelock-retrofit/lib/forge-std/src/Vm.sol:2304:    function startPrank(address msgSender, bool delegateCall) external;
+./timelock-retrofit/lib/forge-std/src/Vm.sol:2307:    function startPrank(address msgSender, address txOrigin, bool delegateCall) external;
+./timelock-retrofit/lib/forge-std/src/Config.sol:51:        for (uint256 i = 0; i < chains.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdCheats.sol:291:        (bool success,) = payable(addr).call{value: 1}("");
+./timelock-retrofit/lib/forge-std/src/StdCheats.sol:384:        for (uint256 i; i < rawTxs.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdCheats.sol:453:        for (uint256 i; i < rawReceipts.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdCheats.sol:484:        for (uint256 i; i < rawLogs.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdCheats.sol:867:        (bool success, bytes memory runtimeBytecode) = where.call{value: value}("");
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:97:        for (uint256 i = 0; i < chain_keys.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:117:            for (uint8 t = 1; t <= NUM_TYPES; t++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:122:                    for (uint256 j = 0; j < keys.length; j++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:265:        for (uint256 i = 0; i < _chainKeys.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:348:        for (uint256 i = 0; i < keys.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:480:            for (uint256 i = 0; i < value.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:503:            for (uint256 i = 0; i < value.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:526:            for (uint256 i = 0; i < value.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:549:            for (uint256 i = 0; i < value.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:572:            for (uint256 i = 0; i < value.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:595:            for (uint256 i = 0; i < value.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdConfig.sol:618:            for (uint256 i = 0; i < value.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+./timelock-retrofit/lib/forge-std/src/StdAssertions.sol:1275:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+./timelock-retrofit/lib/forge-std/src/StdAssertions.sol:1276:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+./vault-retrofit/src/PoOVault.sol:31:        (bool success, bytes memory res) = target.call{value: value}(data);
+./pilot-integration/templates/SafeMultiSendPilotIntegration.sol:23:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+./safe-retrofit/node_modules/eth-gas-reporter/mock/contracts/EtherRouter/EtherRouter.sol:50:      let result := delegatecall(gas, destination, mload(0x40), calldatasize, mload(0x40), 0) // ignore-swc-112 calls are only to trusted contracts
+./safe-retrofit/node_modules/eth-gas-reporter/mock/contracts/VariableCosts.sol:29:    for(uint i = 0; i < adds.length; i++)
+./safe-retrofit/node_modules/eth-gas-reporter/mock/contracts/VariableCosts.sol:34:    for(uint i = 0; i < dels.length; i++)
+./safe-retrofit/contracts/delegatecall-runtime/DelegatecallMultiSendHarness.sol:6:contract DelegatecallMultiSendHarness is SemanticMultiSendShadow {
+./safe-retrofit/contracts/delegatecall-runtime/DelegatecallMultiSendHarness.sol:15:    function executeDelegatecallReplay(
+./safe-retrofit/contracts/delegatecall-runtime/DelegatecallMultiSendHarness.sol:37:        (bool success, bytes memory returndata) = multiSendLibrary.delegatecall(
+./safe-retrofit/contracts/semantic-runtime/MultiSend.sol:21:     *                     operation as a uint8 with 0 for a call or 1 for a delegatecall (=> 1 byte),
+./safe-retrofit/contracts/semantic-runtime/MultiSend.sol:27:     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+./safe-retrofit/contracts/semantic-runtime/MultiSend.sol:31:        require(address(this) != MULTISEND_SINGLETON, "MultiSend should only be called via delegatecall");
+./safe-retrofit/contracts/semantic-runtime/MultiSend.sol:63:                    success := delegatecall(gas(), to, data, dataLength, 0, 0)
+./safe-retrofit/contracts/semantic-runtime/SemanticMultiSendShadow.sol:59:        for (uint16 operationIndex = 0; operationIndex < operationCount; operationIndex++) {
+./safe-retrofit/contracts/semantic-runtime/SemanticMultiSendShadow.sol:135:        for (uint256 j = 0; j < dataLength; j++) {
+./safe-retrofit/contracts/semantic-runtime/SemanticMultiSendShadow.sol:147:        while (cursor < transactions.length) {
+./safe-retrofit/lib/forge-std/test/Config.t.sol:143:        for (uint256 i = 0; i < keys.length; ++i) {
+./safe-retrofit/lib/forge-std/test/Config.t.sol:151:        for (uint256 i = 0; i < keys.length; ++i) {
+./safe-retrofit/lib/forge-std/test/StdUtils.t.sol:66:        for (uint256 i = 1; i <= size * 4; ++i) {
+./safe-retrofit/lib/forge-std/test/StdUtils.t.sol:155:        for (uint256 i = 1; i <= size * 4; ++i) {
+./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:266:        for (uint256 i = 1; i < 5; i++) {
+./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:272:            for (uint256 j; j < shifts; j++) {
+./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:280:            for (uint256 j; j < shiftSizes.length; j++) {
+./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:313:        for (uint256 i = 0; i < nvars; i++) {
+./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:332:        for (uint256 i = 0; i < nvars; i++) {
+./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:338:        for (uint256 i = 0; i < nvars; i++) {
+./safe-retrofit/lib/forge-std/test/StdStorage.t.sol:496:        for (uint256 i; i < shiftSizes.length; i++) {
+./safe-retrofit/lib/forge-std/test/StdCheats.t.sol:314:        for (uint256 i; i < 10000; i++) {
+./safe-retrofit/lib/forge-std/test/StdCheats.t.sol:330:        for (uint256 i = 0; i < b.length; i++) {
+./safe-retrofit/lib/forge-std/test/StdCheats.t.sol:338:        for (uint8 i = 2; i < uint8(type(AddressType).max); i++) {
+./safe-retrofit/lib/forge-std/src/StdStorage.sol:72:        for (uint256 offset = 0; offset < 256; offset++) {
+./safe-retrofit/lib/forge-std/src/StdStorage.sol:126:            for (uint256 i = reads.length; i > 0;) {
+./safe-retrofit/lib/forge-std/src/StdStorage.sol:276:        while (found) {
+./safe-retrofit/lib/forge-std/src/StdStorage.sol:291:        for (uint256 i = 0; i < max; i++) {
+./safe-retrofit/lib/forge-std/src/StdStorage.sol:299:        for (uint256 i = 0; i < b.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:322:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:335:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:348:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:361:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:374:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:397:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:410:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:423:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:436:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/LibVariable.sol:449:        for (uint256 i = 0; i < values.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdUtils.sol:140:        for (uint256 i = 0; i < length; ++i) {
+./safe-retrofit/lib/forge-std/src/StdUtils.sol:142:            calls[i] = IMulticall3.Call({target: token, callData: abi.encodeWithSelector(0x70a08231, (addresses[i]))});
+./safe-retrofit/lib/forge-std/src/StdUtils.sol:150:        for (uint256 i = 0; i < length; ++i) {
+./safe-retrofit/lib/forge-std/src/Vm.sol:28:        // The account was called via delegatecall.
+./safe-retrofit/lib/forge-std/src/Vm.sol:29:        DelegateCall,
+./safe-retrofit/lib/forge-std/src/Vm.sol:204:        // If kind is Call, DelegateCall, StaticCall or CallCode, then the account is the callee.
+./safe-retrofit/lib/forge-std/src/Vm.sol:2209:    function prank(address msgSender, bool delegateCall) external;
+./safe-retrofit/lib/forge-std/src/Vm.sol:2212:    function prank(address msgSender, address txOrigin, bool delegateCall) external;
+./safe-retrofit/lib/forge-std/src/Vm.sol:2304:    function startPrank(address msgSender, bool delegateCall) external;
+./safe-retrofit/lib/forge-std/src/Vm.sol:2307:    function startPrank(address msgSender, address txOrigin, bool delegateCall) external;
+./safe-retrofit/lib/forge-std/src/Config.sol:51:        for (uint256 i = 0; i < chains.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdCheats.sol:291:        (bool success,) = payable(addr).call{value: 1}("");
+./safe-retrofit/lib/forge-std/src/StdCheats.sol:384:        for (uint256 i; i < rawTxs.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdCheats.sol:453:        for (uint256 i; i < rawReceipts.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdCheats.sol:484:        for (uint256 i; i < rawLogs.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdCheats.sol:867:        (bool success, bytes memory runtimeBytecode) = where.call{value: value}("");
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:97:        for (uint256 i = 0; i < chain_keys.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:117:            for (uint8 t = 1; t <= NUM_TYPES; t++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:122:                    for (uint256 j = 0; j < keys.length; j++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:265:        for (uint256 i = 0; i < _chainKeys.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:348:        for (uint256 i = 0; i < keys.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:480:            for (uint256 i = 0; i < value.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:503:            for (uint256 i = 0; i < value.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:526:            for (uint256 i = 0; i < value.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:549:            for (uint256 i = 0; i < value.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:572:            for (uint256 i = 0; i < value.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:595:            for (uint256 i = 0; i < value.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdConfig.sol:618:            for (uint256 i = 0; i < value.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdChains.sol:138:        for (uint256 i = 0; i < strb.length; i++) {
+./safe-retrofit/lib/forge-std/src/StdAssertions.sol:1275:        (bool successA, bytes memory returnDataA) = address(targetA).call(callDataA);
+./safe-retrofit/lib/forge-std/src/StdAssertions.sol:1276:        (bool successB, bytes memory returnDataB) = address(targetB).call(callDataB);
+./safe-retrofit/lib/safe-contracts/contracts/Safe.sol:95:        // of the  `to.delegatecall(data)` that happen in the `setupModules` call emit events in order relative to the setup
+./safe-retrofit/lib/safe-contracts/contracts/Safe.sol:245:            (bool refundSuccess, ) = receiver.call{value: payment}("");
+./safe-retrofit/lib/safe-contracts/contracts/Safe.sol:322:        for (i = 0; i < requiredSignatures; ++i) {
+./safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:11:     * @notice Executes either a delegatecall or a call with provided parameters.
+./safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:28:        if (operation == Enum.Operation.DelegateCall) {
+./safe-retrofit/lib/safe-contracts/contracts/base/Executor.sol:32:                success := delegatecall(txGas, to, add(data, 0x20), mload(data), 0, 0)
+./safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:81:            if (!execute(to, 0, data, Enum.Operation.DelegateCall, type(uint256).max)) revertWithError("GS000");
+./safe-retrofit/lib/safe-contracts/contracts/base/ModuleManager.sol:212:        while (next != address(0) && next != SENTINEL_MODULES && moduleCount < pageSize) {
+./safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:39:        for (uint256 i = 0; i < ownersLength; ++i) {
+./safe-retrofit/lib/safe-contracts/contracts/base/OwnerManager.sol:140:        while (currentOwner != SENTINEL_OWNERS) {
+./safe-retrofit/lib/safe-contracts/contracts/examples/guards/DelegateCallTransactionGuard.sol:8: * @title DelegateCallTransactionGuard - Limits delegate calls to a specific target.
+./safe-retrofit/lib/safe-contracts/contracts/examples/guards/DelegateCallTransactionGuard.sol:11:contract DelegateCallTransactionGuard is BaseGuard {
+./safe-retrofit/lib/safe-contracts/contracts/examples/guards/DelegateCallTransactionGuard.sol:44:        require(operation != Enum.Operation.DelegateCall || to == ALLOWED_TARGET, "This call is restricted");
+./safe-retrofit/lib/safe-contracts/contracts/examples/guards/DelegateCallTransactionGuard.sol:68:        require(operation != Enum.Operation.DelegateCall || to == ALLOWED_TARGET, "This call is restricted");
+./safe-retrofit/lib/safe-contracts/contracts/examples/libraries/Migrate_1_3_0_to_1_2_0.sol:26:     * @dev This can only be called via a delegatecall.
+./safe-retrofit/lib/safe-contracts/contracts/examples/libraries/Migrate_1_3_0_to_1_2_0.sol:29:        require(address(this) != MIGRATION_SINGLETON, "Migration should only be called via delegatecall");
+./safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:49:                // do this for the `masterCopy()` call, since the EVM `DELEGATECALL` opcode ignores the most-significant
+./safe-retrofit/lib/safe-contracts/contracts/proxies/SafeProxy.sol:63:            let success := delegatecall(gas(), _singleton, 0, calldatasize(), 0, 0)
+./safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:19:        for (uint256 index = 0; index < length; ++index) {
+./safe-retrofit/lib/safe-contracts/contracts/common/StorageAccessible.sol:38:            let success := delegatecall(gas(), targetContract, add(calldataPayload, 0x20), mload(calldataPayload), 0, 0)
+./safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:5: * @title DelegateCaller - A test contract that executes delegatecalls
+./safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:7:contract DelegateCaller {
+./safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:9:     * @notice makes a delegatecall
+./safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:13:    function makeDelegatecall(address _called, bytes memory _calldata) external returns (bool success, bytes memory returnData) {
+./safe-retrofit/lib/safe-contracts/contracts/test/DelegateCaller.sol:14:        (success, returnData) = _called.delegatecall(_calldata);
+./safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ERC165Handler.sol:59:        for (uint256 i = 0; i < len; ++i) {
+./safe-retrofit/lib/safe-contracts/contracts/handler/extensible/ERC165Handler.sol:78:        for (uint256 i = 0; i < len; ++i) {
+./safe-retrofit/lib/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol:100:     * @notice Performs a `DELEGATECALL` to a `targetContract` in the context of self.
+./safe-retrofit/lib/safe-contracts/contracts/handler/CompatibilityFallbackHandler.sol:188:     * @param operation Operation type of the Safe transaction: 0 for `CALL` and 1 for `DELEGATECALL`.
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:15: *      to the migration functions only via delegatecall.
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:42:     * @notice Modifier to make a function callable via delegatecall only.
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:45:    modifier onlyDelegateCall() {
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:46:        require(address(this) != MIGRATION_SINGLETON, "Migration should only be called via delegatecall");
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:71:    function migrateSingleton() public onlyDelegateCall {
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:80:    function migrateWithFallbackHandler() external onlyDelegateCall {
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:88:    function migrateL2Singleton() public onlyDelegateCall {
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeMigration.sol:97:    function migrateL2WithFallbackHandler() external onlyDelegateCall {
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:17:     *      This is used to ensure that the contract is only ever `DELEGATECALL`-ed.
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:35:     * @notice Modifier ensure a function is only called via `DELEGATECALL`. Will revert otherwise.
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:37:    modifier onlyDelegateCall() {
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:38:        require(address(this) != SELF, "SafeToL2Setup should only be called via delegatecall");
+./safe-retrofit/lib/safe-contracts/contracts/libraries/SafeToL2Setup.sol:64:    function setupToL2(address l2Singleton) external onlyDelegateCall onlyNonceZero onlyContract(l2Singleton) {
+./safe-retrofit/lib/safe-contracts/contracts/libraries/Enum.sol:11:        DelegateCall
+./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:21:     *         but reverts if a transaction tries to use a delegatecall.
+./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:22:     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSendCallOnly.sol:56:                // This version does not allow delegatecalls
+./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:21:     *                     operation as a uint8 with 0 for a call or 1 for a delegatecall (=> 1 byte),
+./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:27:     * @notice This method is payable as delegatecalls keep the msg.value from the previous call
+./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:31:        require(address(this) != MULTISEND_SINGLETON, "MultiSend should only be called via delegatecall");
+./safe-retrofit/lib/safe-contracts/contracts/libraries/MultiSend.sol:63:                    success := delegatecall(gas(), to, data, dataLength, 0, 0)
+./safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol:36:     * @notice Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token)
+./safe-retrofit/lib/safe-contracts/contracts/interfaces/IModuleManager.sol:51:     * @notice Execute `operation` (0: Call, 1: DelegateCall) to `to` with `value` (Native Token) and return data
+./safe-retrofit/lib/safe-contracts/contracts/interfaces/IStorageAccessible.sol:18:     * @notice Performs a `DELEGATECALL` to a `targetContract` in the context of self.
+./safe-retrofit/lib/safe-contracts/contracts/interfaces/ISafe.sol:49:    /** @notice Executes a `operation` {0: Call, 1: DelegateCall} transaction to `to` with `value` (Native Currency)
+./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:19:     * @notice Modifier to make a function callable via delegatecall only.
+./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:22:    modifier onlyDelegateCall() {
+./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:23:        require(address(this) != ACCESSOR_SINGLETON, "SimulateTxAccessor should only be called via delegatecall");
+./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:29:     * @dev Executes the specified operation {Call, DelegateCall} and returns operation-specific data.
+./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:30:     *      Has to be called via delegatecall.
+./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:37:     * @param operation Operation type {Call, DelegateCall}.
+./safe-retrofit/lib/safe-contracts/contracts/accessors/SimulateTxAccessor.sol:47:    ) external onlyDelegateCall returns (uint256 estimate, bool success, bytes memory returnData) {
+./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:36:    function delegateCallSetupToL2(address l2Singleton) public {
+./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:37:        (bool success, ) = impl.delegatecall(
+./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:47:        (bool success, ) = impl.delegatecall(
+./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:57:        (bool success, ) = impl.delegatecall(
+./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:67:        (bool success, ) = impl.delegatecall(
+./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:77:        (bool success, ) = impl.delegatecall(
+./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:87:        (bool success, ) = impl.delegatecall(
+./safe-retrofit/lib/safe-contracts/certora/mocks/SafeMock.sol:97:        (bool success, ) = impl.delegatecall(
+./safe-retrofit/lib/safe-contracts/certora/harnesses/SafeHarness.sol:59:    function getNativeTokenBalanceFor(address addr) public view returns (uint256) {
+./safe-retrofit/lib/safe-contracts/certora/harnesses/SafeHarness.sol:88:        address(this).call(abi.encodeWithSelector(selector));
+./safe-retrofit/test/PoO.t.sol:102:        for (uint256 i = 0; i < logs.length; i++) {
