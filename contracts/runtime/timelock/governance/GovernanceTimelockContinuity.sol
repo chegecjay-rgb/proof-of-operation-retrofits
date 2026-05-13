@@ -8,16 +8,9 @@ library GovernanceTimelockContinuity {
         uint256 eta;
     }
 
-    function governanceExecutionRoot(
-        GovernanceExecution memory execution
-    ) internal pure returns (bytes32) {
+    function governanceExecutionRoot(GovernanceExecution memory execution) internal pure returns (bytes32) {
         return keccak256(
-            abi.encode(
-                execution.proposalId,
-                execution.timelockBatchRoot,
-                execution.parentOperationId,
-                execution.eta
-            )
+            abi.encode(execution.proposalId, execution.timelockBatchRoot, execution.parentOperationId, execution.eta)
         );
     }
 }

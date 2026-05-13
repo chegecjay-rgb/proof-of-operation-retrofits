@@ -9,61 +9,29 @@ contract TimelockSemanticAnchorExample {
         runtime = TimelockSemanticRuntime(runtimeAddress);
     }
 
-    function semanticQueueAnchor(
-        address target,
-        uint256 value,
-        bytes calldata payload,
-        uint256 eta
-    ) external returns (bytes32) {
+    function semanticQueueAnchor(address target, uint256 value, bytes calldata payload, uint256 eta)
+        external
+        returns (bytes32)
+    {
         bytes32[] memory operationIds = new bytes32[](1);
 
-        operationIds[0] = runtime.deriveOperationId(
-            target,
-            value,
-            payload,
-            eta
-        );
+        operationIds[0] = runtime.deriveOperationId(target, value, payload, eta);
 
-        bytes32 parentId = runtime.deriveParentOperationId(
-            operationIds
-        );
+        bytes32 parentId = runtime.deriveParentOperationId(operationIds);
 
-        return runtime.emitScheduledOperation(
-            parentId,
-            target,
-            value,
-            payload,
-            eta,
-            0
-        );
+        return runtime.emitScheduledOperation(parentId, target, value, payload, eta, 0);
     }
 
-    function semanticExecutionAnchor(
-        address target,
-        uint256 value,
-        bytes calldata payload,
-        uint256 eta
-    ) external returns (bytes32) {
+    function semanticExecutionAnchor(address target, uint256 value, bytes calldata payload, uint256 eta)
+        external
+        returns (bytes32)
+    {
         bytes32[] memory operationIds = new bytes32[](1);
 
-        operationIds[0] = runtime.deriveOperationId(
-            target,
-            value,
-            payload,
-            eta
-        );
+        operationIds[0] = runtime.deriveOperationId(target, value, payload, eta);
 
-        bytes32 parentId = runtime.deriveParentOperationId(
-            operationIds
-        );
+        bytes32 parentId = runtime.deriveParentOperationId(operationIds);
 
-        return runtime.emitExecutedOperation(
-            parentId,
-            target,
-            value,
-            payload,
-            eta,
-            0
-        );
+        return runtime.emitExecutedOperation(parentId, target, value, payload, eta, 0);
     }
 }

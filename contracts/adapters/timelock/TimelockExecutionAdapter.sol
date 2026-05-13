@@ -17,13 +17,6 @@ contract TimelockExecutionAdapter {
         uint256 operationIndex,
         bytes32 parentOperationId
     ) external returns (bytes32) {
-        return semanticRuntime.emitExecutedOperation(
-            parentOperationId,
-            target,
-            value,
-            payload,
-            eta,
-            operationIndex
-        );
+        return semanticRuntime.emitExecutedOperation(parentOperationId, target, value, payload, eta, operationIndex);
     }
 }

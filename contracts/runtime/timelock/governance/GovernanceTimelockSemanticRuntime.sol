@@ -21,39 +21,35 @@ contract GovernanceTimelockSemanticRuntime {
         uint256 executedAt
     );
 
-    function deriveGovernanceExecutionRoot(
-        GovernanceTimelockContinuity.GovernanceExecution memory execution
-    ) public pure returns (bytes32) {
+    function deriveGovernanceExecutionRoot(GovernanceTimelockContinuity.GovernanceExecution memory execution)
+        public
+        pure
+        returns (bytes32)
+    {
         return execution.governanceExecutionRoot();
     }
 
-    function emitGovernanceQueued(
-        GovernanceTimelockContinuity.GovernanceExecution memory execution
-    ) external returns (bytes32) {
+    function emitGovernanceQueued(GovernanceTimelockContinuity.GovernanceExecution memory execution)
+        external
+        returns (bytes32)
+    {
         bytes32 root = deriveGovernanceExecutionRoot(execution);
 
         emit GovernanceTimelockQueued(
-            root,
-            execution.proposalId,
-            execution.timelockBatchRoot,
-            execution.parentOperationId,
-            execution.eta
+            root, execution.proposalId, execution.timelockBatchRoot, execution.parentOperationId, execution.eta
         );
 
         return root;
     }
 
-    function emitGovernanceExecuted(
-        GovernanceTimelockContinuity.GovernanceExecution memory execution
-    ) external returns (bytes32) {
+    function emitGovernanceExecuted(GovernanceTimelockContinuity.GovernanceExecution memory execution)
+        external
+        returns (bytes32)
+    {
         bytes32 root = deriveGovernanceExecutionRoot(execution);
 
         emit GovernanceTimelockExecuted(
-            root,
-            execution.proposalId,
-            execution.timelockBatchRoot,
-            execution.parentOperationId,
-            block.timestamp
+            root, execution.proposalId, execution.timelockBatchRoot, execution.parentOperationId, block.timestamp
         );
 
         return root;

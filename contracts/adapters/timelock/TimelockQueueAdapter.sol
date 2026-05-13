@@ -17,13 +17,6 @@ contract TimelockQueueAdapter {
         uint256 operationIndex,
         bytes32 parentOperationId
     ) external returns (bytes32) {
-        return semanticRuntime.emitScheduledOperation(
-            parentOperationId,
-            target,
-            value,
-            payload,
-            eta,
-            operationIndex
-        );
+        return semanticRuntime.emitScheduledOperation(parentOperationId, target, value, payload, eta, operationIndex);
     }
 }

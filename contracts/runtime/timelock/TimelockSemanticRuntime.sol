@@ -6,38 +6,20 @@ import "./DeterministicTemporalReplay.sol";
 contract TimelockSemanticRuntime is ITimelockSemanticEvents {
     using DeterministicTemporalReplay for address;
 
-    function derivePayloadHash(
-        address target,
-        uint256 value,
-        bytes memory payload
-    ) public pure returns (bytes32) {
-        return DeterministicTemporalReplay.payloadHash(
-            target,
-            value,
-            payload
-        );
+    function derivePayloadHash(address target, uint256 value, bytes memory payload) public pure returns (bytes32) {
+        return DeterministicTemporalReplay.payloadHash(target, value, payload);
     }
 
-    function deriveOperationId(
-        address target,
-        uint256 value,
-        bytes memory payload,
-        uint256 eta
-    ) public pure returns (bytes32) {
-        return DeterministicTemporalReplay.operationId(
-            target,
-            value,
-            payload,
-            eta
-        );
+    function deriveOperationId(address target, uint256 value, bytes memory payload, uint256 eta)
+        public
+        pure
+        returns (bytes32)
+    {
+        return DeterministicTemporalReplay.operationId(target, value, payload, eta);
     }
 
-    function deriveParentOperationId(
-        bytes32[] memory operationIds
-    ) public pure returns (bytes32) {
-        return DeterministicTemporalReplay.parentOperationId(
-            operationIds
-        );
+    function deriveParentOperationId(bytes32[] memory operationIds) public pure returns (bytes32) {
+        return DeterministicTemporalReplay.parentOperationId(operationIds);
     }
 
     function emitScheduledOperation(
@@ -48,27 +30,12 @@ contract TimelockSemanticRuntime is ITimelockSemanticEvents {
         uint256 eta,
         uint256 operationIndex
     ) external returns (bytes32) {
-        bytes32 payloadHashValue = derivePayloadHash(
-            target,
-            value,
-            payload
-        );
+        bytes32 payloadHashValue = derivePayloadHash(target, value, payload);
 
-        bytes32 operationIdValue = deriveOperationId(
-            target,
-            value,
-            payload,
-            eta
-        );
+        bytes32 operationIdValue = deriveOperationId(target, value, payload, eta);
 
         emit TimelockOperationScheduled(
-            operationIdValue,
-            parentId,
-            target,
-            payloadHashValue,
-            value,
-            eta,
-            operationIndex
+            operationIdValue, parentId, target, payloadHashValue, value, eta, operationIndex
         );
 
         return operationIdValue;
@@ -82,27 +49,12 @@ contract TimelockSemanticRuntime is ITimelockSemanticEvents {
         uint256 eta,
         uint256 operationIndex
     ) external returns (bytes32) {
-        bytes32 payloadHashValue = derivePayloadHash(
-            target,
-            value,
-            payload
-        );
+        bytes32 payloadHashValue = derivePayloadHash(target, value, payload);
 
-        bytes32 operationIdValue = deriveOperationId(
-            target,
-            value,
-            payload,
-            eta
-        );
+        bytes32 operationIdValue = deriveOperationId(target, value, payload, eta);
 
         emit TimelockOperationExecuted(
-            operationIdValue,
-            parentId,
-            target,
-            payloadHashValue,
-            value,
-            block.timestamp,
-            operationIndex
+            operationIdValue, parentId, target, payloadHashValue, value, block.timestamp, operationIndex
         );
 
         return operationIdValue;
