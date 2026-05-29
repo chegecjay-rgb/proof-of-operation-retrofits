@@ -25,3 +25,4 @@ safe-retrofit/package-lock.json
 # Incomplete governor archaeology workspace
 governor-retrofit-analysis/
 
+.gas-snapshot
