@@ -1,0 +1,7 @@
+README.md
+docs/PUBLICATION_ARCHITECTURE_OVERVIEW.md
+live-semantic-adapter/specs/SAFE_SEMANTIC_ADAPTER_SPEC.md
+pilot-integration/specs/PILOT_INTEGRATION_SPEC.md
+semantic-injection/specs/SEMANTIC_INJECTION_SPEC.md
+semantic-live-binding/specs/SEMANTIC_MULTISEND_SHADOW_SPEC.md
+shadow-retrofit/specs/SHADOW_RETROFIT_SPEC.md

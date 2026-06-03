@@ -1,0 +1,2 @@
+./live-semantic-adapter/FILE_INDEX.txt:3:/home/cjay/proof-of-operation-retrofits/live-semantic-adapter/specs/SAFE_SEMANTIC_ADAPTER_SPEC.md
+./authority-analysis/TARGET_DOCUMENTS.txt:3:live-semantic-adapter/specs/SAFE_SEMANTIC_ADAPTER_SPEC.md

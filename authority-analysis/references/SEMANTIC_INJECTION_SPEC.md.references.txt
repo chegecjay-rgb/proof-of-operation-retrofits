@@ -1,0 +1,2 @@
+./semantic-injection/FILE_INDEX.txt:3:/home/cjay/proof-of-operation-retrofits/semantic-injection/specs/SEMANTIC_INJECTION_SPEC.md
+./authority-analysis/TARGET_DOCUMENTS.txt:5:semantic-injection/specs/SEMANTIC_INJECTION_SPEC.md

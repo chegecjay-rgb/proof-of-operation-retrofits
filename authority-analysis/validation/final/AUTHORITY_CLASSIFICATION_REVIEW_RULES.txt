@@ -1,0 +1,25 @@
+TASK-L1-001I
+
+PERMITTED
+
+- Classification justification
+- Evidence review
+- Classification challenge
+- Classification revision if evidence requires
+- Authority-level validation
+
+PROHIBITED
+
+- Semantic topology reconstruction
+- Runtime topology reconstruction
+- Certification assessment
+- Publication readiness conclusions
+- Inferred authority relationships
+- Authority elevation without evidence
+
+Evidence Status Values:
+
+EVIDENCED
+NOT EVIDENCED
+
+INFERRED (PROHIBITED)

@@ -1,0 +1,23 @@
+STABILIZATION DOCTRINE #001
+
+AUTHORITY BEFORE TOPOLOGY
+
+PERMITTED:
+- Evidence-backed classification
+- Evidence-backed authority justification
+- Evidence-backed purpose extraction
+- Evidence-backed normative assessment
+
+PROHIBITED:
+- Semantic topology reconstruction
+- Runtime topology reconstruction
+- Certification assessment
+- Publication readiness conclusions
+- Inferred authority relationships
+
+Evidence Status Values:
+
+EVIDENCED
+NOT EVIDENCED
+
+INFERRED (PROHIBITED)

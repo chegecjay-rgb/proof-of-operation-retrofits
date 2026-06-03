@@ -1,0 +1,35 @@
+TASK-L1-001J
+
+REQUIRED FOR EVERY ASSET
+
+Current Classification
+
+Evidence Quotation
+
+Evidence Line Reference
+
+Classification Justification
+
+Why Lower Classification Rejected
+
+Why Higher Classification Rejected
+
+Evidence Status
+
+ALLOWED STATUS VALUES
+
+EVIDENCED
+NOT EVIDENCED
+
+PROHIBITED
+
+TBD
+INFERRED
+ASSUMED
+LIKELY
+PROBABLY
+
+NO TOPOLOGY ANALYSIS
+NO RUNTIME ANALYSIS
+NO CERTIFICATION ANALYSIS
+NO PUBLICATION READINESS CONCLUSIONS

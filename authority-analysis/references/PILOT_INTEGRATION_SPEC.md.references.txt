@@ -1,0 +1,2 @@
+./authority-analysis/TARGET_DOCUMENTS.txt:4:pilot-integration/specs/PILOT_INTEGRATION_SPEC.md
+./pilot-integration/FILE_INDEX.txt:2:/home/cjay/proof-of-operation-retrofits/pilot-integration/specs/PILOT_INTEGRATION_SPEC.md

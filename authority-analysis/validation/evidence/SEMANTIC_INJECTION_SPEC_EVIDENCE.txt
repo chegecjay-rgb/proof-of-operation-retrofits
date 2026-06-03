@@ -1,0 +1,81 @@
+DOCUMENT: semantic-injection/specs/SEMANTIC_INJECTION_SPEC.md
+
+----- TITLE / OPENING -----
+# Canonical Semantic Injection Specification
+
+## Objective
+
+Attach deterministic semantic declaration directly to multisend iteration boundaries.
+
+## Canonical Invariant
+
+1 semantic authority action = 1 ProofOfOperation event
+
+## Required Injection Boundary
+
+Emitters MUST attach:
+- inside operation iteration loops
+- before operation execution
+- within deterministic ordering scope
+
+Emitters MUST NOT attach:
+- after transaction settlement
+- after aggregate execution
+- within trace reconstruction systems
+
+## Deterministic Replay Inputs
+
+Replay reconstruction must require only:
+- ProofOfOperation events
+- parentOperationId
+- operationIndex
+- operationCount
+
+## Semantic Equivalence
+
+Equivalence normalization:
+- target
+- payloadHash
+
+Independent of:
+- batching topology
+- delegatecall structure
+- transaction envelope
+
+## Safety Constraints
+
+Retrofit MUST preserve:
+- Safe execution semantics
+- atomicity guarantees
+- replay determinism
+- authority semantics
+- delegatecall topology
+
+## Architectural Goal
+
+Deterministic execution reconstruction without interpretation.
+
+----- OBJECTIVE -----
+3:## Objective
+
+----- ROLE -----
+51:## Architectural Goal
+
+----- INVARIANTS -----
+7:## Canonical Invariant
+18:Emitters MUST NOT attach:
+44:Retrofit MUST preserve:
+
+----- AUTHORITY SIGNALS -----
+1:# Canonical Semantic Injection Specification
+7:## Canonical Invariant
+9:1 semantic authority action = 1 ProofOfOperation event
+11:## Required Injection Boundary
+13:Emitters MUST attach:
+18:Emitters MUST NOT attach:
+25:Replay reconstruction must require only:
+44:Retrofit MUST preserve:
+48:- authority semantics
+
+----- REFERENCES -----
+1:# Canonical Semantic Injection Specification

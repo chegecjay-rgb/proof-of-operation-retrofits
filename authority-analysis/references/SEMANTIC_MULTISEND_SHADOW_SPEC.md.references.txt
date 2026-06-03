@@ -1,0 +1,2 @@
+./semantic-live-binding/FILE_INDEX.txt:3:/home/cjay/proof-of-operation-retrofits/semantic-live-binding/specs/SEMANTIC_MULTISEND_SHADOW_SPEC.md
+./authority-analysis/TARGET_DOCUMENTS.txt:6:semantic-live-binding/specs/SEMANTIC_MULTISEND_SHADOW_SPEC.md

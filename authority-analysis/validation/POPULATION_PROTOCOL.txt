@@ -1,0 +1,40 @@
+TASK-L1-001F POPULATION PROTOCOL
+
+For each asset:
+
+1. Assign classification using evidence only.
+
+Allowed:
+
+* Constitutional Asset
+* Architectural Asset
+* Specification Asset
+* Supporting Asset
+* Certification Asset
+
+2. Insert:
+
+* Direct quotation
+* Line reference
+* Authority level
+* Normative status
+
+3. Relationship fields:
+
+If explicit evidence exists:
+
+Status = EVIDENCED
+
+If explicit evidence does not exist:
+
+Status = NOT EVIDENCED
+
+4. Forbidden:
+
+* inferred dependencies
+* inferred authority chains
+* inferred references
+* inferred precedence
+* topology conclusions
+* certification conclusions
+
