@@ -1,66 +1,45 @@
-## Foundry
+# Safe Retrofit
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Purpose
 
-Foundry consists of:
+This retrofit extends Safe execution flows with the canonical
+Proof-of-Operation (PoO) execution identity standard.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Retrofit Objective
 
-## Documentation
+Generate a deterministic operation identity for Safe executions:
 
-https://book.getfoundry.sh/
+operationId = keccak256(
+    abi.encode(opType, target, payloadHash, nonce)
+)
 
-## Usage
+## PoO Integration
 
-### Build
+All qualifying executions emit:
 
-```shell
-$ forge build
-```
+OperationExecuted(
+    systemId,
+    operationId,
+    opType,
+    target,
+    payloadHash,
+    timestamp
+)
 
-### Test
+## Ecosystem Position
 
-```shell
-$ forge test
-```
+Safe → Governor → Timelock → Vault
 
-### Format
+This retrofit allows Safe activity to participate in
+cross-system execution tracing and deterministic replay.
 
-```shell
-$ forge fmt
-```
+## Implementation Focus
 
-### Gas Snapshots
+- Safe execution instrumentation
+- Canonical operation identity generation
+- Unified event emission
+- ETL compatibility
 
-```shell
-$ forge snapshot
-```
+## Verification
 
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+forge test

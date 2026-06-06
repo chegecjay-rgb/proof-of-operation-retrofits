@@ -1,66 +1,44 @@
-## Foundry
+# Timelock Retrofit
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Purpose
 
-Foundry consists of:
+This retrofit extends Timelock execution scheduling with the
+Proof-of-Operation (PoO) standard.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Retrofit Objective
 
-## Documentation
+Create deterministic execution identities for scheduled operations.
 
-https://book.getfoundry.sh/
+operationId = keccak256(
+    abi.encode(opType, target, payloadHash, nonce)
+)
 
-## Usage
+## PoO Integration
 
-### Build
+Scheduled execution emits:
 
-```shell
-$ forge build
-```
+OperationExecuted(
+    systemId,
+    operationId,
+    opType,
+    target,
+    payloadHash,
+    timestamp
+)
 
-### Test
+## Ecosystem Position
 
-```shell
-$ forge test
-```
+Safe → Governor → Timelock → Vault
 
-### Format
+This retrofit allows scheduled operations to participate in
+cross-system replay and execution verification.
 
-```shell
-$ forge fmt
-```
+## Implementation Anchors
 
-### Gas Snapshots
+src/TimelockControllerPoO.sol
 
-```shell
-$ forge snapshot
-```
+src/poo/PoOEmitter.sol
 
-### Anvil
+## Verification
 
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+forge test

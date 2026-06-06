@@ -1,66 +1,45 @@
-## Foundry
+# Governor Retrofit
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+## Purpose
 
-Foundry consists of:
+This retrofit extends Governor execution workflows with the
+Proof-of-Operation (PoO) standard.
 
-- **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
-- **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
-- **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
-- **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+## Retrofit Objective
 
-## Documentation
+Provide deterministic execution identities for governance actions.
 
-https://book.getfoundry.sh/
+operationId = keccak256(
+    abi.encode(opType, target, payloadHash, nonce)
+)
 
-## Usage
+## PoO Integration
 
-### Build
+Governance execution emits:
 
-```shell
-$ forge build
-```
+OperationExecuted(
+    systemId,
+    operationId,
+    opType,
+    target,
+    payloadHash,
+    timestamp
+)
 
-### Test
+## Ecosystem Position
 
-```shell
-$ forge test
-```
+Safe → Governor → Timelock → Vault
 
-### Format
+This retrofit enables governance actions to be reconstructed
+within a unified execution graph.
 
-```shell
-$ forge fmt
-```
+## Implementation Focus
 
-### Gas Snapshots
+- proposal execution tracking
+- deterministic execution identity
+- replay reconstruction support
+- ETL indexing compatibility
 
-```shell
-$ forge snapshot
-```
+## Verification
 
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+forge test
